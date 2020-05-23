@@ -1,5 +1,4 @@
 {
-    // Prettier Configs
     "prettier.printWidth": 180,
     "prettier.tabWidth": 4,
     "prettier.quoteProps": "as-needed",
@@ -16,21 +15,16 @@
     "editor.wordWrapColumn": 180,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    // HTML Custom Settings
     "html.format.enable": true,
     "[html]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    // Typescript Custom Settings
     "typescript.format.enable": false,
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    // JSON Custom Settings
     "json.format.enable": false,
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    // Others
-    "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+    }
 }

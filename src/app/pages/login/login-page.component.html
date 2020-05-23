@@ -1,1 +1,37 @@
-Login Component
+<div class="text-center">
+    <img class="logo" src="../../../assets/images/phd_system_logo_full.png" alt="Full Logo" />
+</div>
+<div class="card mx-auto login-card-dimensions">
+    <div class="card-body">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <div class="form-group">
+                <label for="userName-input">{{ strings.username }}:</label>
+                <input
+                    [(ngModel)]="loginModel.username"
+                    #username="ngModel"
+                    id="userName-input"
+                    name="username"
+                    class="form-control"
+                    [placeholder]="strings.enterUsername"
+                    required
+                />
+                <div class="text-danger font-size-14px" [hidden]="username.valid || !username.touched">*Please enter a valid username</div>
+            </div>
+            <div class="form-group">
+                <label for="password-input">{{ strings.password }}:</label>
+                <input
+                    [(ngModel)]="loginModel.password"
+                    #password="ngModel"
+                    id="password-input"
+                    name="password"
+                    class="form-control"
+                    [placeholder]="strings.enterPassword"
+                    type="password"
+                    required
+                />
+                <div class="text-danger font-size-14px" [hidden]="password.valid || !password.touched">*Please enter a password</div>
+            </div>
+            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary submit-btn" type="submit">{{ strings.submit }}</button>
+        </form>
+    </div>
+</div>
