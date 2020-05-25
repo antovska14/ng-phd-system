@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { BaseComponent } from 'src/app/components/base/base.component';
+import { BaseComponent } from 'src/app/components/base/base/base.component';
 import { langStr } from 'src/assets/translations';
 import { AuthService } from 'src/app/services/login.service';
 import { ILoginModel } from 'src/app/interfaces';
@@ -24,7 +24,7 @@ export class LoginPageComponent extends BaseComponent {
         this.strings.enterUsername = this.getStr(langStr.login.enterUsername);
         this.strings.enterPassword = this.getStr(langStr.login.enterPassword);
         this.strings.password = this.getStr(langStr.login.password);
-        this.strings.submit = this.getStr(langStr.common.submit);
+        this.strings.login = this.getStr(langStr.login.login);
         this.strings.username = this.getStr(langStr.login.username);
     }
 

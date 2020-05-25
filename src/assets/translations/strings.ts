@@ -1,13 +1,6 @@
 export const langStr = {
+    common: {},
     login: {
-        username: {
-            en: 'Username',
-            bg: 'Потребителско име',
-        },
-        password: {
-            en: 'Password',
-            bg: 'Парола',
-        },
         enterUsername: {
             en: 'Enter username',
             bg: 'Въведете потребителско име',
@@ -16,10 +9,17 @@ export const langStr = {
             en: 'Enter password',
             bg: 'Въведете парола',
         },
-    },
-    common: {
-        submit: {
-            en: 'Submit',
+        login: {
+            en: 'Login',
+            bg: 'Вход',
+        },
+        password: {
+            en: 'Password',
+            bg: 'Парола',
+        },
+        username: {
+            en: 'Username',
+            bg: 'Потребителско име',
         },
     },
 };

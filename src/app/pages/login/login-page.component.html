@@ -1,7 +1,7 @@
 <div class="text-center">
     <img class="logo" src="../../../assets/images/phd_system_logo_full.png" alt="Full Logo" />
 </div>
-<div class="card mx-auto login-card-dimensions">
+<div class="card mx-auto login-card">
     <div class="card-body">
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <div class="form-group">
@@ -31,7 +31,7 @@
                 />
                 <div class="text-danger font-size-14px" [hidden]="password.valid || !password.touched">*Please enter a password</div>
             </div>
-            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary submit-btn" type="submit">{{ strings.submit }}</button>
+            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary login-btn" type="submit">{{ strings.login }}</button>
         </form>
     </div>
 </div>
