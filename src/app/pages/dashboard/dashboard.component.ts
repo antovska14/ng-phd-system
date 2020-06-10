@@ -16,8 +16,8 @@ export class Dashboardcomponent extends BaseComponent {
     }
 
     public onExportClick(): void {
-        this._exportService.exportFile().subscribe((file: IFile) => {
-            saveAs(file.data, file.fileName);
+        this._exportService.exportFile().subscribe((file: any) => {
+            saveAs(file, 'IndividualPlan.docx');
         });
     }
 }

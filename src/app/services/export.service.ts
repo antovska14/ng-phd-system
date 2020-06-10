@@ -8,10 +8,10 @@ import { IFile } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class ExportService extends RestService {
-    public exportFile(): Observable<IFile> {
+    public exportFile(): Observable<Blob> {
         return this.get('file/export', { baseEndPoint: BaseEndpointsEnum.PhDSystemApi, responseType: 'blob' }).pipe(
-            map((res: HttpResponse<Blob>) => {
-                return { data: res.body, fileName: 'IndividualPlan.docx' };
+            map((res: any) => {
+                return res as Blob;
             })
         );
     }
