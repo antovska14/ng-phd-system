@@ -14,9 +14,14 @@ export class RestService {
 
     protected get(url: string, options: IRestGetOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-        const preparedOptions = { headers: options.headers, params: options.params, observe: options.observe };
 
-        return this._http.get(preparedUrl, preparedOptions);
+        switch (options.responseType) {
+            case 'blob':
+                return this._http.get(preparedUrl, { headers: options.headers, params: options.params, observe: options.observe, responseType: 'blob' });
+
+            default:
+                return this._http.get(preparedUrl, { headers: options.headers, params: options.params, observe: options.observe });
+        }
     }
 
     protected post(url: string, payload: object, options: IRestCallOptions): Observable<HttpResponse<Object>> {
