@@ -1,10 +1,9 @@
-import { RestService } from './rest.service';
 import { Injectable } from '@angular/core';
-import { BaseEndpointsEnum } from '../enums';
 import { Observable } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { IFile } from '../interfaces';
+
+import { RestService } from './rest.service';
+import { BaseEndpointsEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class ExportService extends RestService {
