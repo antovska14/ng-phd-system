@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
-import { AppUserAuth, AppUser, LOGIN_MOCKS } from '../classes/security';
+import { UserAuth, User } from '../classes/security';
+import { BaseEndpointsEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RestService {
-    public authObject: AppUserAuth = new AppUserAuth();
+    private readonly _endpoint = 'auth';
 
-    public login(appUser: AppUser): Observable<AppUserAuth> {
+    public readonly authObject: UserAuth = new UserAuth();
+
+    public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
 
-        Object.assign(
-            this.authObject,
-            LOGIN_MOCKS.find((user) => user.userName.toLowerCase() === appUser.userName.toLowerCase())
+        return this.post(`${this._endpoint}/login`, user, { baseEndPoint: BaseEndpointsEnum.PhDSystemApi }).pipe(
+            map((res: HttpResponse<UserAuth>) => {
+                return res.body;
+            }),
+            tap((res: UserAuth) => {
+                Object.assign(this.authObject, res);
+                localStorage.setItem('bearerToken', this.authObject.bearerToken);
+            })
         );
-
-        if (this.authObject) {
-            localStorage.setItem('bearerToken', this.authObject.bearerToken);
-        }
-
-        return of<AppUserAuth>(this.authObject);
     }
 
     public logout(): void {

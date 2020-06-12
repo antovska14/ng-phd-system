@@ -6,13 +6,13 @@
         <form #loginForm="ngForm" (ngSubmit)="login()">
             <div class="form-group">
                 <label for="userName-input">{{ strings.username }}:</label>
-                <input [(ngModel)]="appUser.userName" #username="ngModel" id="userName-input" name="username" class="form-control" [placeholder]="strings.enterUsername" required />
+                <input [(ngModel)]="user.userName" #username="ngModel" id="userName-input" name="username" class="form-control" [placeholder]="strings.enterUsername" required />
                 <div class="text-danger font-size-14px" [hidden]="username.valid || !username.touched">*Please enter a valid username</div>
             </div>
             <div class="form-group">
                 <label for="password-input">{{ strings.password }}:</label>
                 <input
-                    [(ngModel)]="appUser.password"
+                    [(ngModel)]="user.password"
                     #password="ngModel"
                     id="password-input"
                     name="password"

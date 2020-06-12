@@ -26,6 +26,8 @@ export class RestService {
 
     protected post(url: string, payload: object, options: IRestCallOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
+
+        options.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const preparedOptions = { headers: options.headers, params: options.params, observe: options.observe };
 
         return this._http.post(preparedUrl, payload, preparedOptions);

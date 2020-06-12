@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AppUserAuth } from '../../classes/security';
+import { UserAuth } from '../../classes/security';
 import { BaseComponent } from '../../components/base/base.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
     templateUrl: './layout-page.component.html',
 })
 export class LayoutPageComponent extends BaseComponent {
-    private _authObject: AppUserAuth = null;
+    private _authObject: UserAuth = null;
 
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();

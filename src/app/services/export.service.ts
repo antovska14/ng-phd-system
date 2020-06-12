@@ -8,7 +8,7 @@ import { BaseEndpointsEnum } from '../enums';
 @Injectable({ providedIn: 'root' })
 export class ExportService extends RestService {
     public exportFile(): Observable<Blob> {
-        return this.get('file/export', { baseEndPoint: BaseEndpointsEnum.PhDSystemApi, responseType: 'blob' }).pipe(
+        return this.get('documents/export', { baseEndPoint: BaseEndpointsEnum.PhDSystemApi, responseType: 'blob' }).pipe(
             map((res: any) => {
                 return res as Blob;
             })

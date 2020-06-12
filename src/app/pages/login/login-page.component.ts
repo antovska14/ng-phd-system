@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '../../components/base/base.component';
 import { langStr } from '../../../assets/translations';
 import { AuthService } from '../../services/auth.service';
-import { AppUser, AppUserAuth } from '../../classes/security';
+import { User, UserAuth } from '../../classes/security';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -15,8 +15,8 @@ export class LoginPageComponent extends BaseComponent {
     private _loginForm: NgForm;
     private _returnUrl: string;
 
-    public appUser: AppUser = new AppUser();
-    public authObject: AppUserAuth = null;
+    public user: User = new User();
+    public authObject: UserAuth = null;
 
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
@@ -38,11 +38,16 @@ export class LoginPageComponent extends BaseComponent {
     }
 
     public login(): void {
-        this._authService.login(this.appUser).subscribe((res) => {
-            this.authObject = res;
-            if (this._returnUrl) {
-                this._router.navigateByUrl(this._returnUrl);
+        this._authService.login(this.user).subscribe(
+            (userAuth: UserAuth) => {
+                this.authObject = userAuth;
+                if (this._returnUrl) {
+                    this._router.navigateByUrl(this._returnUrl);
+                }
+            },
+            () => {
+                this.authObject = new UserAuth();
             }
-        });
+        );
     }
 }
