@@ -1,7 +1,7 @@
 import { Injector } from '@angular/core';
 
-import { LanguageService } from 'src/app/services/language.service';
-import { ITranslationLabel } from 'src/app/interfaces';
+import { ITranslationLabel } from '../interfaces';
+import { LanguageService } from '../services/language.service';
 
 export abstract class Base {
     private _strings: any = {};

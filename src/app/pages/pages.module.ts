@@ -1,13 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { LoginPageComponent } from 'src/app/pages/login/login-page.component';
-import { BaseComponent } from 'src/app/components/base/base/base.component';
-import { Dashboardcomponent } from './dashboard/dashboard.component';
+import { LoginPageComponent } from '../pages/login/login-page.component';
+import { DashboardComponent } from '../pages/dashboard/dashboard.component';
+import { LayoutPageComponent } from '../pages/layout/layout-page.component';
+
+import { BaseComponent } from '../components/base/base.component';
 
 const COMPONENTS = [BaseComponent];
-const PAGES = [LoginPageComponent, Dashboardcomponent];
-const IMPORTS = [FormsModule];
+const IMPORTS = [CommonModule, FormsModule];
+const PAGES = [LoginPageComponent, DashboardComponent, LayoutPageComponent];
 
 @NgModule({
     imports: [...IMPORTS],

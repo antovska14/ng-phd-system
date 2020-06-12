@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Base, ServiceInjector } from 'src/app/classes';
+import { Base, ServiceInjector } from '../../classes';
 
 @Component({ template: `` })
 export class BaseComponent extends Base implements OnInit {

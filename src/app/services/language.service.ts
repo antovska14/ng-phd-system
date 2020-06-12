@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { LanguageLocaleEnum } from 'src/app/enums';
-import { ITranslationLabel } from 'src/app/interfaces';
+import { LanguageLocaleEnum } from '../enums';
+import { ITranslationLabel } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class LanguageService {

@@ -2,8 +2,8 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/comm
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { environment } from 'src/environments/environment';
-import { BaseEndpointsEnum } from 'src/app/enums';
+import { environment } from '../../environments/environment';
+import { BaseEndpointsEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class RestService {

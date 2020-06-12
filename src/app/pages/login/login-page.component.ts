@@ -1,23 +1,31 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { BaseComponent } from 'src/app/components/base/base/base.component';
-import { langStr } from 'src/assets/translations';
-import { AuthService } from 'src/app/services/login.service';
-import { ILoginModel } from 'src/app/interfaces';
-import { LoginModel } from 'src/app/classes';
+import { BaseComponent } from '../../components/base/base.component';
+import { langStr } from '../../../assets/translations';
+import { AuthService } from '../../services/auth.service';
+import { AppUser, AppUserAuth } from '../../classes/security';
 
 @Component({
     templateUrl: './login-page.component.html',
     styleUrls: ['./login-page.component.scss'],
 })
 export class LoginPageComponent extends BaseComponent {
-    public loginModel: ILoginModel = new LoginModel();
-
     private _loginForm: NgForm;
+    private _returnUrl: string;
 
-    constructor(private readonly _authService: AuthService) {
+    public appUser: AppUser = new AppUser();
+    public authObject: AppUserAuth = null;
+
+    constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
+    }
+
+    public ngOnInit(): void {
+        super.ngOnInit();
+
+        this._returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
     }
 
     public stringsInit(): void {
@@ -26,9 +34,15 @@ export class LoginPageComponent extends BaseComponent {
         this.strings.password = this.getStr(langStr.login.password);
         this.strings.login = this.getStr(langStr.login.login);
         this.strings.username = this.getStr(langStr.login.username);
+        this.strings.invalidUserNameOrPassword = 'Invalid User Name/Password';
     }
 
-    public onSubmit(loginForm: NgForm): void {
-        this._authService.login(this.loginModel).subscribe();
+    public login(): void {
+        this._authService.login(this.appUser).subscribe((res) => {
+            this.authObject = res;
+            if (this._returnUrl) {
+                this._router.navigateByUrl(this._returnUrl);
+            }
+        });
     }
 }
