@@ -7,15 +7,15 @@ import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 import { AuthGuard } from '../services/guards/auth.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginPageComponent },
     {
         path: 'app',
         component: LayoutPageComponent,
-        children: [{ path: 'dashboard', component: DashboardComponent }],
+        children: [{ path: 'dashboard', component: DashboardComponent, data: { claimType: 'isAuthenticated' } }],
         canActivate: [AuthGuard],
         data: { claimType: 'isAuthenticated' },
     },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

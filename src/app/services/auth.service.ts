@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -17,8 +16,8 @@ export class AuthService extends RestService {
         this.resetAuthObject();
 
         return this.post(`${this._endpoint}/login`, user, { baseEndPoint: BaseEndpointsEnum.PhDSystemApi }).pipe(
-            map((res: HttpResponse<UserAuth>) => {
-                return res.body;
+            map((res: any) => {
+                return res;
             }),
             tap((res: UserAuth) => {
                 Object.assign(this.authObject, res);

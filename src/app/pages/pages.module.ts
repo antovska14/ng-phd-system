@@ -10,7 +10,7 @@ import { BaseComponent } from '../components/base/base.component';
 
 const COMPONENTS = [BaseComponent];
 const IMPORTS = [CommonModule, FormsModule];
-const PAGES = [LoginPageComponent, DashboardComponent, LayoutPageComponent];
+const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent];
 
 @NgModule({
     imports: [...IMPORTS],

@@ -43,6 +43,8 @@ export class LoginPageComponent extends BaseComponent {
                 this.authObject = userAuth;
                 if (this._returnUrl) {
                     this._router.navigateByUrl(this._returnUrl);
+                } else {
+                    this._router.navigate(['app', 'dashboard']);
                 }
             },
             () => {
