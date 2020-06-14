@@ -5,9 +5,9 @@
     <div class="card-body">
         <form #loginForm="ngForm" (ngSubmit)="login()">
             <div class="form-group">
-                <label for="userName-input">{{ strings.username }}:</label>
-                <input [(ngModel)]="user.userName" #username="ngModel" id="userName-input" name="username" class="form-control" [placeholder]="strings.enterUsername" required />
-                <div class="text-danger font-size-14px" [hidden]="username.valid || !username.touched">*Please enter a valid username</div>
+                <label for="username-input">{{ strings.username }}:</label>
+                <input [(ngModel)]="user.username" #username="ngModel" id="username-input" name="username" class="form-control" [placeholder]="strings.enterUsername" required />
+                <div class="text-danger font-size-14px" [hidden]="username.valid || !username.touched">*{{ strings.pleaseEnterValidUsername }}</div>
             </div>
             <div class="form-group">
                 <label for="password-input">{{ strings.password }}:</label>
@@ -21,9 +21,12 @@
                     type="password"
                     required
                 />
-                <div *ngIf="userAuth && !userAuth.isAuthenticated" class="text-danger font-size-14px">{{ strings.invalidUserNameOrPassword }}</div>
+                <div class="text-danger font-size-14px" [hidden]="password.valid || !password.touched">*{{ strings.pleaseEnterPassword }}</div>
+                <div *ngIf="userAuth && !userAuth.isAuthenticated" class="text-danger font-size-14px">*{{ strings.invalidUsernameOrPassword }}</div>
             </div>
-            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary login-btn" type="submit">{{ strings.login }}</button>
+            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary login-btn" type="submit">
+                {{ strings.login }}
+            </button>
         </form>
     </div>
 </div>

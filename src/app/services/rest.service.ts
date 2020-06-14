@@ -18,37 +18,61 @@ export class RestService {
         this.shared = ServiceInjector.injector.get(SharedDataService);
     }
 
-    protected get(url: string, options: IRestGetOptions): Observable<HttpResponse<Object>> {
+    protected get(url: string, options: IRestGetOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
+        const preparedHeaders = this.getHeaders(options.headers);
 
         switch (options.responseType) {
             case 'blob':
-                return this._http.get(preparedUrl, { headers: options.headers, params: options.params, observe: options.observe, responseType: 'blob' });
-
+                return this._http.get(preparedUrl, {
+                    headers: preparedHeaders,
+                    observe: options.observe,
+                    responseType: 'blob',
+                    params: options.params,
+                });
             default:
-                return this._http.get(preparedUrl, { headers: options.headers, params: options.params, observe: options.observe });
+                return this._http.get(preparedUrl, {
+                    headers: preparedHeaders,
+                    observe: options.observe,
+                    params: options.params,
+                });
         }
     }
 
-    protected post(url: string, payload: object, options: IRestCallOptions): Observable<HttpResponse<Object>> {
+    protected post(url: string, payload: object, options: IRestCallOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-
-        options.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        const preparedOptions = { headers: options.headers, params: options.params, observe: options.observe };
+        const preparedHeaders = this.getHeaders(options.headers);
+        const preparedOptions = {
+            headers: preparedHeaders,
+            observe: options.observe,
+            params: options.params,
+        };
 
         return this._http.post(preparedUrl, payload, preparedOptions);
     }
 
-    protected put(url: string, payload: object, options: IRestCallOptions): Observable<HttpResponse<Object>> {
+    protected put(url: string, payload: object, options: IRestCallOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-        const preparedOptions = { headers: options.headers, params: options.params, observe: options.observe };
+        const preparedHeaders = this.getHeaders(options.headers);
+
+        const preparedOptions = {
+            headers: preparedHeaders,
+            observe: options.observe,
+            params: options.params,
+        };
 
         return this._http.put(preparedUrl, payload, preparedOptions);
     }
 
-    protected delete(url: string, options: IRestDeleteOptions): Observable<HttpResponse<Object>> {
+    protected delete(url: string, options: IRestDeleteOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-        const preparedOptions = { headers: options.headers, params: options.params, observe: options.observe };
+        const preparedHeaders = this.getHeaders(options.headers);
+
+        const preparedOptions = {
+            headers: preparedHeaders,
+            observe: options.observe,
+            params: options.params,
+        };
 
         return this._http.delete(preparedUrl, preparedOptions);
     }
@@ -57,6 +81,15 @@ export class RestService {
         let baseEndpointValue: string = this._baseEndpoints.get(baseEndPoint);
 
         return baseEndpointValue ? baseEndpointValue + url : this._defaultBaseEndpoint + url;
+    }
+
+    private getHeaders(headers: HttpHeaders): HttpHeaders {
+        if (!headers) {
+            headers = new HttpHeaders();
+        }
+
+        headers.set('Content-Type', 'application/json');
+        return headers;
     }
 }
 

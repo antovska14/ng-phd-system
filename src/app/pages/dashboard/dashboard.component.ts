@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 
 import { BaseComponent } from '../../components/base/base.component';
 import { ExportService } from '../../services/export.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
     templateUrl: './dashboard.component.html',

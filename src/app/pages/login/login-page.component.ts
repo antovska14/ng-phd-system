@@ -6,6 +6,7 @@ import { BaseComponent } from '../../components/base/base.component';
 import { langStr } from '../../../assets/translations';
 import { AuthService } from '../../services/auth.service';
 import { User, UserAuth } from '../../classes/security';
+import { RoutePath } from '../../enums';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -36,7 +37,9 @@ export class LoginPageComponent extends BaseComponent {
         this.strings.password = this.getStr(langStr.login.password);
         this.strings.login = this.getStr(langStr.login.login);
         this.strings.username = this.getStr(langStr.login.username);
-        this.strings.invalidUserNameOrPassword = 'Invalid User Name/Password';
+        this.strings.invalidUsernameOrPassword = this.getStr(langStr.login.invalidUsernameOrPassword);
+        this.strings.pleaseEnterPassword = this.getStr(langStr.login.pleaseEnterPassword);
+        this.strings.pleaseEnterValidUsername = this.getStr(langStr.login.pleaseEnterValidUsername);
     }
 
     public login(): void {
@@ -47,11 +50,12 @@ export class LoginPageComponent extends BaseComponent {
                 if (this._returnUrl) {
                     this._router.navigateByUrl(this._returnUrl);
                 } else {
-                    this._router.navigate(['dashboard']);
+                    this._router.navigate([RoutePath.dashboard]);
                 }
             },
             () => {
                 this.shared.currentUser = new UserAuth();
+                this.userAuth = new UserAuth();
             }
         );
     }

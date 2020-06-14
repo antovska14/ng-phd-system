@@ -15,7 +15,7 @@ export class AppConfigService {
         const bearerToken = localStorage.getItem('bearerToken');
         if (bearerToken) {
             const decodedBearerToken = this._jwtHelperService.decodeToken(bearerToken);
-            sharedService.currentUser.userName = decodedBearerToken.userName;
+            sharedService.currentUser.username = decodedBearerToken.username;
             sharedService.currentUser.isAuthenticated = decodedBearerToken.isAuthenticated;
             sharedService.currentUser.role = decodedBearerToken.role;
             sharedService.currentUser.bearerToken = bearerToken;

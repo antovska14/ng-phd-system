@@ -14,9 +14,6 @@ export class AuthService extends RestService {
         this.resetAuthObject();
 
         return this.post(`${this._endpoint}/login`, user, { baseEndPoint: BaseEndpointsEnum.PhDSystemApi }).pipe(
-            map((res: any) => {
-                return res;
-            }),
             tap((res: UserAuth) => {
                 Object.assign(this.shared.currentUser, res);
                 localStorage.setItem('bearerToken', this.shared.currentUser.bearerToken);
@@ -37,7 +34,7 @@ export class AuthService extends RestService {
     }
 
     public resetAuthObject(): void {
-        this.shared.currentUser.userName = '';
+        this.shared.currentUser.username = '';
         this.shared.currentUser.bearerToken = '';
         this.shared.currentUser.isAuthenticated = false;
         this.shared.currentUser.role = null;

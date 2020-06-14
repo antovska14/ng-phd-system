@@ -10,7 +10,7 @@ export class RestInterceptor implements HttpInterceptor {
     shared: SharedDataService = ServiceInjector.injector.get(SharedDataService);
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.shared.currentUser.bearerToken;
-        if (token) {
+        if (this.shared.currentUser.bearerToken) {
             const authenticatedRequest = request.clone({
                 headers: request.headers.set('Authorization', 'Bearer ' + token),
             });
@@ -22,5 +22,7 @@ export class RestInterceptor implements HttpInterceptor {
     }
 }
 
-@NgModule({ providers: [{ provide: HTTP_INTERCEPTORS, useClass: RestInterceptor, multi: true }] })
+@NgModule({
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: RestInterceptor, multi: true }],
+})
 export class RestInterceptorModule {}

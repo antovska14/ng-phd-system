@@ -1,25 +1,14 @@
 export const langStr = {
     common: {},
     login: {
-        enterUsername: {
-            en: 'Enter username',
-            bg: 'Въведете потребителско име',
-        },
-        enterPassword: {
-            en: 'Enter password',
-            bg: 'Въведете парола',
-        },
-        login: {
-            en: 'Login',
-            bg: 'Вход',
-        },
-        password: {
-            en: 'Password',
-            bg: 'Парола',
-        },
-        username: {
-            en: 'Username',
-            bg: 'Потребителско име',
-        },
+        enterUsername: { en: 'Enter username', bg: 'Въведете потребителско име' },
+        enterPassword: { en: 'Enter password', bg: 'Въведете парола' },
+        invalidUsernameOrPassword: { en: 'Invalid username or password', bg: 'Невалиднo потребителско име или парола' },
+        login: { en: 'Login', bg: 'Вход' },
+        logout: { en: 'Logout', bg: 'Изход' },
+        password: { en: 'Password', bg: 'Парола' },
+        pleaseEnterPassword: { en: 'Please enter a password', bg: 'Моля въведете парола' },
+        pleaseEnterValidUsername: { en: 'Please enter a valid username', bg: 'Моля въведете валидно потребителско име' },
+        username: { en: 'Username', bg: 'Потребителско име' },
     },
 };

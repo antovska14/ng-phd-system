@@ -9,8 +9,8 @@ import { BaseEndpointsEnum } from '../enums';
 export class ExportService extends RestService {
     public exportFile(): Observable<Blob> {
         return this.get('documents/export', { baseEndPoint: BaseEndpointsEnum.PhDSystemApi, responseType: 'blob' }).pipe(
-            map((res: any) => {
-                return res as Blob;
+            map((res: Blob) => {
+                return res;
             })
         );
     }

@@ -1,5 +1,5 @@
 export class UserAuth {
-    userName: string = '';
+    username: string = '';
     bearerToken: string = '';
     isAuthenticated: boolean = false;
     role: string = '';
