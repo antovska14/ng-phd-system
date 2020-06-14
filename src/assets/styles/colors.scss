@@ -1,3 +1,37 @@
 $navy-blue: #003f6c;
+
 $light-orange: #fd784c;
+
 $light-grey: #eeeeee;
+
+.bg-light-grey {
+    background-color: $light-grey !important;
+}
+
+.bg-light-orange {
+    background-color: $light-orange !important;
+}
+
+.bg-navy-blue {
+    background-color: $navy-blue !important;
+}
+
+.border-navy-blue {
+    border: 1px solid $navy-blue !important;
+}
+
+.text-navy-blue {
+    color: $navy-blue !important;
+}
+
+.text-light-orange {
+    color: $light-orange !important;
+}
+
+.hyperlink {
+    color: $navy-blue !important;
+}
+
+.hyperlink:hover {
+    color: $light-orange !important;
+}

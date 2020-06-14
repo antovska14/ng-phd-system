@@ -1,2 +1,3 @@
 export * from './language-locale.enum';
 export * from './base-endpoints.enum';
+export * from './route-path.enum';

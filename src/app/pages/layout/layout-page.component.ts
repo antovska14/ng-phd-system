@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { UserAuth } from '../../classes/security';
 import { BaseComponent } from '../../components/base/base.component';
 import { AuthService } from '../../services/auth.service';
+import { RoutePath } from 'src/app/enums';
 
 @Component({
     templateUrl: './layout-page.component.html',
 })
 export class LayoutPageComponent extends BaseComponent {
-    private _authObject: UserAuth = null;
-
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
     }
 
     public logout(): void {
         this._authService.logout();
-        this._router.navigate(['login']);
+        this._router.navigate([RoutePath.login]);
     }
 }

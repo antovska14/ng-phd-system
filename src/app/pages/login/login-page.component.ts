@@ -16,6 +16,7 @@ export class LoginPageComponent extends BaseComponent {
     private _returnUrl: string;
 
     public user: User = new User();
+    public userAuth: UserAuth = null;
 
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
@@ -25,6 +26,8 @@ export class LoginPageComponent extends BaseComponent {
         super.ngOnInit();
 
         this._returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
+        localStorage.removeItem('bearerToken');
+        this.shared.currentUser = new UserAuth();
     }
 
     public stringsInit(): void {
@@ -39,11 +42,12 @@ export class LoginPageComponent extends BaseComponent {
     public login(): void {
         this._authService.login(this.user).subscribe(
             (userAuth: UserAuth) => {
+                this.userAuth = userAuth;
                 this.shared.currentUser = userAuth;
                 if (this._returnUrl) {
                     this._router.navigateByUrl(this._returnUrl);
                 } else {
-                    this._router.navigate(['app', 'dashboard']);
+                    this._router.navigate(['dashboard']);
                 }
             },
             () => {
