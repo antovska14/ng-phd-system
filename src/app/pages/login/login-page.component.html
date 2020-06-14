@@ -21,10 +21,10 @@
                     type="password"
                     required
                 />
-                <div *ngIf="authObject && !authObject.isAuthenticated" class="text-danger font-size-14px">{{ strings.invalidUserNameOrPassword }}</div>
+                <div *ngIf="shared.currentUser && !shared.currentUser.isAuthenticated" class="text-danger font-size-14px">{{ strings.invalidUserNameOrPassword }}</div>
             </div>
             <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary login-btn" type="submit">{{ strings.login }}</button>
         </form>
     </div>
 </div>
-<div>here: {{ authObject | json }}</div>
+<div>here: {{ shared.currentUser | json }}</div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
@@ -10,8 +10,6 @@ import { BaseEndpointsEnum } from '../enums';
 export class AuthService extends RestService {
     private readonly _endpoint = 'auth';
 
-    public readonly authObject: UserAuth = new UserAuth();
-
     public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
 
@@ -20,8 +18,12 @@ export class AuthService extends RestService {
                 return res;
             }),
             tap((res: UserAuth) => {
-                Object.assign(this.authObject, res);
-                localStorage.setItem('bearerToken', this.authObject.bearerToken);
+                Object.assign(this.shared.currentUser, res);
+                localStorage.setItem('bearerToken', this.shared.currentUser.bearerToken);
+            }),
+            catchError((e) => {
+                console.log(e);
+                throw e;
             })
         );
     }
@@ -30,15 +32,15 @@ export class AuthService extends RestService {
         this.resetAuthObject();
     }
 
+    public hasRole(role: string): boolean {
+        return this.shared.currentUser.role === role;
+    }
+
     public resetAuthObject(): void {
-        this.authObject.userName = '';
-        this.authObject.bearerToken = '';
-        this.authObject.canAccessStudents = false;
-        this.authObject.canAccessSupervisors = false;
-        this.authObject.canAddStudent = false;
-        this.authObject.canAccessSupervisors = false;
-        this.authObject.canDeleteStudent = false;
-        this.authObject.canDeleteSupervisor = false;
+        this.shared.currentUser.userName = '';
+        this.shared.currentUser.bearerToken = '';
+        this.shared.currentUser.isAuthenticated = false;
+        this.shared.currentUser.role = null;
 
         localStorage.removeItem('bearerToken');
     }

@@ -4,13 +4,19 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 import { BaseEndpointsEnum } from '../enums';
+import { SharedDataService } from './shared-data.service';
+import { ServiceInjector } from '../classes';
 
 @Injectable({ providedIn: 'root' })
 export class RestService {
     private readonly _defaultBaseEndpoint = environment.phdApiUrl;
     private readonly _baseEndpoints: Map<BaseEndpointsEnum, string> = new Map([[BaseEndpointsEnum.PhDSystemApi, environment.phdApiUrl]]);
 
-    constructor(private readonly _http: HttpClient) {}
+    public shared: SharedDataService;
+
+    constructor(private readonly _http: HttpClient) {
+        this.shared = ServiceInjector.injector.get(SharedDataService);
+    }
 
     protected get(url: string, options: IRestGetOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);

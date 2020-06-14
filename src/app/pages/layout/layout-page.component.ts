@@ -13,8 +13,6 @@ export class LayoutPageComponent extends BaseComponent {
 
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
-
-        this._authObject = _authService.authObject;
     }
 
     public logout(): void {

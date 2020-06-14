@@ -11,11 +11,14 @@ const routes: Routes = [
     {
         path: 'app',
         component: LayoutPageComponent,
-        children: [{ path: 'dashboard', component: DashboardComponent, data: { claimType: 'isAuthenticated' } }],
+        children: [
+            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+            { path: 'dashboard', component: DashboardComponent },
+        ],
         canActivate: [AuthGuard],
-        data: { claimType: 'isAuthenticated' },
     },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({

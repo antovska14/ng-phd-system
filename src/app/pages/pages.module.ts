@@ -7,9 +7,10 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 
 import { BaseComponent } from '../components/base/base.component';
+import { RouterModule } from '@angular/router';
 
 const COMPONENTS = [BaseComponent];
-const IMPORTS = [CommonModule, FormsModule];
+const IMPORTS = [CommonModule, FormsModule, RouterModule];
 const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent];
 
 @NgModule({
