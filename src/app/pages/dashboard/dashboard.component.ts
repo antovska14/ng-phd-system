@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 
 import { BaseComponent } from '../../components/base/base.component';
 import { ExportService } from '../../services/export.service';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -11,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 export class DashboardComponent extends BaseComponent {
     public exportButtonLabel = 'Export';
 
-    constructor(private readonly _exportService: ExportService, private readonly _authService: AuthService) {
+    constructor(private readonly _exportService: ExportService) {
         super();
     }
 

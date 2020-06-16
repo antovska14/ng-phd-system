@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, tap, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
@@ -13,7 +13,7 @@ export class AuthService extends RestService {
     public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
 
-        return this.post(`${this._endpoint}/login`, user, { baseEndPoint: BaseEndpointsEnum.PhDSystemApi }).pipe(
+        return this.post(`${this._endpoint}/login`, user, {}).pipe(
             tap((res: UserAuth) => {
                 Object.assign(this.shared.currentUser, res);
                 localStorage.setItem('bearerToken', this.shared.currentUser.bearerToken);
