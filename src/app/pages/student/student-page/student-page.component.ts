@@ -19,6 +19,6 @@ export class StudentPageComponent extends BaseComponent {
     }
 
     public onAddStudentClick(): void {
-        this._router.navigate([RoutePath.create], { relativeTo: this._route });
+        this._router.navigate([RoutePath.add], { relativeTo: this._route });
     }
 }

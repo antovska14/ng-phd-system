@@ -48,7 +48,8 @@ export class RestService {
             params: options.params,
         };
 
-        return this._http.post(preparedUrl, payload, preparedOptions);
+        const obs = this._http.post(preparedUrl, payload, preparedOptions);
+        return obs;
     }
 
     protected put(url: string, payload: object, options: IRestCallOptions): Observable<any> {

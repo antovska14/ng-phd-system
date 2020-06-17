@@ -1,25 +1,26 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { IStudent } from 'src/app/interfaces/student.interface';
 import { langStr } from 'src/assets/translations';
 import { Student } from 'src/app/classes/security/student';
 import { StudentService } from 'src/app/services/student.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { RoutePath } from 'src/app/enums';
 
 @Component({
-    selector: 'upsert-student',
-    templateUrl: './upsert-student.component.html',
+    templateUrl: './add-student.component.html',
 })
-export class UpsertStudentComponent extends BaseComponent implements OnInit, OnDestroy {
+export class AddStudentComponent extends BaseComponent implements OnInit, OnDestroy {
     public student: IStudent = new Student();
     public readonly formOfEducationMap: Map<string, number[]> = new Map();
     public formsOfEducation: any;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private readonly _studentService: StudentService) {
+    constructor(private readonly _studentService: StudentService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
     }
 
@@ -64,6 +65,12 @@ export class UpsertStudentComponent extends BaseComponent implements OnInit, OnD
     }
 
     public onSubmit(): void {
-        this._studentService.createStudent(this.student).pipe(takeUntil(this._ngUnsubscribe)).subscribe();
+        this.student.currentYear = +this.student.currentYear;
+        this._studentService
+            .createStudent(this.student)
+            .pipe(takeUntil(this._ngUnsubscribe))
+            .subscribe(() => {
+                this._router.navigate([RoutePath.students], { relativeTo: this._route });
+            });
     }
 }

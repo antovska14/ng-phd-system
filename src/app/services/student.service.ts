@@ -1,6 +1,7 @@
-import { RestService } from './rest.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { RestService } from './rest.service';
 import { IStudent } from '../interfaces/student.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -15,7 +16,11 @@ export class StudentService extends RestService {
         return this.get(`${this._endpoint}/${studentId}`, {});
     }
 
-    public createStudent(student: IStudent): Observable<number> {
+    public createStudent(student: IStudent): Observable<void> {
         return this.post(`${this._endpoint}`, student, {});
+    }
+
+    public updateStudent(student: IStudent): Observable<void> {
+        return this.put(`${this._endpoint}`, student, {});
     }
 }

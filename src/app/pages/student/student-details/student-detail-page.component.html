@@ -1,1 +1,114 @@
-Welcome to details page
+<div class="h3 mb-3 text-navy-blue">{{ strings.phdStudentDetails }}</div>
+<form #upsertStudentForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="container border border-navy-blue bg-light-grey rounded p-3">
+        <div class="row form-group">
+            <div class="col">
+                <label class="text-light-orange" for="firstName">{{ strings.firstName }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.firstName }}</div>
+                    <input
+                        *ngIf="isInEditMode"
+                        [(ngModel)]="student.firstName"
+                        id="firstName"
+                        name="firstName"
+                        [placeholder]="strings.enterFirstName"
+                        class="form-control"
+                        required
+                    />
+                </div>
+            </div>
+            <div class="col">
+                <label class="text-light-orange" for="middleName">{{ strings.middleName }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.middleName }}</div>
+                    <input *ngIf="isInEditMode" [(ngModel)]="student.middleName" id="middleName" name="middleName" [placeholder]="strings.enterMiddleName" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label class="text-light-orange" for="lastName">{{ strings.lastName }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.lastName }}</div>
+                    <input *ngIf="isInEditMode" [(ngModel)]="student.lastName" id="lastName" name="lastName" [placeholder]="strings.enterLastName" class="form-control" required />
+                </div>
+            </div>
+            <div class="col">
+                <label class="text-light-orange" for="specialty">{{ strings.email }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.email }}</div>
+                    <input *ngIf="isInEditMode" [(ngModel)]="student.email" id="email" name="email" [placeholder]="strings.enterEmail" class="form-control" type="email" required />
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label class="text-light-orange" for="specialty">{{ strings.specialty }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.specialtyName }}</div>
+                    <input
+                        *ngIf="isInEditMode"
+                        [(ngModel)]="student.specialtyName"
+                        id="specialty"
+                        name="specialty"
+                        [placeholder]="strings.enterSpecialty"
+                        class="form-control"
+                        required
+                    />
+                </div>
+            </div>
+            <div class="col">
+                <label class="text-light-orange" for="facultyCouncilChosenDate">{{ strings.facultyCouncilDate }}:</label>
+
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.facultyCouncilChosenDate | date: 'dd.MM.yyyy' }}</div>
+                    <input
+                        *ngIf="isInEditMode"
+                        [(ngModel)]="student.facultyCouncilChosenDate"
+                        id="facultyCouncilChosenDate"
+                        name="facultyCouncilChosenDate"
+                        [placeholder]="strings.enterFacultyCouncilDate"
+                        class="form-control"
+                        type="date"
+                        required
+                    />
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label class="text-light-orange" for="formOfEducation">{{ strings.formOfEducation }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.formOfEducation }}</div>
+                    <select *ngIf="isInEditMode" [(ngModel)]="student.formOfEducation" id="formOfEducation" name="formOfEducation" class="form-control custom-select" required>
+                        <option *ngFor="let form of formsOfEducation" [value]="form">{{ form }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <label class="text-light-orange" for="currentYear">{{ strings.currentYear }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ student.currentYear }}</div>
+                    <select *ngIf="isInEditMode" [(ngModel)]="student.currentYear" id="currentYear" name="curerntYear" class="form-control custom-select">
+                        <option *ngFor="let currentYear of formOfEducationMap.get(student.formOfEducation)" [value]="currentYear" required>{{ currentYear }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="d-flex justify-content-between" *ngIf="isInEditMode">
+            <button (click)="onCancelClick()" id="cancel-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
+                {{ strings.cancel }}
+            </button>
+            <button (click)="onSaveClick()" [disabled]="upsertStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+                {{ strings.save }}
+            </button>
+        </div>
+        <div>
+            <button (click)="onEditClick()" *ngIf="!isInEditMode" id="edit-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
+                {{ strings.edit }}
+            </button>
+        </div>
+    </div>
+</form>

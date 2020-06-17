@@ -4,6 +4,8 @@ $light-orange: #fd784c;
 
 $light-grey: #eeeeee;
 
+$grey: #777777;
+
 .bg-light-grey {
     background-color: $light-grey !important;
 }
@@ -26,6 +28,11 @@ $light-grey: #eeeeee;
 
 .text-light-orange {
     color: $light-orange !important;
+}
+
+.text-label {
+    font-size: 14px;
+    color: $grey !important;
 }
 
 .hyperlink {
