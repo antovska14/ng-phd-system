@@ -1,10 +1,10 @@
-<table class="table table-hover border">
+<table class="table table-bordered table-hover">
     <thead>
         <tr class="text-navy-blue">
             <th scope="col">#</th>
             <th scope="col">{{ strings.firstName }}</th>
             <th scope="col">{{ strings.lastName }}</th>
-            <th scope="col">{{ strings.operations }}</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -13,7 +13,7 @@
             <td>{{ student.firstName }}</td>
             <td>{{ student.lastName }}</td>
             <td>
-                <a [routerLink]="'/students/' + student.id">Details</a>
+                <a [routerLink]="'/students/' + student.id" class="hyperlink">Details</a>
             </td>
         </tr>
     </tbody>

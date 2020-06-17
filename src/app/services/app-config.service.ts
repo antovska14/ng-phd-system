@@ -15,10 +15,11 @@ export class AppConfigService {
         const bearerToken = localStorage.getItem('bearerToken');
         if (bearerToken) {
             const decodedBearerToken = this._jwtHelperService.decodeToken(bearerToken);
-            sharedService.currentUser.username = decodedBearerToken.username;
+            sharedService.currentUser.email = decodedBearerToken.email;
             sharedService.currentUser.isAuthenticated = decodedBearerToken.isAuthenticated;
             sharedService.currentUser.role = decodedBearerToken.role;
             sharedService.currentUser.bearerToken = bearerToken;
+            sharedService.currentUser.exp = decodedBearerToken.exp;
         }
     }
 }

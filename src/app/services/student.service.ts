@@ -14,4 +14,8 @@ export class StudentService extends RestService {
     public getStudent(studentId: number): Observable<IStudent> {
         return this.get(`${this._endpoint}/${studentId}`, {});
     }
+
+    public createStudent(student: IStudent): Observable<number> {
+        return this.post(`${this._endpoint}`, student, {});
+    }
 }

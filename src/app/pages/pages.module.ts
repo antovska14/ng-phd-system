@@ -11,9 +11,9 @@ import { StudentDetailPageComponent } from './student/student-details/student-de
 
 import { BaseComponent } from '../components/base/base.component';
 import { StudentListComponent } from './student/student-list/student-list.component';
-import { UpsertStudentModalComponent } from './student/upsert-student-modal/upsert-student-modal.component';
+import { UpsertStudentComponent } from './student/upsert-student/upsert-student.component';
 
-const COMPONENTS = [BaseComponent, StudentListComponent, UpsertStudentModalComponent];
+const COMPONENTS = [BaseComponent, StudentListComponent, UpsertStudentComponent];
 const IMPORTS = [CommonModule, FormsModule, RouterModule];
 const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent, StudentPageComponent, StudentDetailPageComponent];
 

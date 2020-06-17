@@ -10,6 +10,10 @@ export class RestInterceptor implements HttpInterceptor {
     shared: SharedDataService = ServiceInjector.injector.get(SharedDataService);
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.shared.currentUser.bearerToken;
+        const nowDate = Date.now() / 1000;
+        const tokenExpired: boolean = this.shared.currentUser.exp < nowDate;
+        if (tokenExpired) {
+        }
         if (this.shared.currentUser.bearerToken) {
             const authenticatedRequest = request.clone({
                 headers: request.headers.set('Authorization', 'Bearer ' + token),

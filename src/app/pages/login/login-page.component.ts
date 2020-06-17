@@ -43,14 +43,14 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
     }
 
     public stringsInit(): void {
-        this.strings.enterUsername = this.getStr(langStr.login.enterUsername);
+        this.strings.enterEmail = this.getStr(langStr.login.enterEmail);
         this.strings.enterPassword = this.getStr(langStr.login.enterPassword);
         this.strings.password = this.getStr(langStr.login.password);
         this.strings.login = this.getStr(langStr.login.login);
-        this.strings.username = this.getStr(langStr.login.username);
-        this.strings.invalidUsernameOrPassword = this.getStr(langStr.login.invalidUsernameOrPassword);
+        this.strings.email = this.getStr(langStr.login.email);
+        this.strings.invalidEmailOrPassword = this.getStr(langStr.login.invalidEmailOrPassword);
         this.strings.pleaseEnterPassword = this.getStr(langStr.login.pleaseEnterPassword);
-        this.strings.pleaseEnterValidUsername = this.getStr(langStr.login.pleaseEnterValidUsername);
+        this.strings.pleaseEnterValidEmail = this.getStr(langStr.login.pleaseEnterValidEmail);
     }
 
     public login(): void {

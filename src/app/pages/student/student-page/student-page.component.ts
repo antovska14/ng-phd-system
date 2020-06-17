@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { BaseComponent } from '../../../components/base/base.component';
 import { RoutePath } from 'src/app/enums';
+import { langStr } from 'src/assets/translations';
 
 @Component({
     selector: 'student-page',
@@ -13,7 +14,11 @@ export class StudentPageComponent extends BaseComponent {
         super();
     }
 
+    public stringsInit(): void {
+        this.strings.addPhdStudent = this.getStr(langStr.students.addPhdStudent);
+    }
+
     public onAddStudentClick(): void {
-        this._router.navigate([RoutePath.add], { relativeTo: this._route });
+        this._router.navigate([RoutePath.create], { relativeTo: this._route });
     }
 }

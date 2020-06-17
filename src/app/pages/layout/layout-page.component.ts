@@ -18,6 +18,7 @@ export class LayoutPageComponent extends BaseComponent {
 
     public stringsInit(): void {
         this.strings.logout = this.getStr(langStr.login.logout);
+        this.strings.phdStudents = this.getStr(langStr.students.phdStudents);
     }
 
     public logout(): void {

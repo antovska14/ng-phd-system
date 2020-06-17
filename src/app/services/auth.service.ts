@@ -34,7 +34,7 @@ export class AuthService extends RestService {
     }
 
     public resetAuthObject(): void {
-        this.shared.currentUser.username = '';
+        this.shared.currentUser.email = '';
         this.shared.currentUser.bearerToken = '';
         this.shared.currentUser.isAuthenticated = false;
         this.shared.currentUser.role = null;
