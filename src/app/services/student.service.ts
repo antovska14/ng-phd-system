@@ -10,4 +10,8 @@ export class StudentService extends RestService {
     public getStudents(): Observable<IStudent[]> {
         return this.get(`${this._endpoint}`, {});
     }
+
+    public getStudent(studentId: number): Observable<IStudent> {
+        return this.get(`${this._endpoint}/${studentId}`, {});
+    }
 }

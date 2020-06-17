@@ -10,6 +10,8 @@ import { langStr } from '../../../assets/translations';
     templateUrl: './layout-page.component.html',
 })
 export class LayoutPageComponent extends BaseComponent {
+    public routes = RoutePath;
+
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
     }

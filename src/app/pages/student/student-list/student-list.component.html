@@ -1,10 +1,10 @@
 <table class="table table-hover border">
     <thead>
         <tr class="text-navy-blue">
-            <th scope="col">Id</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Actions</th>
+            <th scope="col">#</th>
+            <th scope="col">{{ strings.firstName }}</th>
+            <th scope="col">{{ strings.lastName }}</th>
+            <th scope="col">{{ strings.operations }}</th>
         </tr>
     </thead>
     <tbody>
@@ -12,7 +12,9 @@
             <th class="text-navy-blue" scope="row">{{ student.id }}</th>
             <td>{{ student.firstName }}</td>
             <td>{{ student.lastName }}</td>
-            <td>Actions</td>
+            <td>
+                <a [routerLink]="'/students/' + student.id">Details</a>
+            </td>
         </tr>
     </tbody>
 </table>

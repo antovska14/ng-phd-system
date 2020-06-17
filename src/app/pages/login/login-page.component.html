@@ -24,7 +24,7 @@
                 <div class="text-danger font-size-14px" [hidden]="password.valid || !password.touched">*{{ strings.pleaseEnterPassword }}</div>
                 <div *ngIf="userAuth && !userAuth.isAuthenticated" class="text-danger font-size-14px">*{{ strings.invalidUsernameOrPassword }}</div>
             </div>
-            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary login-btn" type="submit">
+            <button [disabled]="loginForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
                 {{ strings.login }}
             </button>
         </form>

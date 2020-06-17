@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Base, ServiceInjector } from '../../classes';
 
 @Component({ template: `` })
-export class BaseComponent extends Base implements OnInit {
+export class BaseComponent extends Base implements OnInit, OnDestroy {
     constructor() {
         super(ServiceInjector.injector);
     }
@@ -11,4 +11,6 @@ export class BaseComponent extends Base implements OnInit {
     public ngOnInit(): void {
         this.stringsInit();
     }
+
+    public ngOnDestroy(): void {}
 }

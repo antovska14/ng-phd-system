@@ -1,5 +1,9 @@
 export const langStr = {
-    common: {},
+    common: {
+        firstName: { en: 'First Name', bg: 'Име' },
+        lastName: { en: 'Last Name', bg: 'Фамилия' },
+        middleName: { en: 'Middle Name', bg: 'Презиме' },
+    },
     login: {
         enterUsername: { en: 'Enter username', bg: 'Въведете потребителско име' },
         enterPassword: { en: 'Enter password', bg: 'Въведете парола' },
@@ -10,5 +14,8 @@ export const langStr = {
         pleaseEnterPassword: { en: 'Please enter a password', bg: 'Моля въведете парола' },
         pleaseEnterValidUsername: { en: 'Please enter a valid username', bg: 'Моля въведете валидно потребителско име' },
         username: { en: 'Username', bg: 'Потребителско име' },
+    },
+    students: {
+        operations: { en: 'Operations', bg: 'Операции' },
     },
 };

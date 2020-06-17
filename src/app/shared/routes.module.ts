@@ -6,6 +6,9 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 import { AuthGuard } from '../services/guards/auth.guard';
 import { RoutePath } from '../enums';
+import { StudentPageComponent } from '../pages/student/student-page/student-page.component';
+import { StudentDetailPageComponent } from '../pages/student/student-details/student-detail-page.component';
+import { UpsertStudentModalComponent } from '../pages/student/upsert-student-modal/upsert-student-modal.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginPageComponent },
@@ -15,6 +18,9 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: RoutePath.dashboard, pathMatch: 'full' },
             { path: RoutePath.dashboard, component: DashboardComponent },
+            { path: `${RoutePath.students}/${RoutePath.add}`, component: UpsertStudentModalComponent },
+            { path: `${RoutePath.students}/:id`, component: StudentDetailPageComponent },
+            { path: RoutePath.students, component: StudentPageComponent },
         ],
         canActivate: [AuthGuard],
     },
