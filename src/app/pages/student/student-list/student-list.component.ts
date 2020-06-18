@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base/base.component';
 import { StudentService } from '../../../services/student.service';
-import { IStudent } from 'src/app/interfaces/student.interface';
+import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
 import { takeUntil } from 'rxjs/operators';
 

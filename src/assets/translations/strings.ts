@@ -38,4 +38,7 @@ export const langStr = {
         specialty: { en: 'Specialty', bg: 'Специалност' },
         viewEdit: { en: 'View/Edit', bg: 'Разгледай/Редактирай' },
     },
+    teachers: {
+        supervisors: { en: 'Supervisors', bg: 'Ръководители' },
+    },
 };

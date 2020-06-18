@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    phdApiUrl: 'https://localhost:8081/api/',
+    phdApiUrl: 'http://localhost:8080/api/',
 };
 
 /*

@@ -20,7 +20,7 @@
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
                         "assets": ["src/favicon.ico", "src/assets", "src/web.config"],
-                        "styles": ["node_modules/bootstrap/scss/bootstrap.scss", "src/assets/styles/main.scss"],
+                        "styles": ["node_modules/bootstrap/scss/bootstrap.scss", "./node_modules/font-awesome/scss/font-awesome.scss", "src/assets/styles/main.scss"],
                         "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/bootstrap/dist/js/bootstrap.min.js"]
                     },
                     "configurations": {
@@ -79,7 +79,7 @@
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
                         "assets": ["src/favicon.ico", "src/assets"],
-                        "styles": ["node_modules/bootstrap/scss/bootstrap.scss", "src/assets/styles/main.scss"],
+                        "styles": ["node_modules/bootstrap/scss/bootstrap.scss", "./node_modules/font-awesome/scss/font-awesome.scss", "src/assets/styles/main.scss"],
                         "scripts": ["node_modules/jquery/dist/jquery.min.js", "node_modules/bootstrap/dist/js/bootstrap.min.js"]
                     }
                 },

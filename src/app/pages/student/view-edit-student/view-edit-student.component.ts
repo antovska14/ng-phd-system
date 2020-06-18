@@ -7,7 +7,7 @@ import { BaseComponent } from 'src/app/components/base/base.component';
 import { langStr } from 'src/assets/translations';
 import { StudentService } from 'src/app/services/student.service';
 import { Student } from 'src/app/classes/security/student';
-import { IStudent } from 'src/app/interfaces/student.interface';
+import { IStudent } from 'src/app/interfaces';
 import { RoutePath } from 'src/app/enums';
 
 @Component({

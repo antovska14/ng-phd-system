@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { IStudent } from 'src/app/interfaces/student.interface';
+import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
 import { Student } from 'src/app/classes/security/student';
 import { StudentService } from 'src/app/services/student.service';

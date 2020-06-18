@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RestService } from './rest.service';
-import { IStudent } from '../interfaces/student.interface';
+import { IStudent } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class StudentService extends RestService {

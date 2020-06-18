@@ -1,3 +1,5 @@
+import { ITeacher } from 'src/app/interfaces';
+
 export class Student {
     public readonly id: number;
     public readonly userId: number;
@@ -9,4 +11,5 @@ export class Student {
     public readonly currentYear: number;
     public readonly specialtyName: string;
     public readonly facultyCouncilChosenDate: Date;
+    public readonly teachers: ITeacher[];
 }

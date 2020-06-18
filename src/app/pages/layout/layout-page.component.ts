@@ -10,7 +10,7 @@ import { langStr } from '../../../assets/translations';
     templateUrl: './layout-page.component.html',
 })
 export class LayoutPageComponent extends BaseComponent {
-    public routes = RoutePath;
+    public readonly logoUrl = '../../../assets/images/phd_system_logo_icon_white_hat.png';
 
     constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
@@ -19,6 +19,7 @@ export class LayoutPageComponent extends BaseComponent {
     public stringsInit(): void {
         this.strings.logout = this.getStr(langStr.login.logout);
         this.strings.phdStudents = this.getStr(langStr.students.phdStudents);
+        this.strings.supervisors = this.getStr(langStr.teachers.supervisors);
     }
 
     public logout(): void {

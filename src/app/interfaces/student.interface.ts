@@ -1,3 +1,5 @@
+import { ITeacher } from './teacher.interface';
+
 export interface IStudent {
     id: number;
     userId: number;
@@ -9,4 +11,5 @@ export interface IStudent {
     currentYear: number;
     specialtyName: string;
     facultyCouncilChosenDate: Date;
+    teachers: ITeacher[];
 }

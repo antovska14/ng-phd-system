@@ -4,17 +4,25 @@ import { Injectable, NgModule } from '@angular/core';
 
 import { SharedDataService } from './shared-data.service';
 import { ServiceInjector } from '../classes';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class RestInterceptor implements HttpInterceptor {
-    shared: SharedDataService = ServiceInjector.injector.get(SharedDataService);
+    sharedService: SharedDataService = null;
+    authService: AuthService = null;
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.shared.currentUser.bearerToken;
-        const nowDate = Date.now() / 1000;
-        const tokenExpired: boolean = this.shared.currentUser.exp < nowDate;
-        if (tokenExpired) {
+        if (!this.sharedService) {
+            this.sharedService = ServiceInjector.injector.get(SharedDataService);
         }
-        if (this.shared.currentUser.bearerToken) {
+        const token = this.sharedService.currentUser.bearerToken;
+        const nowDate = Date.now() / 1000;
+        const tokenExpired: boolean = this.sharedService.currentUser.exp < nowDate;
+        if (tokenExpired) {
+            // this.authService = ServiceInjector.injector.get(AuthService);
+            // this.authService.logout();
+        }
+
+        if (this.sharedService.currentUser.bearerToken) {
             const authenticatedRequest = request.clone({
                 headers: request.headers.set('Authorization', 'Bearer ' + token),
             });

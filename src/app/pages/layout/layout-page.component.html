@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-light-grey mb-3">
     <a class="navbar-brand" [routerLink]="'/dashboard'">
-        <img src="../../../assets/images/phd_system_logo_icon_white_hat.png" width="40" height="40" alt="" />
+        <img [src]="logoUrl" width="40" height="40" alt="" />
     </a>
     <button
         class="navbar-toggler bg-navy-blue"
@@ -17,6 +17,9 @@
         <ul class="navbar-nav bg-light-grey mr-auto">
             <li class="nav-item">
                 <a [routerLink]="'/students'" class="nav-link hyperlink">{{ strings.phdStudents }}</a>
+            </li>
+            <li class="nav-item">
+                <a [routerLink]="'/teachers'" class="nav-link hyperlink">{{ strings.supervisors }}</a>
             </li>
         </ul>
         <span class="mr-5">
