@@ -1,13 +1,13 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { StudentService } from 'src/app/services/student.service';
 import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
-import { Location } from '@angular/common';
 
 @Component({
     selector: 'student-detail-page',
@@ -93,10 +93,6 @@ export class StudentDetailPageComponent extends BaseComponent implements OnInit 
 
     public onEditClick(): void {
         this.isInEditMode = true;
-    }
-
-    public onSaveClick(): void {
-        this._studentService.updateStudent(this.student);
     }
 
     private getStudent(): void {

@@ -11,4 +11,12 @@ export class TeacherService extends RestService {
     public getTeachers(): Observable<ITeacher[]> {
         return this.get(`${this._endpoint}`, {});
     }
+
+    public getTeacher(teacherId: number): Observable<ITeacher> {
+        return this.get(`${this._endpoint}/${teacherId}`, {});
+    }
+
+    public updateTeacher(teacher: ITeacher): Observable<void> {
+        return this.put(`${this._endpoint}`, teacher, {});
+    }
 }

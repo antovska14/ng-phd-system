@@ -70,7 +70,7 @@ export class AddStudentComponent extends BaseComponent implements OnInit, OnDest
             .createStudent(this.student)
             .pipe(takeUntil(this._ngUnsubscribe))
             .subscribe(() => {
-                this._router.navigate([RoutePath.students], { relativeTo: this._route });
+                this._router.navigate([RoutePath.students]);
             });
     }
 }

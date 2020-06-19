@@ -14,8 +14,10 @@ import { StudentListComponent } from './student/student-list/student-list.compon
 import { AddStudentComponent } from './student/add-student/add-student.component';
 import { ViewEditStudentComponent } from './student/view-edit-student/view-edit-student.component';
 import { SelectTeachersComponent } from './student/select-teachers/select-teachers.component';
+import { TeacherListComponent } from './teacher/teacher-list/teacher-list.component';
+import { TeacherDetailsComponent } from './teacher/teacher-details/teacher-details.component';
 
-const COMPONENTS = [BaseComponent, StudentListComponent, AddStudentComponent, ViewEditStudentComponent, SelectTeachersComponent];
+const COMPONENTS = [BaseComponent, StudentListComponent, AddStudentComponent, ViewEditStudentComponent, SelectTeachersComponent, TeacherListComponent, TeacherDetailsComponent];
 const IMPORTS = [CommonModule, FormsModule, RouterModule];
 const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent, StudentPageComponent, StudentDetailPageComponent];
 

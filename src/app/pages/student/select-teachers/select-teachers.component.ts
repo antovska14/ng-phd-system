@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { ITeacher } from 'src/app/interfaces';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { BaseComponent } from 'src/app/components/base/base.component';
@@ -12,6 +12,9 @@ import { takeUntil } from 'rxjs/operators';
 export class SelectTeachersComponent extends BaseComponent implements OnInit, OnDestroy {
     @Input()
     public selectedTeachers: ITeacher[] = [];
+
+    @Output()
+    public selectedTeachersChange: EventEmitter<ITeacher[]> = new EventEmitter();
 
     @Input()
     public isInEditMode: boolean;
@@ -59,6 +62,7 @@ export class SelectTeachersComponent extends BaseComponent implements OnInit, On
 
     public removeSelection(teacher: ITeacher): void {
         this.allTeachers.push(teacher);
-        this.selectedTeachers = this.selectedTeachers.filter((st) => st.id !== teacher.id);
+        this.selectedTeachers = this.selectedTeachers.filter((st) => st.id != teacher.id);
+        this.selectedTeachersChange.emit(this.selectedTeachers);
     }
 }
