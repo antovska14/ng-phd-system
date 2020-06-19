@@ -39,7 +39,7 @@ export class RestService {
         }
     }
 
-    protected post(url: string, payload: object, options: IRestCallOptions): Observable<any> {
+    protected post(url: string, payload: object, options: IRestPostOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
         const preparedOptions = {
@@ -78,15 +78,32 @@ export class RestService {
         return this._http.delete(preparedUrl, preparedOptions);
     }
 
+    protected postFile(url: string, payload: object, options: IRestPostOptions): Observable<any> {
+        const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
+        const preparedHeaders = this.getHeaders(options.headers, options.excludeContentType);
+
+        const preparedOptions = {
+            headers: preparedHeaders,
+            observe: options.observe,
+            params: options.params,
+        };
+
+        return this._http.post(preparedUrl, payload, preparedOptions);
+    }
+
     private prepareUrl(url: string, baseEndPoint: BaseEndpointsEnum) {
         let baseEndpointValue: string = this._baseEndpoints.get(baseEndPoint);
 
         return baseEndpointValue ? baseEndpointValue + url : this._defaultBaseEndpoint + url;
     }
 
-    private getHeaders(headers: HttpHeaders): HttpHeaders {
+    private getHeaders(headers: HttpHeaders, excludeContentType?: boolean): HttpHeaders {
         if (!headers) {
             headers = new HttpHeaders();
+        }
+
+        if (excludeContentType) {
+            return headers;
         }
 
         headers.set('Content-Type', 'application/json');
@@ -107,4 +124,8 @@ export interface IRestGetOptions extends IRestCallOptions {
 
 export interface IRestDeleteOptions extends IRestCallOptions {
     body?: object;
+}
+
+export interface IRestPostOptions extends IRestCallOptions {
+    excludeContentType?: boolean;
 }
