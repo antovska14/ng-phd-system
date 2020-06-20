@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -39,7 +39,7 @@ export class RestService {
         }
     }
 
-    protected post(url: string, payload: object, options: IRestPostOptions): Observable<any> {
+    protected post(url: string, payload: object, options: IRestCallOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
         const preparedOptions = {
@@ -78,17 +78,15 @@ export class RestService {
         return this._http.delete(preparedUrl, preparedOptions);
     }
 
-    protected postFile(url: string, payload: object, options: IRestPostOptions): Observable<any> {
+    protected postFile(url: string, payload: object, options: IRestPostFileOptions): Observable<HttpEvent<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-        const preparedHeaders = this.getHeaders(options.headers, options.excludeContentType);
+        const preparedHeaders = this.getHeaders(options.headers);
 
-        const preparedOptions = {
+        return this._http.post(preparedUrl, payload, {
             headers: preparedHeaders,
-            observe: options.observe,
+            observe: 'events',
             params: options.params,
-        };
-
-        return this._http.post(preparedUrl, payload, preparedOptions);
+        });
     }
 
     private prepareUrl(url: string, baseEndPoint: BaseEndpointsEnum) {
@@ -97,13 +95,9 @@ export class RestService {
         return baseEndpointValue ? baseEndpointValue + url : this._defaultBaseEndpoint + url;
     }
 
-    private getHeaders(headers: HttpHeaders, excludeContentType?: boolean): HttpHeaders {
+    private getHeaders(headers: HttpHeaders): HttpHeaders {
         if (!headers) {
             headers = new HttpHeaders();
-        }
-
-        if (excludeContentType) {
-            return headers;
         }
 
         headers.set('Content-Type', 'application/json');
@@ -126,6 +120,6 @@ export interface IRestDeleteOptions extends IRestCallOptions {
     body?: object;
 }
 
-export interface IRestPostOptions extends IRestCallOptions {
-    excludeContentType?: boolean;
+export interface IRestPostFileOptions extends IRestCallOptions {
+    reportProgress?: boolean;
 }

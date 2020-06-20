@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { RestService } from './rest.service';
 import { BaseEndpointsEnum } from '../enums';
+import { HttpResponse, HttpEvent } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ExportService extends RestService {
@@ -15,9 +16,19 @@ export class ExportService extends RestService {
         );
     }
 
-    public uploadFile(file: File): Observable<void> {
+    public uploadFile(file: File): Observable<HttpEvent<any>> {
         let payload: FormData = new FormData();
         payload.append('uploadFileKey', file, file.name);
-        return this.postFile('documents/upload', payload, { excludeContentType: true });
+        return this.postFile('documents/upload', payload, { reportProgress: true });
+    }
+
+    public studentFileUpload(studentId: number, file: File): Observable<HttpEvent<any>> {
+        let payload: FormData = new FormData();
+        payload.append('uploadFileKey', file, file.name);
+        return this.postFile('documents/upload/' + studentId, payload, { reportProgress: true });
+    }
+
+    public deleteStudentFile(studentId: number, fileName: string): Observable<void> {
+        return this.delete('documents/delete/' + studentId, { body: { fileName: fileName } });
     }
 }
