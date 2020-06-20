@@ -1,6 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Injectable, NgModule } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { SharedDataService } from './shared-data.service';
 import { ServiceInjector } from '../classes';

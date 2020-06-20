@@ -1,10 +1,9 @@
+import { tap, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
 import { UserAuth, User } from '../classes/security';
-import { BaseEndpointsEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RestService {

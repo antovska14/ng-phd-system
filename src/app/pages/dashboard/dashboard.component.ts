@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { saveAs } from 'file-saver';
 
 import { BaseComponent } from '../../components/base/base.component';
-import { ExportService } from '../../services/export.service';
+import { StudentFileService } from '../../services/student-file.service';
 import { HttpEventType } from '@angular/common/http';
+import { StudentFileType } from 'src/app/enums';
+import { IFile, IUploadStudentFileRequest } from 'src/app/interfaces';
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -15,38 +17,28 @@ export class DashboardComponent extends BaseComponent {
     public progress: number;
     public message: string;
 
-    private fileToUpload: File;
-
-    constructor(private readonly _exportService: ExportService) {
+    constructor(private readonly _studentFileService: StudentFileService) {
         super();
     }
 
     public onExportClick(): void {
-        this._exportService.exportFile().subscribe((file: any) => {
-            saveAs(file, 'IndividualPlan.docx');
+        this._studentFileService.exportStudentFile({ studentId: 6, studentFileType: StudentFileType.individualPlan }).subscribe((file: IFile) => {
+            saveAs(file.fileContent, file.fileName);
         });
     }
 
     public handleFileInput(fileList: FileList): void {
-        this.fileToUpload = fileList.item(0);
-        this._exportService.uploadFile(this.fileToUpload).subscribe((event) => {
+        let studentFileRequest: IUploadStudentFileRequest = {
+            studentId: 6,
+            file: fileList.item(0),
+        };
+
+        this._studentFileService.uploadStudentFile(studentFileRequest).subscribe((event) => {
             if (event.type === HttpEventType.UploadProgress) {
                 this.progress = Math.round((100 * event.loaded) / event.total);
             } else if (event.type === HttpEventType.Response) {
                 this.message = 'Upload success';
             }
         });
-
-        this._exportService.studentFileUpload(6, this.fileToUpload).subscribe((event) => {
-            if (event.type === HttpEventType.UploadProgress) {
-                this.progress = Math.round((100 * event.loaded) / event.total);
-            } else if (event.type === HttpEventType.Response) {
-                this.message = 'Upload success';
-            }
-        });
-    }
-
-    public deleteStudentFile(): void {
-        this._exportService.deleteStudentFile(6, 'file-to-delete-1.txt').subscribe();
     }
 }
