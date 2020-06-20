@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/components/base/base.component';
 import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
-import { Student } from 'src/app/classes/security/student';
+import { Student } from 'src/app/classes/student';
 import { StudentService } from 'src/app/services/student.service';
 import { RoutePath } from 'src/app/enums';
 

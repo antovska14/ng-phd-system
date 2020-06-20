@@ -1,4 +1,4 @@
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Component } from '@angular/core';
 
@@ -34,9 +34,22 @@ export class TeacherListComponent extends BaseComponent {
     }
 
     public stringsInit(): void {
+        this.strings.delete = this.getStr(langStr.common.delete);
         this.strings.firstName = this.getStr(langStr.common.firstName);
         this.strings.lastName = this.getStr(langStr.common.lastName);
         this.strings.viewEdit = this.getStr(langStr.common.viewEdit);
+    }
+
+    public onDeleteClick(teacherId: number): void {
+        this._teacherService
+            .deleteTeacher(teacherId)
+            .pipe(
+                takeUntil(this._ngUnsubscribe),
+                finalize(() => {
+                    this.getTeachers();
+                })
+            )
+            .subscribe();
     }
 
     private getTeachers(): void {

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base/base.component';
 import { StudentService } from '../../../services/student.service';
 import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'student-list',
@@ -34,9 +34,22 @@ export class StudentListComponent extends BaseComponent implements OnInit, OnDes
     }
 
     public stringsInit(): void {
+        this.strings.delete = this.getStr(langStr.common.delete);
         this.strings.firstName = this.getStr(langStr.common.firstName);
         this.strings.lastName = this.getStr(langStr.common.lastName);
         this.strings.viewEdit = this.getStr(langStr.common.viewEdit);
+    }
+
+    public onDeleteClick(studentId: number): void {
+        this._studentService
+            .deleteStudent(studentId)
+            .pipe(
+                takeUntil(this._ngUnsubscribe),
+                finalize(() => {
+                    this.getStudents();
+                })
+            )
+            .subscribe();
     }
 
     private getStudents(): void {

@@ -1,0 +1,39 @@
+<form #addTeacherForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row form-group">
+        <div class="col">
+            <label for="firstName">{{ strings.firstName }}</label>
+            <input [(ngModel)]="teacher.firstName" id="firstName" name="firstName" [placeholder]="strings.enterFirstName" class="form-control" required />
+        </div>
+        <div class="col">
+            <label for="middleName">{{ strings.middleName }}</label>
+            <input [(ngModel)]="teacher.middleName" id="middleName" name="middleName" [placeholder]="strings.enterMiddleName" class="form-control" />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col">
+            <label for="lastName">{{ strings.lastName }}</label>
+            <input [(ngModel)]="teacher.lastName" id="lastName" name="lastName" [placeholder]="strings.enterLastName" class="form-control" required />
+        </div>
+        <div class="col">
+            <label for="specialty">{{ strings.email }}</label>
+            <input [(ngModel)]="teacher.email" id="email" name="email" [placeholder]="strings.enterEmail" class="form-control" type="email" required />
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col">
+            <label for="degree">{{ strings.degree }}</label>
+            <select [(ngModel)]="teacher.degree" id="degree" name="degree" class="form-control custom-select" required>
+                <option *ngFor="let degree of degreeOptions">{{ degree }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="title">{{ strings.title }}</label>
+            <select [(ngModel)]="teacher.title" id="title" name="title" class="form-control custom-select" required>
+                <option *ngFor="let title of titleOptions">{{ title }}</option>
+            </select>
+        </div>
+    </div>
+    <button [disabled]="addTeacherForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+        {{ strings.add }}
+    </button>
+</form>

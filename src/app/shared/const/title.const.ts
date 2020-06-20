@@ -1,7 +1,7 @@
 // TODO [DA]: Modify this logic if translations are eventually introduced
 const titles = {
     ASSISTANT: 'ас.',
-    CHIEF_ASSISTANT: 'ас.',
+    CHIEF_ASSISTANT: 'гл. ас.',
     ASSOCIATE_PROFESSOR: 'доц.',
     PROFESSOR: 'проф.',
 };

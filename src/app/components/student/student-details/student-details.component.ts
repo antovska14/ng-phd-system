@@ -10,8 +10,7 @@ import { IStudent } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
 
 @Component({
-    selector: 'student-detail-page',
-    templateUrl: './student-detail-page.component.html',
+    templateUrl: './student-details.component.html',
 })
 export class StudentDetailPageComponent extends BaseComponent implements OnInit {
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();

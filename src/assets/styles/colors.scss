@@ -44,5 +44,9 @@ $grey: #777777;
 }
 
 .pointer {
-    cursor: pointer;
+    cursor: pointer !important;
+}
+
+.underline:hover {
+    text-decoration: underline !important;
 }

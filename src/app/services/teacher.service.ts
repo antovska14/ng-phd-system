@@ -8,6 +8,10 @@ import { ITeacher } from '../interfaces';
 export class TeacherService extends RestService {
     private readonly _endpoint: string = 'teachers';
 
+    public createTeacher(teacher: ITeacher): Observable<void> {
+        return this.post(`${this._endpoint}`, teacher, {});
+    }
+
     public getTeachers(): Observable<ITeacher[]> {
         return this.get(`${this._endpoint}`, {});
     }

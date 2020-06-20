@@ -1,4 +1,4 @@
-<form #upsertStudentForm="ngForm" (ngSubmit)="onSubmit()">
+<form #addStudentForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="row form-group">
         <div class="col">
             <label for="firstName">{{ strings.firstName }}</label>
@@ -51,7 +51,7 @@
             </select>
         </div>
     </div>
-    <button [disabled]="upsertStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+    <button [disabled]="addStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
         {{ strings.add }}
     </button>
 </form>

@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { BaseComponent } from '../../../components/base/base.component';
+import { BaseComponent } from '../../base/base.component';
 import { RoutePath } from 'src/app/enums';
 import { langStr } from 'src/assets/translations';
 
 @Component({
-    templateUrl: './student-page.component.html',
+    templateUrl: './teacher-page.component.html',
 })
-export class StudentPageComponent extends BaseComponent {
+export class TeacherPageComponent extends BaseComponent {
     constructor(private readonly _router: Router, private readonly _route: ActivatedRoute) {
         super();
     }
 
     public stringsInit(): void {
-        this.strings.addPhdStudent = this.getStr(langStr.students.addPhdStudent);
+        this.strings.addSupervisor = this.getStr(langStr.teachers.addSupervisor);
     }
 
-    public onAddStudentClick(): void {
+    public onAddTeacherClick(): void {
         this._router.navigate([RoutePath.add], { relativeTo: this._route });
     }
 }

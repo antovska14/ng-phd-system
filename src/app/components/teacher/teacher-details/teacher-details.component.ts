@@ -8,16 +8,20 @@ import { BaseComponent } from 'src/app/components/base/base.component';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { langStr } from 'src/assets/translations';
 import { ITeacher } from 'src/app/interfaces';
+import { DEGREES } from 'src/app/shared/const/degree.const';
+import { TITLES } from 'src/app/shared/const/title.const';
 
 @Component({ templateUrl: './teacher-details.component.html' })
 export class TeacherDetailsComponent extends BaseComponent {
-    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
-    public readonly formOfEducationMap: Map<string, number[]> = new Map();
-    public formsOfEducation: any;
     public isInEditMode: boolean = false;
 
     public initialTeacher: ITeacher;
     public teacher: ITeacher;
+
+    public readonly degreeOptions = [DEGREES.DOCTOR, DEGREES.DOCTOR_TECHNICAL_SCIENCES];
+    public readonly titleOptions = [TITLES.ASSISTANT, TITLES.CHIEF_ASSISTANT, TITLES.ASSOCIATE_PROFESSOR, TITLES.PROFESSOR];
+
+    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(private readonly _teacherService: TeacherService, private readonly _route: ActivatedRoute, private readonly _location: Location) {
         super();
@@ -38,6 +42,10 @@ export class TeacherDetailsComponent extends BaseComponent {
 
     public stringsInit(): void {
         this.strings.add = this.getStr(langStr.common.add);
+        this.strings.back = this.getStr(langStr.common.back);
+        this.strings.cancel = this.getStr(langStr.common.cancel);
+        this.strings.degree = this.getStr(langStr.common.degree);
+        this.strings.edit = this.getStr(langStr.common.edit);
         this.strings.email = this.getStr(langStr.login.email);
         this.strings.enterEmail = this.getStr(langStr.login.enterEmail);
         this.strings.enterFirstName = this.getStr(langStr.common.enterFirstName);
@@ -46,11 +54,9 @@ export class TeacherDetailsComponent extends BaseComponent {
         this.strings.firstName = this.getStr(langStr.common.firstName);
         this.strings.middleName = this.getStr(langStr.common.middleName);
         this.strings.lastName = this.getStr(langStr.common.lastName);
-        this.strings.back = 'Назад';
-        this.strings.save = 'Запази';
-        this.strings.edit = 'Редактирай';
-        this.strings.cancel = 'Анулирай';
-        this.strings.supervisorDetails = 'Детайли за ръководителя';
+        this.strings.save = this.getStr(langStr.common.save);
+        this.strings.supervisorDetails = this.getStr(langStr.teachers.supervisorDetails);
+        this.strings.title = this.getStr(langStr.common.title);
     }
 
     public onSubmit(): void {

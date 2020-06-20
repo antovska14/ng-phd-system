@@ -2,18 +2,22 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">{{ strings.firstName }}</th>
-            <th scope="col">{{ strings.lastName }}</th>
+            <th scope="col" class="w-25">{{ strings.firstName }}</th>
+            <th scope="col" class="w-50">{{ strings.lastName }}</th>
             <th scope="col" class="w-25"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let teacher of teachers">
-            <th scope="row">{{ teacher?.id }}</th>
-            <td>{{ teacher?.firstName }}</td>
-            <td>{{ teacher?.lastName }}</td>
+        <tr *ngFor="let teacher of teachers; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ teacher.firstName }}</td>
+            <td>{{ teacher.lastName }}</td>
             <td class="text-center">
                 <a [routerLink]="'/teachers/' + teacher.id" class="hyperlink">{{ strings.viewEdit }}</a>
+            </td>
+            <td class="text-center">
+                <a class="hyperlink pointer underline" (click)="onDeleteClick(teacher.id)">{{ strings.delete }}</a>
             </td>
         </tr>
     </tbody>

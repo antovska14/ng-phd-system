@@ -1,19 +1,23 @@
 export const langStr = {
     common: {
         add: { en: 'Add', bg: 'Добави' },
+        back: { en: 'Back', bg: 'Назад' },
+        cancel: { en: 'Cancel', bg: 'Анулирай' },
+        degree: { en: 'Degree', bg: 'Научна степен' },
+        delete: { en: 'Delete', bg: 'Изтрий' },
+        edit: { en: 'Edit', bg: 'Редактирай' },
         enterFirstName: { en: 'Enter First Name', bg: 'Въведете име' },
         enterMiddleName: { en: 'Enter Middle Name', bg: 'Въведете презиме' },
         enterLastName: { en: 'Enter Last Name', bg: 'Въведете фамилия' },
         firstName: { en: 'First Name', bg: 'Име' },
         lastName: { en: 'Last Name', bg: 'Фамилия' },
         middleName: { en: 'Middle Name', bg: 'Презиме' },
-        back: { en: 'Back', bg: 'Назад' },
         save: { en: 'Save', bg: 'Запази' },
-        edit: { en: 'Edit', bg: 'Редактирай' },
-        cancel: { en: 'Cancel', bg: 'Анулирай' },
+        title: { en: 'Title', bg: 'Академична дължност' },
         viewEdit: { en: 'View/Edit', bg: 'Разгледай/Редактирай' },
     },
     login: {
+        email: { en: 'Email', bg: 'Имейл' },
         enterEmail: { en: 'Enter Email', bg: 'Въведете имейл' },
         enterPassword: { en: 'Enter password', bg: 'Въведете парола' },
         invalidEmailOrPassword: { en: 'Invalid email or password', bg: 'Невалиден имейл или парола' },
@@ -22,7 +26,6 @@ export const langStr = {
         password: { en: 'Password', bg: 'Парола' },
         pleaseEnterPassword: { en: 'Please enter a password', bg: 'Моля въведете парола' },
         pleaseEnterValidEmail: { en: 'Please enter a valid email', bg: 'Моля въведете валиден имейл' },
-        email: { en: 'Email', bg: 'Имейл' },
     },
     students: {
         addStudent: { en: 'Add Student', bg: 'Добави студент' },
@@ -43,6 +46,7 @@ export const langStr = {
         specialty: { en: 'Specialty', bg: 'Специалност' },
     },
     teachers: {
+        addSupervisor: { en: 'Add supervisor', bg: 'Добави Ръководител' },
         supervisors: { en: 'Supervisors', bg: 'Ръководители' },
         supervisorDetails: { en: 'Supervisor Details', bg: 'Детайли за раководителя' },
     },

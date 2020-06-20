@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { StudentPageComponent } from '../student/student-page/student-page.component';
-import { StudentDetailPageComponent } from '../student/student-details/student-detail-page.component';
+import { StudentDetailPageComponent } from './student-details/student-details.component';
 
 import { StudentListComponent } from '../student/student-list/student-list.component';
 import { AddStudentComponent } from '../student/add-student/add-student.component';

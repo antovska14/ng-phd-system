@@ -1,4 +1,4 @@
-<div class="h3 text-navy-blue">{{ strings.phdStudentDetails }}</div>
+<div class="h3 text-navy-blue">{{ strings.supervisorDetails }}</div>
 <form *ngIf="teacher" #updateTeacherForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="container border border-navy-blue bg-light-grey rounded p-3">
         <div class="row form-group">
@@ -38,6 +38,26 @@
                 <div>
                     <div *ngIf="!isInEditMode">{{ teacher.email }}</div>
                     <input *ngIf="isInEditMode" [(ngModel)]="teacher.email" id="email" name="email" [placeholder]="strings.enterEmail" class="form-control" type="email" required />
+                </div>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col">
+                <label class="text-light-orange" for="title">{{ strings.title }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ teacher.title }}</div>
+                    <select *ngIf="isInEditMode" [(ngModel)]="teacher.title" id="title" name="title" class="form-control custom-select">
+                        <option *ngFor="let title of titleOptions" required>{{ title }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <label class="text-light-orange" for="degree">{{ strings.degree }}:</label>
+                <div>
+                    <div *ngIf="!isInEditMode">{{ teacher.degree }}</div>
+                    <select *ngIf="isInEditMode" [(ngModel)]="teacher.degree" id="degree" name="degree" class="form-control custom-select">
+                        <option *ngFor="let degree of degreeOptions" required>{{ degree }}</option>
+                    </select>
                 </div>
             </div>
         </div>
