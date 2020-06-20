@@ -85,7 +85,7 @@ export class TeacherDetailsComponent extends BaseComponent {
             this._teacherService
                 .getTeacher(teacherId)
                 .pipe(takeUntil(this._ngUnsubscribe))
-                .subscribe((teacher) => {
+                .subscribe((teacher: ITeacher) => {
                     this.teacher = teacher;
                     this.initialTeacher = JSON.parse(JSON.stringify(teacher)) as ITeacher;
                 });

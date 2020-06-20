@@ -28,9 +28,10 @@ export class DashboardComponent extends BaseComponent {
     }
 
     public handleFileInput(fileList: FileList): void {
+        const file = fileList.item(0);
         let studentFileRequest: IUploadStudentFileRequest = {
             studentId: 6,
-            file: fileList.item(0),
+            file: file,
         };
 
         this._studentFileService.uploadStudentFile(studentFileRequest).subscribe((event) => {

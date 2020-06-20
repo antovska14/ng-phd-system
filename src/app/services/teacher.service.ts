@@ -19,4 +19,8 @@ export class TeacherService extends RestService {
     public updateTeacher(teacher: ITeacher): Observable<void> {
         return this.put(`${this._endpoint}`, teacher, {});
     }
+
+    public deleteTeacher(teacherId: number): Observable<void> {
+        return this.delete(`${this._endpoint}/${teacherId}`, {});
+    }
 }

@@ -1,10 +1,10 @@
-import { HttpClient, HttpResponse, HttpHeaders, HttpParams, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { BaseEndpointsEnum } from '../enums';
 import { SharedDataService } from './shared-data.service';
+import { BaseEndpointsEnum } from '../enums';
 import { ServiceInjector } from '../classes';
 
 @Injectable({ providedIn: 'root' })
@@ -42,44 +42,39 @@ export class RestService {
     protected post(url: string, payload: object, options: IRestCallOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
-        const preparedOptions = {
+
+        return this._http.post(preparedUrl, payload, {
             headers: preparedHeaders,
             observe: options.observe,
             params: options.params,
-        };
-
-        return this._http.post(preparedUrl, payload, preparedOptions);
+        });
     }
 
     protected put(url: string, payload: object, options: IRestCallOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
 
-        const preparedOptions = {
+        return this._http.put(preparedUrl, payload, {
             headers: preparedHeaders,
             observe: options.observe,
             params: options.params,
-        };
-
-        return this._http.put(preparedUrl, payload, preparedOptions);
+        });
     }
 
     protected delete(url: string, options: IRestDeleteOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
 
-        const preparedOptions = {
+        return this._http.delete(preparedUrl, {
             headers: preparedHeaders,
             observe: options.observe,
             params: options.params,
-        };
-
-        return this._http.delete(preparedUrl, preparedOptions);
+        });
     }
 
     protected postFile(url: string, payload: object, options: IRestPostFileOptions): Observable<HttpEvent<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
-        const preparedHeaders = this.getHeaders(options.headers);
+        const preparedHeaders = this.getHeaders(options.headers, options.skipContentType);
 
         return this._http.post(preparedUrl, payload, {
             headers: preparedHeaders,
@@ -94,13 +89,13 @@ export class RestService {
         return baseEndpointValue ? baseEndpointValue + url : this._defaultBaseEndpoint + url;
     }
 
-    private getHeaders(headers: HttpHeaders): HttpHeaders {
-        if (!headers) {
-            headers = new HttpHeaders();
+    private getHeaders(headers: HttpHeaders, skipContentType?: boolean): HttpHeaders {
+        headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.shared?.currentUser?.bearerToken);
+        if (skipContentType) {
+            return headers;
         }
 
-        headers.set('Content-Type', 'application/json');
-        return headers;
+        return headers.set('Content-Type', 'application/json');
     }
 }
 
@@ -121,4 +116,5 @@ export interface IRestDeleteOptions extends IRestCallOptions {
 
 export interface IRestPostFileOptions extends IRestCallOptions {
     reportProgress?: boolean;
+    skipContentType?: boolean;
 }

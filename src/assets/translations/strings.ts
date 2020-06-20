@@ -7,6 +7,11 @@ export const langStr = {
         firstName: { en: 'First Name', bg: 'Име' },
         lastName: { en: 'Last Name', bg: 'Фамилия' },
         middleName: { en: 'Middle Name', bg: 'Презиме' },
+        back: { en: 'Back', bg: 'Назад' },
+        save: { en: 'Save', bg: 'Запази' },
+        edit: { en: 'Edit', bg: 'Редактирай' },
+        cancel: { en: 'Cancel', bg: 'Анулирай' },
+        viewEdit: { en: 'View/Edit', bg: 'Разгледай/Редактирай' },
     },
     login: {
         enterEmail: { en: 'Enter Email', bg: 'Въведете имейл' },
@@ -32,13 +37,13 @@ export const langStr = {
         free: { en: 'free', bg: 'свободна' },
         fullTime: { en: 'full-time', bg: 'редовна' },
         formOfEducation: { en: 'Form of Education', bg: 'Форма на обучение' },
-        operations: { en: 'Operations', bg: 'Операции' },
+        phdStudentDetails: { en: 'PhD Student Details', bg: 'Детайли за докторанта' },
         phdStudents: { en: 'PhD Students', bg: 'Докторанти' },
         students: { en: 'Students', bg: 'Студенти' },
         specialty: { en: 'Specialty', bg: 'Специалност' },
-        viewEdit: { en: 'View/Edit', bg: 'Разгледай/Редактирай' },
     },
     teachers: {
         supervisors: { en: 'Supervisors', bg: 'Ръководители' },
+        supervisorDetails: { en: 'Supervisor Details', bg: 'Детайли за раководителя' },
     },
 };

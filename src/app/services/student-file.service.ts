@@ -1,4 +1,4 @@
-import { HttpResponse, HttpEvent } from '@angular/common/http';
+import { HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -50,7 +50,7 @@ export class StudentFileService extends RestService {
     public uploadStudentFile(studentFile: IUploadStudentFileRequest): Observable<HttpEvent<any>> {
         const payload: FormData = this.getUploadFilePayload('fileUploadKey', studentFile.file);
         const url: string = this.getStudentFileUrl(`${this._endpoint}/upload/${studentFile.studentId}`, studentFile.year);
-        return this.postFile(url, payload, { reportProgress: true });
+        return this.postFile(url, payload, { reportProgress: true, skipContentType: true });
     }
 
     private getStudentFileUrl(baseUrl: string, year: number): string {

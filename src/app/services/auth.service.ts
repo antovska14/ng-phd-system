@@ -1,13 +1,17 @@
-import { tap, catchError, map } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
 import { UserAuth, User } from '../classes/security';
+import { ServiceInjector } from '../classes';
+import { RoutePath } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RestService {
     private readonly _endpoint = 'auth';
+    private readonly _route: Router = ServiceInjector.injector.get(Router);
 
     public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
@@ -26,6 +30,7 @@ export class AuthService extends RestService {
 
     public logout(): void {
         this.resetAuthObject();
+        this._route.navigate([RoutePath.login]);
     }
 
     public hasRole(role: string): boolean {

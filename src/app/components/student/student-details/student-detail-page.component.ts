@@ -1,33 +1,35 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { langStr } from 'src/assets/translations';
 import { StudentService } from 'src/app/services/student.service';
-import { Student } from 'src/app/classes/security/student';
 import { IStudent } from 'src/app/interfaces';
-import { RoutePath } from 'src/app/enums';
+import { langStr } from 'src/assets/translations';
 
 @Component({
-    templateUrl: './view-edit-student.component.html',
+    selector: 'student-detail-page',
+    templateUrl: './student-detail-page.component.html',
 })
-export class ViewEditStudentComponent extends BaseComponent {
-    public student: IStudent = new Student();
+export class StudentDetailPageComponent extends BaseComponent implements OnInit {
+    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
     public readonly formOfEducationMap: Map<string, number[]> = new Map();
     public formsOfEducation: any;
     public isInEditMode: boolean = false;
 
-    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
+    public initialStudent: IStudent;
+    public student: IStudent;
 
-    constructor(private readonly _studentService: StudentService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    constructor(private readonly _studentService: StudentService, private readonly _route: ActivatedRoute, private readonly _location: Location) {
         super();
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
 
+        this.getStudent();
         this.formOfEducationMap.set(this.strings.fullTime, [1, 2, 3]);
         this.formOfEducationMap.set(this.strings.distance, [1, 2, 3, 4]);
         this.formOfEducationMap.set(this.strings.free, [1, 2, 3]);
@@ -63,15 +65,46 @@ export class ViewEditStudentComponent extends BaseComponent {
         this.strings.middleName = this.getStr(langStr.common.middleName);
         this.strings.lastName = this.getStr(langStr.common.lastName);
         this.strings.specialty = this.getStr(langStr.students.specialty);
+        this.strings.back = this.getStr(langStr.common.back);
+        this.strings.save = this.getStr(langStr.common.save);
+        this.strings.edit = this.getStr(langStr.common.edit);
+        this.strings.cancel = this.getStr(langStr.common.cancel);
+        this.strings.phdStudentDetails = this.getStr(langStr.students.phdStudentDetails);
     }
 
     public onSubmit(): void {
         this.student.currentYear = +this.student.currentYear;
         this._studentService
-            .createStudent(this.student)
+            .updateStudent(this.student)
             .pipe(takeUntil(this._ngUnsubscribe))
             .subscribe(() => {
-                this._router.navigate([RoutePath.students], { relativeTo: this._route });
+                this.isInEditMode = false;
             });
+    }
+
+    public onCancelClick(): void {
+        this.isInEditMode = false;
+        this.student = this.initialStudent;
+    }
+
+    public onBackClick(): void {
+        this._location.back();
+    }
+
+    public onEditClick(): void {
+        this.isInEditMode = true;
+    }
+
+    private getStudent(): void {
+        this._route.paramMap.subscribe((paramMap) => {
+            const studentId = +paramMap.get('id');
+            this._studentService
+                .getStudent(studentId)
+                .pipe(takeUntil(this._ngUnsubscribe))
+                .subscribe((student) => {
+                    this.student = student;
+                    this.initialStudent = JSON.parse(JSON.stringify(student)) as IStudent;
+                });
+        });
     }
 }

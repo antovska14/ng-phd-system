@@ -1,5 +1,5 @@
 <div class="h3 text-navy-blue">{{ strings.phdStudentDetails }}</div>
-<form *ngIf="student" #upsertStudentForm="ngForm" (ngSubmit)="onSubmit()">
+<form *ngIf="student" #updateStudentForm="ngForm" (ngSubmit)="onSubmit()">
     <div class="container border border-navy-blue bg-light-grey rounded p-3">
         <div class="row form-group">
             <div class="col">
@@ -102,7 +102,7 @@
             <button (click)="onCancelClick()" id="cancel-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
                 {{ strings.cancel }}
             </button>
-            <button [disabled]="upsertStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+            <button [disabled]="updateStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
                 {{ strings.save }}
             </button>
         </div>

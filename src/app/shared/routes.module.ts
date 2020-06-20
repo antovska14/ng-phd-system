@@ -4,13 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPageComponent } from '../pages/login/login-page.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
+
+import { StudentPageComponent } from '../components/student/student-page/student-page.component';
+import { StudentDetailPageComponent } from '../components/student/student-details/student-detail-page.component';
+import { AddStudentComponent } from '../components/student/add-student/add-student.component';
+import { TeacherListComponent } from '../components/teacher/teacher-list/teacher-list.component';
+import { TeacherDetailsComponent } from '../components/teacher/teacher-details/teacher-details.component';
+
 import { AuthGuard } from '../services/guards/auth.guard';
 import { RoutePath } from '../enums';
-import { StudentPageComponent } from '../pages/student/student-page/student-page.component';
-import { StudentDetailPageComponent } from '../pages/student/student-details/student-detail-page.component';
-import { AddStudentComponent } from '../pages/student/add-student/add-student.component';
-import { TeacherListComponent } from '../pages/teacher/teacher-list/teacher-list.component';
-import { TeacherDetailsComponent } from '../pages/teacher/teacher-details/teacher-details.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginPageComponent },

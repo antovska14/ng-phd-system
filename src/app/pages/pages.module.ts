@@ -6,20 +6,14 @@ import { RouterModule } from '@angular/router';
 import { LoginPageComponent } from '../pages/login/login-page.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
-import { StudentPageComponent } from './student/student-page/student-page.component';
-import { StudentDetailPageComponent } from './student/student-details/student-detail-page.component';
 
 import { BaseComponent } from '../components/base/base.component';
-import { StudentListComponent } from './student/student-list/student-list.component';
-import { AddStudentComponent } from './student/add-student/add-student.component';
-import { ViewEditStudentComponent } from './student/view-edit-student/view-edit-student.component';
-import { SelectTeachersComponent } from './student/select-teachers/select-teachers.component';
-import { TeacherListComponent } from './teacher/teacher-list/teacher-list.component';
-import { TeacherDetailsComponent } from './teacher/teacher-details/teacher-details.component';
+import { StudentModule } from '../components/student/student.module';
+import { TeacherModule } from '../components/teacher/teacher.module';
 
-const COMPONENTS = [BaseComponent, StudentListComponent, AddStudentComponent, ViewEditStudentComponent, SelectTeachersComponent, TeacherListComponent, TeacherDetailsComponent];
-const IMPORTS = [CommonModule, FormsModule, RouterModule];
-const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent, StudentPageComponent, StudentDetailPageComponent];
+const COMPONENTS = [BaseComponent];
+const IMPORTS = [CommonModule, FormsModule, RouterModule, StudentModule, TeacherModule];
+const PAGES = [LoginPageComponent, LayoutPageComponent, DashboardComponent];
 
 @NgModule({
     imports: [...IMPORTS],

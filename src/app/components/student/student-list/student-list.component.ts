@@ -36,8 +36,7 @@ export class StudentListComponent extends BaseComponent implements OnInit, OnDes
     public stringsInit(): void {
         this.strings.firstName = this.getStr(langStr.common.firstName);
         this.strings.lastName = this.getStr(langStr.common.lastName);
-        this.strings.operations = this.getStr(langStr.students.operations);
-        this.strings.viewEdit = this.getStr(langStr.students.viewEdit);
+        this.strings.viewEdit = this.getStr(langStr.common.viewEdit);
     }
 
     private getStudents(): void {
