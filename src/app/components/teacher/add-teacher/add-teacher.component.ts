@@ -15,7 +15,7 @@ import { TeacherService } from 'src/app/services/teacher.service';
 @Component({
     templateUrl: './add-teacher.component.html',
 })
-export class AddTeacherComponent extends BaseComponent implements OnInit, OnDestroy {
+export class AddTeacherComponent extends BaseComponent {
     public teacher: ITeacher = new Teacher();
 
     public formsOfEducation: any;

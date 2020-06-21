@@ -9,8 +9,9 @@ import { StudentDetailPageComponent } from './student-details/student-details.co
 import { StudentListComponent } from '../student/student-list/student-list.component';
 import { AddStudentComponent } from '../student/add-student/add-student.component';
 import { SelectTeachersComponent } from '../student/select-teachers/select-teachers.component';
+import { StudentFilesComponent } from './student-files/student-files.component';
 
-const COMPONENTS = [StudentListComponent, AddStudentComponent, SelectTeachersComponent];
+const COMPONENTS = [StudentListComponent, AddStudentComponent, SelectTeachersComponent, StudentFilesComponent];
 const IMPORTS = [CommonModule, FormsModule, RouterModule];
 const PAGES = [StudentPageComponent, StudentDetailPageComponent];
 

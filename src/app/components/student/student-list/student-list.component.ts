@@ -11,7 +11,7 @@ import { langStr } from 'src/assets/translations';
     selector: 'student-list',
     templateUrl: './student-list.component.html',
 })
-export class StudentListComponent extends BaseComponent implements OnInit, OnDestroy {
+export class StudentListComponent extends BaseComponent implements OnDestroy {
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
     public students: IStudent[];

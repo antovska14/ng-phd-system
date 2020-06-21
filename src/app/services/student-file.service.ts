@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-import { IFile, IExportStudentFileRequest, IStudentFileRequest, IUploadStudentFileRequest } from '../interfaces';
+import { IFile, IExportStudentFileRequest, IStudentFileRequest, IUploadStudentFileRequest, IStudentFileDetails } from '../interfaces';
 import { RestService } from './rest.service';
 import { StudentFileType } from '../enums';
 
@@ -30,6 +30,10 @@ export class StudentFileService extends RestService {
                 return result;
             })
         );
+    }
+
+    public getStudentFileDetails(studentId: number): Observable<IStudentFileDetails[]> {
+        return this.get(`${this._endpoint}/${studentId}`, {});
     }
 
     public exportStudentFile(studentFile: IExportStudentFileRequest): Observable<IFile> {

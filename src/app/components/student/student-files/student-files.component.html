@@ -1,0 +1,8 @@
+<div *ngIf="studentFileDetailsList">
+    <div *ngFor="let studentFileDetails of studentFileDetailsList">
+        <div class="h3">{{ studentFileDetails.fileGroup }}</div>
+        <div *ngFor="let fileName of studentFileDetails.fileNames">
+            {{ fileName }}
+        </div>
+    </div>
+</div>

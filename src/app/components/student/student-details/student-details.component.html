@@ -116,3 +116,7 @@
         </div>
     </div>
 </form>
+<div *ngIf="student" class="mt-3">
+    Student files go here
+    <student-files [studentId]="student.id" [currentYear]="student.currentYear"></student-files>
+</div>

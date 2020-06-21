@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { langStr } from 'src/assets/translations';
 @Component({
     templateUrl: './student-details.component.html',
 })
-export class StudentDetailPageComponent extends BaseComponent implements OnInit {
+export class StudentDetailPageComponent extends BaseComponent {
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
     public readonly formOfEducationMap: Map<string, number[]> = new Map();
     public formsOfEducation: any;

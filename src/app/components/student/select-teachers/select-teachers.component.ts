@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'select-teachers',
     templateUrl: './select-teachers.component.html',
 })
-export class SelectTeachersComponent extends BaseComponent implements OnInit, OnDestroy {
+export class SelectTeachersComponent extends BaseComponent {
     @Input()
     public selectedTeachers: ITeacher[] = [];
 

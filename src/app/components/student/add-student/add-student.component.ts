@@ -13,7 +13,7 @@ import { RoutePath } from 'src/app/enums';
 @Component({
     templateUrl: './add-student.component.html',
 })
-export class AddStudentComponent extends BaseComponent implements OnInit, OnDestroy {
+export class AddStudentComponent extends BaseComponent {
     public student: IStudent = new Student();
     public readonly formOfEducationMap: Map<string, number[]> = new Map();
     public formsOfEducation: any;
