@@ -14,7 +14,7 @@ export class StudentFileService extends RestService {
     public deleteStudentFile(studentFile: IStudentFileRequest): Observable<void> {
         const payload = { fileName: studentFile.fileName };
         const url: string = this.getStudentFileUrl(`${this._endpoint}/delete/${studentFile.studentId}`, studentFile.year);
-        return this.delete(url, { body: payload });
+        return this.post(url, payload, {});
     }
 
     public downloadStudentFile(studentFile: IStudentFileRequest): Observable<IFile> {
