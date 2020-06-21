@@ -32,6 +32,7 @@ export class DashboardComponent extends BaseComponent {
         let studentFileRequest: IUploadStudentFileRequest = {
             studentId: 6,
             file: file,
+            year: 2,
         };
 
         this._studentFileService.uploadStudentFile(studentFileRequest).subscribe((event) => {

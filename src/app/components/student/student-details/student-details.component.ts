@@ -4,10 +4,10 @@ import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
-import { BaseComponent } from 'src/app/components/base/base.component';
-import { StudentService } from 'src/app/services/student.service';
-import { IStudent } from 'src/app/interfaces';
-import { langStr } from 'src/assets/translations';
+import { BaseComponent } from '../../../components/base/base.component';
+import { StudentService } from '../../../services/student.service';
+import { IStudent } from '../../../interfaces';
+import { langStr } from '../../../../assets/translations';
 
 @Component({
     templateUrl: './student-details.component.html',
@@ -20,6 +20,10 @@ export class StudentDetailPageComponent extends BaseComponent {
 
     public initialStudent: IStudent;
     public student: IStudent;
+
+    public showDetails: boolean = true;
+    public showFiles: boolean = false;
+    public showExams: boolean = false;
 
     constructor(private readonly _studentService: StudentService, private readonly _route: ActivatedRoute, private readonly _location: Location) {
         super();
@@ -69,6 +73,8 @@ export class StudentDetailPageComponent extends BaseComponent {
         this.strings.edit = this.getStr(langStr.common.edit);
         this.strings.cancel = this.getStr(langStr.common.cancel);
         this.strings.phdStudentDetails = this.getStr(langStr.students.phdStudentDetails);
+        this.strings.files = 'Файлови';
+        this.strings.exams = 'Изпити';
     }
 
     public onSubmit(): void {
@@ -78,6 +84,7 @@ export class StudentDetailPageComponent extends BaseComponent {
             .pipe(takeUntil(this._ngUnsubscribe))
             .subscribe(() => {
                 this.isInEditMode = false;
+                this.initialStudent = JSON.parse(JSON.stringify(this.student)) as IStudent;
             });
     }
 

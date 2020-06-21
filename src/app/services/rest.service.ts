@@ -39,15 +39,25 @@ export class RestService {
         }
     }
 
-    protected post(url: string, payload: object, options: IRestCallOptions): Observable<any> {
+    protected post(url: string, payload: object, options: IRestPostOptions): Observable<any> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
 
-        return this._http.post(preparedUrl, payload, {
-            headers: preparedHeaders,
-            observe: options.observe,
-            params: options.params,
-        });
+        switch (options.responseType) {
+            case 'blob':
+                return this._http.post(preparedUrl, payload, {
+                    headers: preparedHeaders,
+                    observe: options.observe,
+                    responseType: 'blob',
+                    params: options.params,
+                });
+            default:
+                return this._http.post(preparedUrl, payload, {
+                    headers: preparedHeaders,
+                    observe: options.observe,
+                    params: options.params,
+                });
+        }
     }
 
     protected put(url: string, payload: object, options: IRestCallOptions): Observable<any> {
@@ -72,7 +82,7 @@ export class RestService {
         });
     }
 
-    protected postFile(url: string, payload: object, options: IRestPostFileOptions): Observable<HttpEvent<Object>> {
+    protected postFile(url: string, payload: object, options: IRestPostOptions): Observable<HttpEvent<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers, options.skipContentType);
 
@@ -114,7 +124,8 @@ export interface IRestDeleteOptions extends IRestCallOptions {
     body?: object;
 }
 
-export interface IRestPostFileOptions extends IRestCallOptions {
+export interface IRestPostOptions extends IRestCallOptions {
     reportProgress?: boolean;
     skipContentType?: boolean;
+    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
 }

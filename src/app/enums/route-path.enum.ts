@@ -4,4 +4,5 @@ export enum RoutePath {
     login = 'login',
     students = 'students',
     teachers = 'teachers',
+    files = 'files',
 }

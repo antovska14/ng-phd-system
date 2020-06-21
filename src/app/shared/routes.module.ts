@@ -14,6 +14,7 @@ import { AuthGuard } from '../services/guards/auth.guard';
 import { RoutePath } from '../enums';
 import { TeacherPageComponent } from '../components/teacher/teacher-page/teacher-page.component';
 import { AddTeacherComponent } from '../components/teacher/add-teacher/add-teacher.component';
+import { StudentFilesComponent } from '../components/student/student-files/student-files.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginPageComponent },
@@ -27,6 +28,8 @@ const routes: Routes = [
             { path: RoutePath.students, component: StudentPageComponent },
             { path: `${RoutePath.students}/${RoutePath.add}`, component: AddStudentComponent },
             { path: `${RoutePath.students}/:id`, component: StudentDetailPageComponent },
+            { path: `${RoutePath.students}/:id/files`, component: StudentFilesComponent },
+            { path: `${RoutePath.students}/:id/exams`, component: StudentFilesComponent },
 
             { path: RoutePath.teachers, component: TeacherPageComponent },
             { path: `${RoutePath.teachers}/${RoutePath.add}`, component: AddTeacherComponent },

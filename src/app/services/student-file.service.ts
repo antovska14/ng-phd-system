@@ -20,7 +20,7 @@ export class StudentFileService extends RestService {
     public downloadStudentFile(studentFile: IStudentFileRequest): Observable<IFile> {
         const payload = { fileName: studentFile.fileName };
         const url: string = this.getStudentFileUrl(`${this._endpoint}/download/${studentFile.studentId}`, studentFile.year);
-        return this.delete(url, { body: payload }).pipe(
+        return this.post(url, payload, { responseType: 'blob' }).pipe(
             map((res: Blob) => {
                 const result: IFile = {
                     fileName: studentFile.fileName,
@@ -58,7 +58,7 @@ export class StudentFileService extends RestService {
     }
 
     private getStudentFileUrl(baseUrl: string, year: number): string {
-        return year ? baseUrl + '/year' : baseUrl;
+        return year ? baseUrl + `/${year}` : baseUrl;
     }
 
     private getFileName(studentFileType: StudentFileType): string {
