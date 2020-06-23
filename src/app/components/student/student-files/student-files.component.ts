@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { IStudentFileDetails, IStudentFileRequest, IFile, IUploadStudentFileRequest } from '../../../interfaces';
 import { StudentFileService } from '../../../services/student-file.service';
 import { BaseComponent } from '../../base/base.component';
+import { StudentFileType } from 'src/app/enums';
 
 @Component({
     selector: 'student-files',
@@ -112,6 +113,18 @@ export class StudentFilesComponent extends BaseComponent {
                     this.getStudentFiles();
                 }
             });
+    }
+
+    public generateAttestation(yearGroup) {
+        this._studentFileService.exportStudentFile({ studentId: this.studentId, year: yearGroup, studentFileType: StudentFileType.attestation }).subscribe((file: IFile) => {
+            saveAs(file.fileContent, file.fileName);
+        });
+    }
+
+    public generateIndividualPlan() {
+        this._studentFileService.exportStudentFile({ studentId: this.studentId, studentFileType: StudentFileType.individualPlan }).subscribe((file: IFile) => {
+            saveAs(file.fileContent, file.fileName);
+        });
     }
 
     private getStudentFiles(): void {

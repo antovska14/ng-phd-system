@@ -37,7 +37,7 @@ export class StudentFileService extends RestService {
     }
 
     public exportStudentFile(studentFile: IExportStudentFileRequest): Observable<IFile> {
-        const url = this.getStudentFileUrl(`${this._endpoint}/export/${studentFile.studentId}/${studentFile.studentFileType}`, studentFile.year);
+        const url = this.getStudentFileUrl(`phdFiles/generate/${studentFile.studentId}/${studentFile.studentFileType}`, studentFile.year);
         return this.get(`${url}`, { responseType: 'blob' }).pipe(
             map((res: Blob) => {
                 const fileName = this.getFileName(studentFile.studentFileType);

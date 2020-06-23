@@ -22,7 +22,7 @@ export class DashboardComponent extends BaseComponent {
     }
 
     public onExportClick(): void {
-        this._studentFileService.exportStudentFile({ studentId: 6, studentFileType: StudentFileType.individualPlan }).subscribe((file: IFile) => {
+        this._studentFileService.exportStudentFile({ studentId: 1, year: 1, studentFileType: StudentFileType.individualPlan }).subscribe((file: IFile) => {
             saveAs(file.fileContent, file.fileName);
         });
     }
