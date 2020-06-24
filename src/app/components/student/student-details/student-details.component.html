@@ -11,23 +11,19 @@
     </button>
 </div>
 <div *ngIf="showDetails">
-    <form *ngIf="student" #updateStudentForm="ngForm" (ngSubmit)="onSubmit()">
+    <form *ngIf="student" #studentForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="border border-navy-blue bg-light-grey rounded p-3">
             <div class="row form-group">
                 <div class="col">
-                    <label class="text-light-orange" for="firstName">{{ strings.firstName }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.firstName }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.firstName"
-                            id="firstName"
-                            name="firstName"
-                            [placeholder]="strings.enterFirstName"
-                            class="form-control"
-                            required
-                        />
-                    </div>
+                    <text-input
+                        [editMode]="isInEditMode"
+                        [(text)]="student.firstName"
+                        [label]="strings.firstName"
+                        [id]="'firstName'"
+                        [name]="'firstName'"
+                        [placeholder]="strings.enterFirstName"
+                        [isRequired]="true"
+                    ></text-input>
                 </div>
                 <div class="col">
                     <label class="text-light-orange" for="middleName">{{ strings.middleName }}:</label>
@@ -94,39 +90,43 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label class="text-light-orange" for="facultyCouncilChosenDate">{{ strings.facultyCouncilDate }}:</label>
-
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.facultyCouncilChosenDate | date: 'dd.MM.yyyy' }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.facultyCouncilChosenDate"
-                            id="facultyCouncilChosenDate"
-                            name="facultyCouncilChosenDate"
-                            [placeholder]="strings.enterFacultyCouncilDate"
-                            class="form-control"
-                            type="date"
-                            required
-                        />
-                    </div>
+                    <date-picker
+                        [(date)]="student.facultyCouncilChosenDate"
+                        [label]="strings.facultyCouncilDate"
+                        [editMode]="isInEditMode"
+                        [id]="'facultyCouncilChosenDate'"
+                        [name]="'facultyCouncilChosenDate'"
+                        [placeholder]="strings.enterFacultyCouncilDate"
+                        [isRequired]="true"
+                    ></date-picker>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col">
-                    <label class="text-light-orange" for="formOfEducation">{{ strings.formOfEducation }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.formOfEducation }}</div>
-                        <select *ngIf="isInEditMode" [(ngModel)]="student.formOfEducation" id="formOfEducation" name="formOfEducation" class="form-control custom-select" required>
-                            <option *ngFor="let form of formsOfEducation" [value]="form">{{ form }}</option>
-                        </select>
-                    </div>
+                    <options-select
+                        [editMode]="isInEditMode"
+                        [(value)]="student.formOfEducationId"
+                        [label]="strings.formOfEducation"
+                        [options]="formsOfEducationOptions"
+                        [propertyValue]="'id'"
+                        [propertyLabel]="'name'"
+                        [id]="'formOfEducation'"
+                        [name]="'formOfEducation'"
+                        [isRequired]="true"
+                    ></options-select>
                 </div>
                 <div class="col">
                     <label class="text-light-orange" for="currentYear">{{ strings.currentYear }}:</label>
                     <div>
                         <div *ngIf="!isInEditMode">{{ student.currentYear }}</div>
-                        <select *ngIf="isInEditMode" [(ngModel)]="student.currentYear" id="currentYear" name="curerntYear" class="form-control custom-select">
-                            <option *ngFor="let currentYear of formOfEducationMap.get(student.formOfEducation)" [value]="currentYear" required>{{ currentYear }}</option>
+                        <select
+                            *ngIf="isInEditMode"
+                            [(ngModel)]="student.currentYear"
+                            id="currentYear"
+                            name="curerntYear"
+                            class="form-control custom-select"
+                        >
+                            <option *ngFor="let currentYear of [1, 2, 3]" [value]="currentYear" required>{{ currentYear }}</option>
                         </select>
                     </div>
                 </div>
@@ -138,7 +138,12 @@
                 <button (click)="onCancelClick()" id="cancel-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
                     {{ strings.cancel }}
                 </button>
-                <button [disabled]="updateStudentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+                <button
+                    [disabled]="studentForm.invalid"
+                    id="submit-btn"
+                    class="btn btn-primary bg-navy-blue border-navy-blue"
+                    type="submit"
+                >
                     {{ strings.save }}
                 </button>
             </div>

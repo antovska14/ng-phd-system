@@ -42,6 +42,7 @@ export const langStr = {
         formOfEducation: { en: 'Form of Education', bg: 'Форма на обучение' },
         phdStudentDetails: { en: 'PhD Student Details', bg: 'Детайли за докторанта' },
         phdStudents: { en: 'PhD Students', bg: 'Докторанти' },
+        phdStudentsDoNotExist: { bg: 'Няма съществуващи докторанти', en: "There aren't any PhD Students"},
         students: { en: 'Students', bg: 'Студенти' },
         specialty: { en: 'Specialty', bg: 'Специалност' },
     },

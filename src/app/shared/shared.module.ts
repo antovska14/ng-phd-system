@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+import { DatePickerComponent } from '../components/shared/forms/date-picker/date-picker.component';
+import { BaseFormComponent } from '../components/shared/forms/base-form.class';
+import { TextInputComponent } from '../components/shared/forms/text-input/text-input.component';
+import { OptionsSelectComponent } from '../components/shared/forms/options-select/options-select.component';
+
+const IMPORTS = [CommonModule, FormsModule];
 
 const PAGES = [];
 
-const COMPONENTS = [];
+const COMPONENTS = [BaseFormComponent, DatePickerComponent, TextInputComponent, OptionsSelectComponent];
 
 @NgModule({
-    imports: [],
+    imports: [IMPORTS],
     exports: [...PAGES, ...COMPONENTS],
     declarations: [...PAGES, ...COMPONENTS],
 })

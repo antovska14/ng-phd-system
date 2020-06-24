@@ -1,4 +1,4 @@
-import { StudentFileType } from '../enums';
+import { StudentFileType } from '../../enums';
 
 export interface IStudentFileRequestBase {
     studentId: number;

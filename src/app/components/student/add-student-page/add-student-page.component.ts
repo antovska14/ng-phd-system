@@ -1,26 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-import { BaseComponent } from 'src/app/components/base/base.component';
-import { IStudent } from 'src/app/interfaces';
-import { langStr } from 'src/assets/translations';
-import { Student } from 'src/app/classes/student';
-import { StudentService } from 'src/app/services/student.service';
-import { RoutePath } from 'src/app/enums';
+import { BaseComponent } from '../../../components/base/base.component';
+import { IStudent } from '../../../interfaces';
+import { langStr } from '../../../../assets/translations';
+import { Student } from '../../../classes/student';
+import { StudentService } from '../../../services/student.service';
+import { RoutePath } from '../../../enums';
 
 @Component({
-    templateUrl: './add-student.component.html',
+    templateUrl: './add-student-page.component.html',
 })
-export class AddStudentComponent extends BaseComponent {
+export class AddStudentPageComponent extends BaseComponent {
     public student: IStudent = new Student();
     public readonly formOfEducationMap: Map<string, number[]> = new Map();
     public formsOfEducation: any;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private readonly _studentService: StudentService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    constructor(
+        private readonly _studentService: StudentService,
+        private readonly _router: Router,
+        private readonly _route: ActivatedRoute
+    ) {
         super();
     }
 

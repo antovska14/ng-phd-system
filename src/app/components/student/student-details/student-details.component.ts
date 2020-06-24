@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
@@ -8,24 +8,33 @@ import { BaseComponent } from '../../../components/base/base.component';
 import { StudentService } from '../../../services/student.service';
 import { IStudent } from '../../../interfaces';
 import { langStr } from '../../../../assets/translations';
+import { FormOfEducationService } from '../../../services/form-of-education.service';
+import { IFormOfEducation } from '../../../interfaces/student-details/form-of-education.interface';
 
 @Component({
     templateUrl: './student-details.component.html',
 })
 export class StudentDetailPageComponent extends BaseComponent {
-    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
-    public readonly formOfEducationMap: Map<string, number[]> = new Map();
-    public formsOfEducation: any;
-    public isInEditMode: boolean = false;
-
     public initialStudent: IStudent;
     public student: IStudent;
+
+    public formsOfEducationOptions: IFormOfEducation[];
+    public isInEditMode: boolean = false;
 
     public showDetails: boolean = true;
     public showFiles: boolean = false;
     public showExams: boolean = false;
 
-    constructor(private readonly _studentService: StudentService, private readonly _route: ActivatedRoute, private readonly _location: Location) {
+    public readonly formOfEducationMap: Map<string, number[]> = new Map();
+
+    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
+
+    constructor(
+        private readonly _studentService: StudentService,
+        private readonly _route: ActivatedRoute,
+        private readonly _location: Location,
+        private readonly _formOfEducationService: FormOfEducationService
+    ) {
         super();
     }
 
@@ -33,10 +42,7 @@ export class StudentDetailPageComponent extends BaseComponent {
         super.ngOnInit();
 
         this.getStudent();
-        this.formOfEducationMap.set(this.strings.fullTime, [1, 2, 3]);
-        this.formOfEducationMap.set(this.strings.distance, [1, 2, 3, 4]);
-        this.formOfEducationMap.set(this.strings.free, [1, 2, 3]);
-        this.formsOfEducation = Array.from(this.formOfEducationMap.keys());
+        this.getFormsOfEducation();
     }
 
     public ngOnDestroy(): void {
@@ -109,8 +115,18 @@ export class StudentDetailPageComponent extends BaseComponent {
                 .pipe(takeUntil(this._ngUnsubscribe))
                 .subscribe((student) => {
                     this.student = student;
+                    this.student.facultyCouncilChosenDate = this.student.facultyCouncilChosenDate;
                     this.initialStudent = JSON.parse(JSON.stringify(student)) as IStudent;
                 });
         });
+    }
+
+    private getFormsOfEducation(): void {
+        this._formOfEducationService
+            .getFormsOfEducation()
+            .pipe(takeUntil(this._ngUnsubscribe))
+            .subscribe((forms) => {
+                this.formsOfEducationOptions = forms;
+            });
     }
 }

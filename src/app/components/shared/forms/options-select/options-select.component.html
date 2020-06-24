@@ -1,0 +1,8 @@
+<label class="text-light-orange" [for]="id">{{ label }}:</label>
+
+<div *ngIf="!editMode">{{ value }}</div>
+
+<select *ngIf="editMode" [(ngModel)]="value" [id]="id" [name]="name" [required]="isRequired" class="form-control custom-select">
+    <option [ngValue]="null"></option>
+    <option *ngFor="let option of options" [ngValue]="getValue(option)">{{ getLabel(option) }}</option>
+</select>

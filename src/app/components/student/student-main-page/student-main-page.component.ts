@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 
-import { BaseComponent } from '../../../components/base/base.component';
+import { BaseComponent } from '../../base/base.component';
 import { langStr } from '../../../../assets/translations';
 import { IStudentListModel } from '../../../interfaces';
 import { StudentService } from '../../../services/student.service';
 import { ROLES } from '../../../shared/const';
 
 @Component({
-    templateUrl: './student-page.component.html',
+    templateUrl: './student-main-page.component.html',
 })
-export class StudentPageComponent extends BaseComponent {
+export class StudentMainPageComponent extends BaseComponent {
     public students: IStudentListModel[];
     public adminRole = ROLES.ADMIN;
     public isLoading = false;
@@ -30,6 +30,7 @@ export class StudentPageComponent extends BaseComponent {
 
     public stringsInit(): void {
         this.strings.addPhdStudent = this.getStr(langStr.students.addPhdStudent);
+        this.strings.phdStudentsDoNotExist = this.getStr(langStr.students.phdStudentsDoNotExist);
     }
 
     public refreshList(): void {

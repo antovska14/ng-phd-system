@@ -7,7 +7,7 @@ export interface IStudent {
     middleName: string;
     lastName: string;
     email: string;
-    formOfEducation: string;
+    formOfEducationId: number;
     currentYear: number;
     specialty: string;
     facultyCouncilChosenDate: Date;

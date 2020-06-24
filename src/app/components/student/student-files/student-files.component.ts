@@ -116,15 +116,19 @@ export class StudentFilesComponent extends BaseComponent {
     }
 
     public generateAttestation(yearGroup) {
-        this._studentFileService.exportStudentFile({ studentId: this.studentId, year: yearGroup, studentFileType: StudentFileType.attestation }).subscribe((file: IFile) => {
-            saveAs(file.fileContent, file.fileName);
-        });
+        this._studentFileService
+            .exportStudentFile({ studentId: this.studentId, year: yearGroup, studentFileType: StudentFileType.attestation })
+            .subscribe((file: IFile) => {
+                saveAs(file.fileContent, file.fileName);
+            });
     }
 
     public generateIndividualPlan() {
-        this._studentFileService.exportStudentFile({ studentId: this.studentId, studentFileType: StudentFileType.individualPlan }).subscribe((file: IFile) => {
-            saveAs(file.fileContent, file.fileName);
-        });
+        this._studentFileService
+            .exportStudentFile({ studentId: this.studentId, studentFileType: StudentFileType.individualPlan })
+            .subscribe((file: IFile) => {
+                saveAs(file.fileContent, file.fileName);
+            });
     }
 
     private getStudentFiles(): void {
