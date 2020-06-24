@@ -1,18 +1,19 @@
-<table class="table table-bordered table-hover text-navy-blue">
+<table *ngIf="students" class="table table-bordered table-hover text-navy-blue">
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col" class="w-25">{{ strings.firstName }}</th>
-            <th scope="col" class="w-50">{{ strings.lastName }}</th>
-            <th scope="col" class="w-25"></th>
-            <th scope="col"></th>
+            <th scope="col">{{ strings.firstName }}</th>
+            <th scope="col">{{ strings.lastName }}</th>
+            <th scope="col">{{ strings.specialty }}</th>
+            <th scope="col" colspan="2"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let student of students; let i = index">
+        <tr *ngFor="let student of students; let i = index" class="allign-middle">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ student.firstName }}</td>
             <td>{{ student.lastName }}</td>
+            <td>{{ student.specialty }}</td>
             <td class="text-center">
                 <a [routerLink]="'/students/' + student.id" class="hyperlink">{{ strings.viewEdit }}</a>
             </td>

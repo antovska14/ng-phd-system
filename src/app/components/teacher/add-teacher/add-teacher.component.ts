@@ -8,8 +8,7 @@ import { ITeacher } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
 import { RoutePath } from 'src/app/enums';
 import { Teacher } from 'src/app/classes';
-import { DEGREES } from 'src/app/shared/const/degree.const';
-import { TITLES } from 'src/app/shared/const/title.const';
+import { DEGREES, TITLES } from 'src/app/shared/const/';
 import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({

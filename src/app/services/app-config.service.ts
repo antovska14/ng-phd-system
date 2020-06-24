@@ -18,6 +18,7 @@ export class AppConfigService {
 
         if (bearerToken) {
             const decodedBearerToken = this._jwtHelperService.decodeToken(bearerToken);
+            sharedService.currentUser.id = decodedBearerToken.id;
             sharedService.currentUser.email = decodedBearerToken.email;
             sharedService.currentUser.isAuthenticated = decodedBearerToken.isAuthenticated;
             sharedService.currentUser.role = decodedBearerToken.role;

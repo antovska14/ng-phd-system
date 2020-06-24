@@ -8,8 +8,7 @@ import { BaseComponent } from 'src/app/components/base/base.component';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { langStr } from 'src/assets/translations';
 import { ITeacher } from 'src/app/interfaces';
-import { DEGREES } from 'src/app/shared/const/degree.const';
-import { TITLES } from 'src/app/shared/const/title.const';
+import { DEGREES, TITLES } from 'src/app/shared/const';
 
 @Component({ templateUrl: './teacher-details.component.html' })
 export class TeacherDetailsComponent extends BaseComponent {

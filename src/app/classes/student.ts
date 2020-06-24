@@ -9,7 +9,7 @@ export class Student {
     public readonly email: string;
     public readonly formOfEducation: string;
     public readonly currentYear: number;
-    public readonly specialtyName: string;
+    public readonly specialty: string;
     public readonly facultyCouncilChosenDate: Date;
     public readonly teachers: ITeacher[];
 }

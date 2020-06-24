@@ -81,10 +81,10 @@
                 <div class="col">
                     <label class="text-light-orange" for="specialty">{{ strings.specialty }}:</label>
                     <div>
-                        <div *ngIf="!isInEditMode">{{ student.specialtyName }}</div>
+                        <div *ngIf="!isInEditMode">{{ student.specialty }}</div>
                         <input
                             *ngIf="isInEditMode"
-                            [(ngModel)]="student.specialtyName"
+                            [(ngModel)]="student.specialty"
                             id="specialty"
                             name="specialty"
                             [placeholder]="strings.enterSpecialty"

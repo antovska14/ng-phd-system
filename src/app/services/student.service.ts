@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { RestService } from './rest.service';
-import { IStudent } from '../interfaces';
+import { IStudent, IStudentListModel } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class StudentService extends RestService {
     private readonly _endpoint: string = 'students';
 
-    public getStudents(): Observable<IStudent[]> {
+    public getStudents(): Observable<IStudentListModel[]> {
         return this.get(`${this._endpoint}`, {});
+    }
+
+    public getStudentsByTeacherUserId(teacherUserId: number): Observable<IStudentListModel[]> {
+        return this.get(`${this._endpoint}/teacher/${teacherUserId}`, {});
     }
 
     public getStudent(studentId: number): Observable<IStudent> {
