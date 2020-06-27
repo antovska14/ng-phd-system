@@ -12,7 +12,7 @@ import { DEGREES, TITLES } from 'src/app/shared/const';
 
 @Component({ templateUrl: './teacher-details.component.html' })
 export class TeacherDetailsComponent extends BaseComponent {
-    public isInEditMode: boolean = false;
+    public editMode: boolean = false;
 
     public initialTeacher: ITeacher;
     public teacher: ITeacher;
@@ -22,7 +22,11 @@ export class TeacherDetailsComponent extends BaseComponent {
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private readonly _teacherService: TeacherService, private readonly _route: ActivatedRoute, private readonly _location: Location) {
+    constructor(
+        private readonly _teacherService: TeacherService,
+        private readonly _route: ActivatedRoute,
+        private readonly _location: Location
+    ) {
         super();
     }
 
@@ -63,12 +67,12 @@ export class TeacherDetailsComponent extends BaseComponent {
             .updateTeacher(this.teacher)
             .pipe(takeUntil(this._ngUnsubscribe))
             .subscribe(() => {
-                this.isInEditMode = false;
+                this.editMode = false;
             });
     }
 
     public onCancelClick(): void {
-        this.isInEditMode = false;
+        this.editMode = false;
         this.teacher = this.initialTeacher;
     }
 
@@ -77,7 +81,7 @@ export class TeacherDetailsComponent extends BaseComponent {
     }
 
     public onEditClick(): void {
-        this.isInEditMode = true;
+        this.editMode = true;
     }
 
     public onSaveClick(): void {

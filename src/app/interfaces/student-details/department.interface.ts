@@ -1,5 +1,7 @@
+import { IFaculty } from './faculty.interface';
+
 export interface IDepartment {
     id: number;
-    facultyId: number;
+    faculty: IFaculty;
     name: string;
 }

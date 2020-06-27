@@ -1,5 +1,5 @@
 export interface IFormOfEducation {
     id: number;
     name: string;
-    yearsCount: string;
+    yearsCount: number;
 }

@@ -12,23 +12,26 @@ export class OptionsSelectComponent extends BaseFormComponent {
     public propertyLabel: any;
     @Output()
     public valueChange: EventEmitter<string> = new EventEmitter<string>();
+
     @Input()
-    public set value(value: string) {
+    public set value(value: any) {
         this._value = value;
         this.valueChange.emit(this._value);
     }
 
-    public get value(): string {
+    public get value(): any {
         return this._value;
     }
 
     private _value: string;
 
+    public obj: any = 'dasda';
+
     public getLabel(option): any {
-        this.propertyLabel ? option[this.propertyLabel] : option;
+        return this.propertyLabel ? option[this.propertyLabel] : option;
     }
 
     public getValue(option): any {
-        this.propertyValue ? option[this.propertyValue] : option;
+        return this.propertyValue ? option[this.propertyValue] : option;
     }
 }

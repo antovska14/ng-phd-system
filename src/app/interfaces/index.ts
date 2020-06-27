@@ -5,3 +5,4 @@ export * from './student/';
 export * from './teacher.interface';
 export * from './student-file/student-file-request.interface';
 export * from './student-file/student-file-details.interface';
+export * from './student-details/';

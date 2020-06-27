@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
 import { ITeacher } from 'src/app/interfaces';
 import { TeacherService } from 'src/app/services/teacher.service';
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'select-teachers',
@@ -17,7 +18,7 @@ export class SelectTeachersComponent extends BaseComponent {
     public selectedTeachersChange: EventEmitter<ITeacher[]> = new EventEmitter();
 
     @Input()
-    public isInEditMode: boolean;
+    public editMode: boolean;
 
     public allTeachers: ITeacher[];
 

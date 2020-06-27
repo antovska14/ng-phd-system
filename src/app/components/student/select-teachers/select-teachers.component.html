@@ -1,9 +1,10 @@
 <label class="text-light-orange" for="currentYear">Teachers:</label>
 <div class="mb-3">
     <div *ngFor="let teacher of selectedTeachers">
-        {{ teacher.firstName }} {{ teacher.lastName }} <i *ngIf="isInEditMode" class="fa fa-times ml-2 pointer" (click)="removeSelection(teacher)"></i>
+        {{ teacher.firstName }} {{ teacher.lastName }}
+        <i *ngIf="editMode" class="fa fa-times ml-2 pointer" (click)="removeSelection(teacher)"></i>
     </div>
 </div>
-<select *ngIf="isInEditMode" [(ngModel)]="selectedTeacher" class="custom-select">
+<select *ngIf="editMode" [(ngModel)]="selectedTeacher" class="custom-select">
     <option *ngFor="let teacher of allTeachers" [value]="teacher.id">{{ teacher.firstName }} {{ teacher.lastName }}</option>
 </select>

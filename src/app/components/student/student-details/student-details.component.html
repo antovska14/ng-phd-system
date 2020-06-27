@@ -16,7 +16,7 @@
             <div class="row form-group">
                 <div class="col">
                     <text-input
-                        [editMode]="isInEditMode"
+                        [editMode]="editMode"
                         [(text)]="student.firstName"
                         [label]="strings.firstName"
                         [id]="'firstName'"
@@ -26,74 +26,59 @@
                     ></text-input>
                 </div>
                 <div class="col">
-                    <label class="text-light-orange" for="middleName">{{ strings.middleName }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.middleName }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.middleName"
-                            id="middleName"
-                            name="middleName"
-                            [placeholder]="strings.enterMiddleName"
-                            class="form-control"
-                        />
-                    </div>
+                    <text-input
+                        [editMode]="editMode"
+                        [(text)]="student.middleName"
+                        [label]="strings.middleName"
+                        [id]="'middleName'"
+                        [name]="'middleName'"
+                        [placeholder]="strings.enterMiddleName"
+                        [isRequired]="false"
+                    ></text-input>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col">
-                    <label class="text-light-orange" for="lastName">{{ strings.lastName }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.lastName }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.lastName"
-                            id="lastName"
-                            name="lastName"
-                            [placeholder]="strings.enterLastName"
-                            class="form-control"
-                            required
-                        />
-                    </div>
+                    <text-input
+                        [editMode]="editMode"
+                        [(text)]="student.lastName"
+                        [label]="strings.lastName"
+                        [id]="'lastName'"
+                        [name]="'lastName'"
+                        [placeholder]="strings.enterLastName"
+                        [isRequired]="true"
+                    ></text-input>
                 </div>
                 <div class="col">
-                    <label class="text-light-orange" for="specialty">{{ strings.email }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.email }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.email"
-                            id="email"
-                            name="email"
-                            [placeholder]="strings.enterEmail"
-                            class="form-control"
-                            type="email"
-                            required
-                        />
-                    </div>
+                    <text-input
+                        [editMode]="editMode"
+                        [(text)]="student.email"
+                        [label]="strings.email"
+                        [id]="'email'"
+                        [name]="'email'"
+                        [placeholder]="strings.enterEmail"
+                        [type]="'email'"
+                        [isRequired]="true"
+                    ></text-input>
                 </div>
             </div>
             <div class="row form-group">
                 <div class="col">
-                    <label class="text-light-orange" for="specialty">{{ strings.specialty }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.specialty }}</div>
-                        <input
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.specialty"
-                            id="specialty"
-                            name="specialty"
-                            [placeholder]="strings.enterSpecialty"
-                            class="form-control"
-                            required
-                        />
-                    </div>
+                    <text-input
+                        [editMode]="editMode"
+                        [(text)]="student.specialty"
+                        [label]="strings.specialty"
+                        [id]="'specialty'"
+                        [name]="'specialty'"
+                        [placeholder]="strings.enterSpecialty"
+                        [isRequired]="true"
+                    ></text-input>
                 </div>
                 <div class="col">
                     <date-picker
                         [(date)]="student.facultyCouncilChosenDate"
                         [label]="strings.facultyCouncilDate"
-                        [editMode]="isInEditMode"
+                        [editMode]="editMode"
                         [id]="'facultyCouncilChosenDate'"
                         [name]="'facultyCouncilChosenDate'"
                         [placeholder]="strings.enterFacultyCouncilDate"
@@ -103,38 +88,155 @@
             </div>
             <div class="row form-group">
                 <div class="col">
-                    <options-select
-                        [editMode]="isInEditMode"
-                        [(value)]="student.formOfEducationId"
-                        [label]="strings.formOfEducation"
-                        [options]="formsOfEducationOptions"
-                        [propertyValue]="'id'"
-                        [propertyLabel]="'name'"
-                        [id]="'formOfEducation'"
-                        [name]="'formOfEducation'"
-                        [isRequired]="true"
-                    ></options-select>
+                    <label class="text-light-orange" for="id">{{ strings.formOfEducation }}:</label>
+                    <div *ngIf="!editMode">{{ student.formOfEducation.name }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="student.formOfEducation"
+                        id="formOfEducation"
+                        name="formOfEducation"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let option of formsOfEducationOptions" [ngValue]="student.formOfEducation">{{
+                            student.formOfEducation.name
+                        }}</option>
+                    </select>
                 </div>
                 <div class="col">
-                    <label class="text-light-orange" for="currentYear">{{ strings.currentYear }}:</label>
-                    <div>
-                        <div *ngIf="!isInEditMode">{{ student.currentYear }}</div>
-                        <select
-                            *ngIf="isInEditMode"
-                            [(ngModel)]="student.currentYear"
-                            id="currentYear"
-                            name="curerntYear"
-                            class="form-control custom-select"
+                    <label class="text-light-orange" for="id">{{ strings.currentYear }}:</label>
+                    <div *ngIf="!editMode">{{ student.currentYear }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="student.currentYear"
+                        id="currentYear"
+                        name="currentYear"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option
+                            *ngFor="let option of formsOfEducationYearMap.get(student.formOfEducation.id)"
+                            [ngValue]="student.currentYear"
+                            >{{ student.currentYear }}</option
                         >
-                            <option *ngFor="let currentYear of [1, 2, 3]" [value]="currentYear" required>{{ currentYear }}</option>
-                        </select>
-                    </div>
+                    </select>
                 </div>
             </div>
-            <select-teachers [isInEditMode]="isInEditMode" [(selectedTeachers)]="student.teachers"> </select-teachers>
+            <div class="row form-group">
+                <div class="col">
+                    <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
+                    <div *ngIf="!editMode">{{ professionalField.name }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="professionalField"
+                        id="professionalField"
+                        name="professionalField"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let option of professionalFieldOptions" [ngValue]="professionalField">{{
+                            professionalField.name
+                        }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label class="text-light-orange" for="id">{{ strings.phdProgram }}:</label>
+                    <div *ngIf="!editMode">{{ student.phdProgram.name }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="student.phdProgram"
+                        id="phdProgram"
+                        name="phdProgram"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let option of phdProgramOptions" [ngValue]="student.phdProgram">{{
+                            student.phdProgram.name
+                        }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <date-picker
+                        [(date)]="student.startDate"
+                        [label]="strings.startDate"
+                        [editMode]="editMode"
+                        [id]="'startDate'"
+                        [name]="'startDate'"
+                        [placeholder]="strings.enterStartDate"
+                        [isRequired]="true"
+                    ></date-picker>
+                </div>
+                <div class="col">
+                    <date-picker
+                        [(date)]="student.endDate"
+                        [label]="strings.endDate"
+                        [editMode]="editMode"
+                        [id]="'endDate'"
+                        [name]="'endDate'"
+                        [placeholder]="strings.enterEndDate"
+                        [isRequired]="true"
+                    ></date-picker>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <label class="text-light-orange" for="id">{{ strings.university }}:</label>
+                    <div *ngIf="!editMode">{{ university.name }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="university"
+                        id="university"
+                        name="university"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let option of universityOptions" [ngValue]="university">{{ university.name }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label class="text-light-orange" for="id">{{ strings.faculty }}:</label>
+                    <div *ngIf="!editMode">{{ faculty.name }}</div>
+                    <select *ngIf="editMode" [(ngModel)]="faculty" id="faculty" name="faculty" class="form-control custom-select" required>
+                        <option *ngFor="let option of facultyOptions" [ngValue]="faculty">{{ faculty.name }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col">
+                    <label class="text-light-orange" for="id">{{ strings.department }}:</label>
+                    <div *ngIf="!editMode">{{ student.department.name }}</div>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="student.department"
+                        id="department"
+                        name="department"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let option of departmentOptions" [ngValue]="student.department">{{
+                            student.department.name
+                        }}</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <text-input
+                        [editMode]="editMode"
+                        [(text)]="student.dissertationTheme"
+                        [label]="strings.dissertationTheme"
+                        [id]="'dissertationTheme'"
+                        [name]="'dissertationTheme'"
+                        [placeholder]="strings.enterDissertationTheme"
+                        [isRequired]="true"
+                    >
+                    </text-input>
+                </div>
+            </div>
+            <select-teachers [editMode]="editMode" [(selectedTeachers)]="student.teachers"> </select-teachers>
         </div>
         <div class="mt-3">
-            <div class="d-flex justify-content-between" *ngIf="isInEditMode">
+            <div class="d-flex justify-content-between" *ngIf="editMode">
                 <button (click)="onCancelClick()" id="cancel-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
                     {{ strings.cancel }}
                 </button>
@@ -147,7 +249,7 @@
                     {{ strings.save }}
                 </button>
             </div>
-            <div class="d-flex justify-content-between" *ngIf="!isInEditMode">
+            <div class="d-flex justify-content-between" *ngIf="!editMode">
                 <button (click)="onBackClick()" id="back-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
                     {{ strings.back }}
                 </button>

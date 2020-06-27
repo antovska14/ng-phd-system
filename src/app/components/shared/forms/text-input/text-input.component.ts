@@ -4,6 +4,8 @@ import { BaseFormComponent } from '../base-form.class';
 
 @Component({ templateUrl: './text-input.component.html', selector: 'text-input' })
 export class TextInputComponent extends BaseFormComponent {
+    @Input()
+    public type: string = 'text';
     @Output()
     public textChange: EventEmitter<string> = new EventEmitter<string>();
     @Input()
