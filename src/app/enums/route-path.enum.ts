@@ -5,4 +5,5 @@ export enum RoutePath {
     students = 'students',
     teachers = 'teachers',
     files = 'files',
+    exams = 'exams',
 }

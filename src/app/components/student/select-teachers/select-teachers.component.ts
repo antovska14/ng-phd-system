@@ -17,8 +17,8 @@ export class SelectTeachersComponent extends BaseComponent {
     @Output()
     public selectedTeachersChange: EventEmitter<ITeacher[]> = new EventEmitter();
 
-    @Input()
-    public editMode: boolean;
+    @Input('showForms')
+    public showForm: boolean;
 
     public allTeachers: ITeacher[];
 
@@ -65,5 +65,18 @@ export class SelectTeachersComponent extends BaseComponent {
         this.allTeachers.push(teacher);
         this.selectedTeachers = this.selectedTeachers.filter((st) => st.id != teacher.id);
         this.selectedTeachersChange.emit(this.selectedTeachers);
+    }
+
+    public getTeacherLabel(teacher: ITeacher): string {
+        let label: string = '';
+        if (teacher.title) {
+            label += teacher.title + ' ';
+        }
+        if (teacher.degree) {
+            label += teacher.degree + ' ';
+        }
+
+        label += `${teacher.firstName} ${teacher.lastName}`;
+        return label.trim();
     }
 }

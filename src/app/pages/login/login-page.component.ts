@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { BaseComponent } from '../../components/base/base.component';
 import { langStr } from '../../../assets/translations';
 import { AuthService } from '../../services/auth.service';
-import { User, UserAuth } from '../../classes/security';
+import { User, UserAuth } from '../../classes/';
 import { RoutePath } from '../../enums';
 import { takeUntil } from 'rxjs/operators';
 

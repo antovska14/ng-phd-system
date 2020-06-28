@@ -5,7 +5,6 @@ import { LoginPageComponent } from '../pages/login/login-page.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 
-import { StudentDetailPageComponent } from '../components/student/student-details/student-details.component';
 import { TeacherDetailsComponent } from '../components/teacher/teacher-details/teacher-details.component';
 
 import { AuthGuard } from '../services/guards/auth.guard';
@@ -15,6 +14,8 @@ import { AddTeacherComponent } from '../components/teacher/add-teacher/add-teach
 import { StudentFilesComponent } from '../components/student/student-files/student-files.component';
 import { StudentMainPageComponent } from '../components/student/student-main-page/student-main-page.component';
 import { AddStudentPageComponent } from '../components/student/add-student-page/add-student-page.component';
+import { StudentDetailPageComponent } from '../components/student/student-details-page/student-details-page.component';
+import { ExamsComponent } from '../components/student/exams/exams.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginPageComponent },
@@ -28,8 +29,8 @@ const routes: Routes = [
             { path: RoutePath.students, component: StudentMainPageComponent },
             { path: `${RoutePath.students}/${RoutePath.add}`, component: AddStudentPageComponent },
             { path: `${RoutePath.students}/:id`, component: StudentDetailPageComponent },
-            { path: `${RoutePath.students}/:id/files`, component: StudentFilesComponent },
-            { path: `${RoutePath.students}/:id/exams`, component: StudentFilesComponent },
+            { path: `${RoutePath.students}/:id/${RoutePath.files}`, component: StudentFilesComponent },
+            { path: `${RoutePath.students}/:id/${RoutePath.exams}`, component: ExamsComponent },
 
             { path: RoutePath.teachers, component: TeacherPageComponent },
             { path: `${RoutePath.teachers}/${RoutePath.add}`, component: AddTeacherComponent },

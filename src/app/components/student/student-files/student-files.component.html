@@ -8,16 +8,18 @@
         <div class="d-flex">
             <div>
                 <input (change)="fileUpload(file.files, yearGroup)" #file class="hidden" type="file" />
-                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Upload</button>
+                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.upload }}</button>
             </div>
             <div class="ml-3">
-                <!-- <button (click)="generateAttestation(yearGroup)" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Generate Attestation</button> -->
+                <button (click)="generateAttestation(yearGroup)" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
+                    {{ strings.downloadAttestation }}
+                </button>
             </div>
         </div>
     </div>
 </div>
 <div class="border-navy-blue p-3 rounded bg-light-grey">
-    <div class="h3">Други</div>
+    <div class="h3">{{ strings.other }}</div>
     <div *ngIf="studentFileDetailsList">
         <div *ngFor="let file of getYearGroupFiles(generalGroupFiles)">
             <span (click)="downloadFile(file)" class="hyperlink pointer">{{ file }}</span>
@@ -25,10 +27,17 @@
         <div class="d-flex">
             <div>
                 <input (change)="fileUpload(file.files)" #file class="hidden" type="file" />
-                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Upload</button>
+                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.upload }}</button>
             </div>
             <div class="ml-3">
-                <button (click)="generateIndividualPlan()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Generate Individual Plan</button>
+                <button (click)="generateIndividualPlan()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
+                    {{ strings.downloadIndividualPlan }}
+                </button>
+            </div>
+            <div class="ml-3">
+                <button (click)="generateAnnotation()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
+                    {{ strings.downloadAnnotation }}
+                </button>
             </div>
         </div>
     </div>

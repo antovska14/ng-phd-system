@@ -1,12 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base/base.component';
-import { IStudent } from '../../../interfaces';
-import { langStr } from '../../../../assets/translations';
-import { Student } from '../../../classes/student';
+import { IDetailsFormConfig } from '../../../interfaces';
+import { Student } from '../../../classes/';
 import { StudentService } from '../../../services/student.service';
 import { RoutePath } from '../../../enums';
 
@@ -14,27 +13,18 @@ import { RoutePath } from '../../../enums';
     templateUrl: './add-student-page.component.html',
 })
 export class AddStudentPageComponent extends BaseComponent {
-    public student: IStudent = new Student();
-    public readonly formOfEducationMap: Map<string, number[]> = new Map();
-    public formsOfEducation: any;
+    public config: IDetailsFormConfig;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(
-        private readonly _studentService: StudentService,
-        private readonly _router: Router,
-        private readonly _route: ActivatedRoute
-    ) {
+    constructor(private readonly _studentService: StudentService, private readonly _router: Router) {
         super();
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
 
-        this.formOfEducationMap.set(this.strings.fullTime, [1, 2, 3]);
-        this.formOfEducationMap.set(this.strings.distance, [1, 2, 3, 4]);
-        this.formOfEducationMap.set(this.strings.free, [1, 2, 3]);
-        this.formsOfEducation = Array.from(this.formOfEducationMap.keys());
+        this.initConfig();
     }
 
     public ngOnDestroy(): void {
@@ -44,37 +34,24 @@ export class AddStudentPageComponent extends BaseComponent {
         this._ngUnsubscribe.complete();
     }
 
-    public stringsInit(): void {
-        this.strings.add = this.getStr(langStr.common.add);
-        this.strings.chooseCurrentYear = this.getStr(langStr.students.chooseCurrentYear);
-        this.strings.currentYear = this.getStr(langStr.students.currentYear);
-        this.strings.chooseCurrentYear = this.getStr(langStr.students.chooseCurrentYear);
-        this.strings.distance = this.getStr(langStr.students.distance);
-        this.strings.email = this.getStr(langStr.login.email);
-        this.strings.enterEmail = this.getStr(langStr.login.enterEmail);
-        this.strings.enterFirstName = this.getStr(langStr.common.enterFirstName);
-        this.strings.enterMiddleName = this.getStr(langStr.common.enterMiddleName);
-        this.strings.enterLastName = this.getStr(langStr.common.enterLastName);
-        this.strings.enterSpecialty = this.getStr(langStr.students.enterSpecialty);
-        this.strings.enterFacultyCouncilDate = this.getStr(langStr.students.enterFacultyCouncilDate);
-        this.strings.enterFormOfEducation = this.getStr(langStr.students.enterFormOfEducation);
-        this.strings.facultyCouncilDate = this.getStr(langStr.students.facultyCouncilDate);
-        this.strings.formOfEducation = this.getStr(langStr.students.formOfEducation);
-        this.strings.firstName = this.getStr(langStr.common.firstName);
-        this.strings.free = this.getStr(langStr.students.free);
-        this.strings.fullTime = this.getStr(langStr.students.fullTime);
-        this.strings.middleName = this.getStr(langStr.common.middleName);
-        this.strings.lastName = this.getStr(langStr.common.lastName);
-        this.strings.specialty = this.getStr(langStr.students.specialty);
+    public createStudent(): () => void {
+        return () => {
+            this.config.student.currentYear = +this.config.student.currentYear;
+            this._studentService
+                .createStudent(this.config.student)
+                .pipe(takeUntil(this._ngUnsubscribe))
+                .subscribe(() => {
+                    this._router.navigate([RoutePath.students]);
+                });
+        };
     }
 
-    public onSubmit(): void {
-        this.student.currentYear = +this.student.currentYear;
-        this._studentService
-            .createStudent(this.student)
-            .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe(() => {
-                this._router.navigate([RoutePath.students]);
-            });
+    public initConfig(): void {
+        this.config = {
+            student: new Student(),
+            editMode: false,
+            addMode: true,
+            submitFunction: this.createStudent(),
+        };
     }
 }

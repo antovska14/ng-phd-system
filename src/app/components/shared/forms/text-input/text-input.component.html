@@ -1,9 +1,9 @@
 <label class="text-light-orange" [for]="id">{{ label }}:</label>
 
-<div *ngIf="!editMode">{{ text }}</div>
+<div *ngIf="!showForm">{{ text }}</div>
 
 <input
-    *ngIf="editMode"
+    *ngIf="showForm"
     [(ngModel)]="text"
     [id]="id"
     [name]="name"

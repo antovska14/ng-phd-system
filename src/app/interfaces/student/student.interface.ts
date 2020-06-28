@@ -1,5 +1,5 @@
 import { ITeacher } from '../teacher.interface';
-import { IDepartment, IPhdProgram } from '../student-details';
+import { IDepartment, IPhdProgram, IUniversity, IFaculty, IProfessionalField } from '../student-details';
 import { IFormOfEducation } from '../student-details/form-of-education.interface';
 
 export interface IStudent {
@@ -14,9 +14,12 @@ export interface IStudent {
     currentYear: number;
     facultyCouncilChosenDate: Date;
     phdProgram: IPhdProgram;
+    professionalField: IProfessionalField;
     startDate: Date;
     endDate: Date;
     department: IDepartment;
+    faculty: IFaculty;
+    university: IUniversity;
     dissertationTheme: string;
     teachers: ITeacher[];
 }

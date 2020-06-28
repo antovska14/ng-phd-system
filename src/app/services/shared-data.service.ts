@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UserAuth } from '../classes/security';
+import { UserAuth } from '../classes';
 
 @Injectable({
     providedIn: 'root',

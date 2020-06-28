@@ -1,5 +1,5 @@
 export * from './base.class';
 export * from './service-injector.class';
 export * from './security';
-export * from './student';
-export * from './teacher';
+export * from './student.class';
+export * from './teacher.class';

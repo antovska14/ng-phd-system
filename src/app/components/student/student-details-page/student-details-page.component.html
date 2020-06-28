@@ -1,143 +1,21 @@
-<form *ngIf="student" #studentForm="ngForm" (ngSubmit)="onSubmit()">
-    <div class="border border-navy-blue bg-light-grey rounded p-3">
-        <div class="row form-group">
-            <div class="col">
-                <text-input
-                    [(text)]="student.firstName"
-                    [id]="'firstName'"
-                    [name]="'firstName'"
-                    [placeholder]="strings.enterFirstName"
-                    [isRequired]="true"
-                ></text-input>
-            </div>
-            <div class="col">
-                <label class="text-light-orange" for="middleName">{{ strings.middleName }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.middleName }}</div>
-                    <input
-                        *ngIf="showForm"
-                        [(ngModel)]="student.middleName"
-                        id="middleName"
-                        name="middleName"
-                        [placeholder]="strings.enterMiddleName"
-                        class="form-control"
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col">
-                <label class="text-light-orange" for="lastName">{{ strings.lastName }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.lastName }}</div>
-                    <input
-                        *ngIf="showForm"
-                        [(ngModel)]="student.lastName"
-                        id="lastName"
-                        name="lastName"
-                        [placeholder]="strings.enterLastName"
-                        class="form-control"
-                        required
-                    />
-                </div>
-            </div>
-            <div class="col">
-                <label class="text-light-orange" for="specialty">{{ strings.email }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.email }}</div>
-                    <input
-                        *ngIf="showForm"
-                        [(ngModel)]="student.email"
-                        id="email"
-                        name="email"
-                        [placeholder]="strings.enterEmail"
-                        class="form-control"
-                        type="email"
-                        required
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col">
-                <label class="text-light-orange" for="specialty">{{ strings.specialty }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.specialty }}</div>
-                    <input
-                        *ngIf="showForm"
-                        [(ngModel)]="student.specialty"
-                        id="specialty"
-                        name="specialty"
-                        [placeholder]="strings.enterSpecialty"
-                        class="form-control"
-                        required
-                    />
-                </div>
-            </div>
-            <div class="col">
-                <label class="text-light-orange" for="facultyCouncilChosenDate">{{ strings.facultyCouncilDate }}:</label>
-
-                <div>
-                    <div *ngIf="!showForm">{{ student.facultyCouncilChosenDate | date: 'dd/MM/yyyy' }}</div>
-                    <input
-                        *ngIf="showForm"
-                        [(ngModel)]="student.facultyCouncilChosenDate"
-                        id="facultyCouncilChosenDate"
-                        name="facultyCouncilChosenDate"
-                        [placeholder]="strings.enterFacultyCouncilDate"
-                        class="form-control"
-                        type="date"
-                        required
-                    />
-                </div>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col">
-                <label class="text-light-orange" for="formOfEducation">{{ strings.formOfEducation }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.formOfEducation }}</div>
-                    <select
-                        *ngIf="showForm"
-                        [(ngModel)]="student.formOfEducation"
-                        id="formOfEducation"
-                        name="formOfEducation"
-                        class="form-control custom-select"
-                        required
-                    >
-                        <option *ngFor="let form of formsOfEducation" [value]="form">{{ form }}</option>
-                    </select>
-                    <options-select
-                        [(text)]="student.formOfEducation"
-                        [id]="'formOfEducation'"
-                        [name]="'formOfEducation'"
-                        [placeholder]="strings.enterFirstName"
-                        [isRequired]="true"
-                    >
-                    </options-select>
-                </div>
-            </div>
-            <div class="col">
-                <label class="text-light-orange" for="currentYear">{{ strings.currentYear }}:</label>
-                <div>
-                    <div *ngIf="!showForm">{{ student.currentYear }}</div>
-                    <select
-                        *ngIf="showForm"
-                        [(ngModel)]="student.currentYear"
-                        id="currentYear"
-                        name="curerntYear"
-                        class="form-control custom-select"
-                    >
-                        <option
-                            *ngFor="let currentYear of formOfEducationMap.get(student.formOfEducation)"
-                            [value]="currentYear"
-                            required
-                            >{{ currentYear }}</option
-                        >
-                    </select>
-                </div>
-            </div>
-        </div>
-        <select-teachers [editMode]="showForm" [(selectedTeachers)]="student.teachers"> </select-teachers>
-    </div>
-</form>
+<div *ngIf="student" class="h2 text-navy-blue">{{ student.firstName }} {{ student.lastName }}</div>
+<div>
+    <button (click)="showDetails = !showDetails" class="btn btn-primary bg-navy-blue border-navy-blue mb-3">
+        {{ strings.phdStudentDetails }}
+    </button>
+    <button (click)="showFiles = !showFiles" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
+        {{ strings.files }}
+    </button>
+    <button (click)="showExams = !showExams" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
+        {{ strings.exams }}
+    </button>
+</div>
+<div *ngIf="showDetails && config">
+    <student-details [(config)]="config"></student-details>
+</div>
+<div *ngIf="showFiles" class="mt-3">
+    <student-files [currentYear]="student.currentYear" [studentId]="student.id"></student-files>
+</div>
+<div *ngIf="showExams" class="mt-3">
+    <exams [currentYear]="student.currentYear" [studentId]="student.id"></exams>
+</div>

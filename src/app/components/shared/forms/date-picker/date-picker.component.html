@@ -1,9 +1,9 @@
 <label class="text-light-orange" [for]="id">{{ label }}:</label>
 
-<div *ngIf="!editMode">{{ date | date: 'dd.MM.yyyy' }}</div>
+<div *ngIf="!showForm">{{ date | date: 'dd.MM.yyyy' }}</div>
 
 <input
-    *ngIf="editMode"
+    *ngIf="showForm"
     [(ngModel)]="dateString"
     [required]="isRequired"
     [id]="id"

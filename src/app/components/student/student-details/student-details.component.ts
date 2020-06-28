@@ -1,15 +1,21 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base/base.component';
-import { StudentService } from '../../../services/student.service';
-import { IStudent, IProfessionalField, IPhdProgram, IUniversity, IFaculty, IDepartment } from '../../../interfaces';
+import {
+    IStudent,
+    IProfessionalField,
+    IPhdProgram,
+    IUniversity,
+    IFaculty,
+    IDepartment,
+    IFormOfEducation,
+    IDetailsFormConfig,
+} from '../../../interfaces';
 import { langStr } from '../../../../assets/translations';
 import { FormOfEducationService } from '../../../services/form-of-education.service';
-import { IFormOfEducation } from '../../../interfaces/student-details/form-of-education.interface';
 import { ProfessionalFieldService } from 'src/app/services/professional-field.service';
 import { PhdProgramService } from 'src/app/services/phd-program.service';
 import { UniversityService } from 'src/app/services/university.service';
@@ -17,13 +23,18 @@ import { FacultyService } from 'src/app/services/faculty.service';
 import { DepartmentService } from 'src/app/services/department.service';
 
 @Component({
+    selector: 'student-details',
     templateUrl: './student-details.component.html',
 })
-export class StudentDetailPageComponent extends BaseComponent {
-    public initialStudent: IStudent;
-    public student: IStudent;
+export class StudentDetailsComponent extends BaseComponent {
+    @Input()
+    public config: IDetailsFormConfig;
+
+    @Output()
+    public configChange: EventEmitter<IDetailsFormConfig> = new EventEmitter();
 
     public formsOfEducationYearMap: Map<number, number[]> = new Map<number, number[]>();
+
     public formsOfEducationOptions: IFormOfEducation[];
     public professionalFieldOptions: IProfessionalField[];
     public phdProgramOptions: IPhdProgram[];
@@ -31,20 +42,17 @@ export class StudentDetailPageComponent extends BaseComponent {
     public facultyOptions: IFaculty[];
     public departmentOptions: IDepartment[];
 
-    public editMode: boolean = false;
-
-    public showDetails: boolean = true;
-    public showFiles: boolean = false;
-    public showExams: boolean = false;
+    public showForms: boolean = false;
+    public initial: IStudent;
 
     public set professionalField(value) {
         this._professionalField = value;
-        this.student.phdProgram.professionalField = value;
-        this.initPhdProgramOptions(value);
+        this.config.student.professionalField = value;
+        this.initPhdProgramOptions();
     }
 
     public get professionalField(): IProfessionalField {
-        this._professionalField = this.student.phdProgram.professionalField;
+        this._professionalField = this.config.student.professionalField;
         return this._professionalField;
     }
 
@@ -52,12 +60,12 @@ export class StudentDetailPageComponent extends BaseComponent {
 
     public set university(value) {
         this._university = value;
-        this.student.department.faculty.university = value;
-        this.initFacultyOptions(value);
+        this.config.student.university = value;
+        this.initFacultyOptions();
     }
 
     public get university(): IUniversity {
-        this._university = this.student.department.faculty.university;
+        this._university = this.config.student.university;
         return this._university;
     }
 
@@ -65,12 +73,12 @@ export class StudentDetailPageComponent extends BaseComponent {
 
     public set faculty(value) {
         this._faculty = value;
-        this.student.department.faculty = value;
-        this.initDepartmentOptions(value);
+        this.config.student.faculty = value;
+        this.initDepartmentOptions();
     }
 
     public get faculty(): IFaculty {
-        this._faculty = this.student.department.faculty;
+        this._faculty = this.config.student.faculty;
         return this._faculty;
     }
 
@@ -79,15 +87,13 @@ export class StudentDetailPageComponent extends BaseComponent {
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
-        private readonly _studentService: StudentService,
-        private readonly _route: ActivatedRoute,
-        private readonly _location: Location,
         private readonly _formOfEducationService: FormOfEducationService,
         private readonly _professionalFieldService: ProfessionalFieldService,
         private readonly _phdProgramService: PhdProgramService,
         private readonly _universityService: UniversityService,
         private readonly _facultyService: FacultyService,
-        private readonly _departmentService: DepartmentService
+        private readonly _departmentService: DepartmentService,
+        private readonly _location: Location
     ) {
         super();
     }
@@ -95,10 +101,16 @@ export class StudentDetailPageComponent extends BaseComponent {
     public ngOnInit(): void {
         super.ngOnInit();
 
-        this.getStudent();
+        if (this.config.addMode) {
+            this.showForms = true;
+        }
+
         this.getFormsOfEducation();
         this.getProfessionalFields();
         this.getUniversities();
+        this.initPhdProgramOptions();
+        this.initFacultyOptions();
+        this.initDepartmentOptions();
     }
 
     public ngOnDestroy(): void {
@@ -121,7 +133,7 @@ export class StudentDetailPageComponent extends BaseComponent {
         this.strings.enterLastName = this.getStr(langStr.common.enterLastName);
         this.strings.enterSpecialty = this.getStr(langStr.students.enterSpecialty);
         this.strings.enterFacultyCouncilDate = this.getStr(langStr.students.enterFacultyCouncilDate);
-        this.strings.enterFormOfEducation = this.getStr(langStr.students.enterFormOfEducation);
+        this.strings.chooseFormOfEducation = this.getStr(langStr.students.chooseFormOfEducation);
         this.strings.facultyCouncilDate = this.getStr(langStr.students.facultyCouncilDate);
         this.strings.formOfEducation = this.getStr(langStr.students.formOfEducation);
         this.strings.firstName = this.getStr(langStr.common.firstName);
@@ -134,7 +146,6 @@ export class StudentDetailPageComponent extends BaseComponent {
         this.strings.save = this.getStr(langStr.common.save);
         this.strings.edit = this.getStr(langStr.common.edit);
         this.strings.cancel = this.getStr(langStr.common.cancel);
-        this.strings.phdStudentDetails = this.getStr(langStr.students.phdStudentDetails);
         this.strings.professionalField = this.getStr(langStr.students.professionalField);
         this.strings.phdProgram = this.getStr(langStr.students.phdProgram);
         this.strings.startDate = 'Начална дата на докторантурата';
@@ -142,24 +153,19 @@ export class StudentDetailPageComponent extends BaseComponent {
         this.strings.university = 'Университет';
         this.strings.faculty = 'Факултет';
         this.strings.department = 'Катедра';
-        this.strings.files = 'Файлови';
-        this.strings.exams = 'Изпити';
-    }
-
-    public onSubmit(): void {
-        this.student.currentYear = +this.student.currentYear;
-        this._studentService
-            .updateStudent(this.student)
-            .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe(() => {
-                this.editMode = false;
-                this.initialStudent = JSON.parse(JSON.stringify(this.student)) as IStudent;
-            });
+        this.strings.enterDissertationTheme = 'Въведете тема на дисертация';
+        this.strings.dissertationTheme = 'Тема на дисертация';
+        this.strings.chooseUniversity = 'Изберете университет';
+        this.strings.chooseFaculty = 'Изберете факултет';
+        this.strings.chooseDepartment = 'Изберете катедра';
+        this.strings.chooseProfessionalField = 'Изберете професионално направление';
+        this.strings.choosePhdProgram = 'Изберете докторантска програма';
+        this.strings.chooseCurrentYear = 'Изберете курс';
     }
 
     public onCancelClick(): void {
-        this.editMode = false;
-        this.student = this.initialStudent;
+        this.showForms = false;
+        this.config.student = this.initial;
     }
 
     public onBackClick(): void {
@@ -167,20 +173,14 @@ export class StudentDetailPageComponent extends BaseComponent {
     }
 
     public onEditClick(): void {
-        this.editMode = true;
+        this.initial = JSON.parse(JSON.stringify(this.config.student)) as IStudent;
+        this.showForms = true;
     }
 
-    private getStudent(): void {
-        this._route.paramMap.subscribe((paramMap) => {
-            const studentId = +paramMap.get('id');
-            this._studentService
-                .getStudent(studentId)
-                .pipe(takeUntil(this._ngUnsubscribe))
-                .subscribe((student) => {
-                    this.student = student;
-                    this.initialStudent = JSON.parse(JSON.stringify(student)) as IStudent;
-                });
-        });
+    public onSubmit(): void {
+        this.showForms = false;
+        this.configChange.emit(this.config);
+        this.config.submitFunction();
     }
 
     private getFormsOfEducation(): void {
@@ -216,35 +216,35 @@ export class StudentDetailPageComponent extends BaseComponent {
         });
     }
 
-    private initPhdProgramOptions(professionalField: IProfessionalField): void {
-        if (!professionalField || !professionalField.id) {
+    private initPhdProgramOptions(): void {
+        if (!this.professionalField || !this.professionalField.id) {
             this.phdProgramOptions = [];
             return;
         }
 
-        this._phdProgramService.getPhdPrograms(professionalField.id).subscribe((programs: IPhdProgram[]) => {
+        this._phdProgramService.getPhdPrograms(this.professionalField.id).subscribe((programs: IPhdProgram[]) => {
             this.phdProgramOptions = programs;
         });
     }
 
-    private initFacultyOptions(university: IUniversity): void {
-        if (!university || !university.id) {
+    private initFacultyOptions(): void {
+        if (!this.university || !this.university.id) {
             this.facultyOptions = [];
             return;
         }
 
-        this._facultyService.getFaculties(university.id).subscribe((faculties: IFaculty[]) => {
+        this._facultyService.getFaculties(this.university.id).subscribe((faculties: IFaculty[]) => {
             this.facultyOptions = faculties;
         });
     }
 
-    private initDepartmentOptions(faculty: IFaculty): void {
-        if (!faculty || !faculty.id) {
+    private initDepartmentOptions(): void {
+        if (!this.faculty || !this.faculty.id) {
             this.facultyOptions = [];
             return;
         }
 
-        this._departmentService.getDepartments(faculty.id).subscribe((departments: IDepartment[]) => {
+        this._departmentService.getDepartments(this.faculty.id).subscribe((departments: IDepartment[]) => {
             this.departmentOptions = departments;
         });
     }

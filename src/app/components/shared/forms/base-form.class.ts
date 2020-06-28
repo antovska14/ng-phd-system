@@ -9,11 +9,11 @@ export class BaseFormComponent {
     @Input()
     public name: string;
     @Input()
-    public placeholder: string;
+    public placeholder: string = '';
     @Input()
-    public isRequired: boolean;
+    public isRequired: boolean = false;
     @Input()
     public label: string;
-    @Input()
-    public editMode: boolean;
+    @Input('showForms')
+    public showForm: boolean = true;
 }

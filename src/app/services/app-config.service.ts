@@ -3,7 +3,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { SharedDataService } from './shared-data.service';
 import { ServiceInjector } from '../classes';
-import { UserAuth } from '../classes/security';
+import { UserAuth } from '../classes';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })

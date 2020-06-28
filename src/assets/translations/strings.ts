@@ -35,7 +35,7 @@ export const langStr = {
         chooseCurrentYear: { en: 'Choose current Year', bg: 'Избери курс' },
         enterSpecialty: { en: 'Enter Specialty', bg: 'Въведете специалност' },
         enterFacultyCouncilDate: { en: 'Enter Faculty Council date', bg: 'Въведете дата на ФС (Факултетен Съвет)' },
-        enterFormOfEducation: { en: 'Enter Form of Education', bg: 'Въведете форма на обучение' },
+        chooseFormOfEducation: { en: 'Choose form of Education', bg: 'Изберете форма на обучение' },
         facultyCouncilDate: { en: 'Faculty Council Date', bg: 'Дата на ФС (Факултетен Съвет)' },
         free: { en: 'free', bg: 'свободна' },
         fullTime: { en: 'full-time', bg: 'редовна' },

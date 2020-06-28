@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
-import { UserAuth, User } from '../classes/security';
-import { ServiceInjector } from '../classes';
+import { UserAuth, User, ServiceInjector } from '../classes';
 import { RoutePath } from '../enums';
 
 @Injectable({ providedIn: 'root' })

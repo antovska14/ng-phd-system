@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { IStudentFileDetails, IStudentFileRequest, IFile, IUploadStudentFileRequest } from '../../../interfaces';
+import { IStudentFileGroupDetails, IStudentFileRequest, IFile, IUploadStudentFileRequest } from '../../../interfaces';
 import { StudentFileService } from '../../../services/student-file.service';
 import { BaseComponent } from '../../base/base.component';
 import { StudentFileType } from 'src/app/enums';
@@ -27,7 +27,7 @@ export class StudentFilesComponent extends BaseComponent {
     }
 
     public fileGroups: string[] = [];
-    public studentFileDetailsList: IStudentFileDetails[];
+    public studentFileDetailsList: IStudentFileGroupDetails[];
 
     public yearGroupFiles: number[];
     public generalGroupFiles: string = 'General';
@@ -46,8 +46,12 @@ export class StudentFilesComponent extends BaseComponent {
     }
 
     public stringsInit(): void {
-        this.strings.year = 'Година';
+        this.strings.currentYear = 'Курс';
         this.strings.other = 'Други';
+        this.strings.downloadIndividualPlan = 'Изтегли индивидуален план';
+        this.strings.downloadAttestation = 'Изтегли атестация';
+        this.strings.downloadAnnotation = 'Изтегли анотация';
+        this.strings.upload = 'Качи';
     }
 
     public getYearGroupFiles(group: any): string[] {
@@ -131,11 +135,20 @@ export class StudentFilesComponent extends BaseComponent {
             });
     }
 
+    public generateAnnotation() {
+        this._studentFileService
+            .exportStudentFile({ studentId: this.studentId, studentFileType: StudentFileType.annotation })
+            .subscribe((file: IFile) => {
+                saveAs(file.fileContent, file.fileName);
+            });
+    }
+
     private getStudentFiles(): void {
+        console.log('id - ' + this.studentId);
         this._studentFileService
             .getStudentFileDetails(this.studentId)
             .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe((studentFileDetailsList: IStudentFileDetails[]) => {
+            .subscribe((studentFileDetailsList: IStudentFileGroupDetails[]) => {
                 this.studentFileDetailsList = studentFileDetailsList;
             });
     }

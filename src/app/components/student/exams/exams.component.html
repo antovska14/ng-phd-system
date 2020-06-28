@@ -1,0 +1,43 @@
+<h2>Изпити</h2>
+<form class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
+    <div class="row">
+        <div class="col">
+            <label class="text-light-orange" for="id">Курс:</label>
+            <select [(ngModel)]="exam.year" id="year" name="year" class="form-control custom-select" required>
+                <option *ngFor="let option of yearParagraphs">{{ option }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <text-input [(text)]="exam.name" [label]="'Име:'" [id]="'name'" [name]="'name'" [isRequired]="true"></text-input>
+        </div>
+        <div class="col">
+            <text-input
+                [type]="'number'"
+                [(text)]="exam.grade"
+                [label]="'Оценка:'"
+                [id]="'grade'"
+                [name]="'grade'"
+                [isRequired]="true"
+            ></text-input>
+        </div>
+        <div class="col">
+            <date-picker
+                [(date)]="exam.date"
+                [label]="'Дата:'"
+                [showForms]="true"
+                [id]="'date'"
+                [name]="'date'"
+                [isRequired]="true"
+            ></date-picker>
+        </div>
+    </div>
+    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Add</button>
+</form>
+<div *ngFor="let year of yearParagraphs">
+    <h3>{{ year }}</h3>
+    <div *ngIf="examGroups">
+        <div *ngFor="let exam of getYearExams(year)">
+            <h5>{{ exam.toString() }}</h5>
+        </div>
+    </div>
+</div>
