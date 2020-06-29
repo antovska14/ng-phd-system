@@ -33,11 +33,13 @@
     </div>
     <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Add</button>
 </form>
-<div *ngFor="let year of yearParagraphs">
+<div *ngFor="let year of yearParagraphs" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
     <h3>{{ year }}</h3>
     <div *ngIf="examGroups">
         <div *ngFor="let exam of getYearExams(year)">
-            <h5>{{ exam.toString() }}</h5>
+            <span>{{ getExamString(exam) }}, {{ exam.date | date: 'dd.MM.yyyy' }}</span>
+
+            <i (click)="removeExam(exam.id)" class="fa fa-times ml-2 pointer"></i>
         </div>
     </div>
 </div>

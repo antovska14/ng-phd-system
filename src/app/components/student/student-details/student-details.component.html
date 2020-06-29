@@ -110,10 +110,11 @@
         <div class="row form-group">
             <div class="col">
                 <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
-                <div *ngIf="!showForms">{{ professionalField?.name }}</div>
+                <div *ngIf="!showForms">{{ config.student.professionalField?.name }}</div>
                 <select
                     *ngIf="showForms"
-                    [(ngModel)]="professionalField.id"
+                    (change)="onProfessionalFieldChange()"
+                    [(ngModel)]="config.student.professionalField.id"
                     id="professionalField"
                     name="professionalField"
                     class="form-control custom-select"
@@ -166,10 +167,11 @@
         <div class="row form-group">
             <div class="col">
                 <label class="text-light-orange" for="university">{{ strings.university }}:</label>
-                <div *ngIf="!showForms">{{ university?.name }}</div>
+                <div *ngIf="!showForms">{{ config.student.university?.name }}</div>
                 <select
                     *ngIf="showForms"
-                    [(ngModel)]="university.id"
+                    (change)="onUniversityChange()"
+                    [(ngModel)]="config.student.university.id"
                     id="university"
                     name="university"
                     class="form-control custom-select"
@@ -181,8 +183,16 @@
             </div>
             <div class="col">
                 <label class="text-light-orange" for="faculty">{{ strings.faculty }}:</label>
-                <div *ngIf="!showForms">{{ faculty?.name }}</div>
-                <select *ngIf="showForms" [(ngModel)]="faculty.id" id="faculty" name="faculty" class="form-control custom-select" required>
+                <div *ngIf="!showForms">{{ config.student.faculty?.name }}</div>
+                <select
+                    *ngIf="showForms"
+                    (change)="onFacultyChange()"
+                    [(ngModel)]="config.student.faculty.id"
+                    id="faculty"
+                    name="faculty"
+                    class="form-control custom-select"
+                    required
+                >
                     <option [ngValue]="null">{{ strings.chooseFaculty }}</option>
                     <option *ngFor="let option of facultyOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>

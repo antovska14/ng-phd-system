@@ -4,7 +4,6 @@ export interface IExam {
     year: number;
     name: string;
     grade: number;
+    gradeType: string;
     date: Date;
-
-    toString(): string;
 }

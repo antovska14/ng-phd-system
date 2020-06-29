@@ -52,6 +52,10 @@ export class ExamsComponent extends BaseComponent {
             .subscribe();
     }
 
+    public getExamString(exam: IExam): string {
+        return `${exam.name}, ${exam.gradeType} ${exam.grade}`;
+    }
+
     private getExams(): void {
         this._examService.getExams(this.studentId).subscribe((exams: IExamYearDetails[]) => {
             this.examGroups = exams;
@@ -71,5 +75,16 @@ export class ExamsComponent extends BaseComponent {
         }
 
         return this.examGroups.filter((x) => x.year === year).map((x) => x.exams)[0];
+    }
+
+    public removeExam(examId: number): void {
+        this._examService
+            .deleteExam(examId)
+            .pipe(
+                finalize(() => {
+                    this.getExams();
+                })
+            )
+            .subscribe();
     }
 }
