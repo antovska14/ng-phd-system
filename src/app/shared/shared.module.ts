@@ -5,16 +5,19 @@ import { CommonModule } from '@angular/common';
 import { DatePickerComponent } from '../components/shared/forms/date-picker/date-picker.component';
 import { BaseFormComponent } from '../components/shared/forms/base-form.class';
 import { TextInputComponent } from '../components/shared/forms/text-input/text-input.component';
+import { DirectivesModule } from '../directives/directives.module';
 
-const IMPORTS = [CommonModule, FormsModule];
+const IMPORTS = [CommonModule, FormsModule, DirectivesModule];
 
 const PAGES = [];
 
 const COMPONENTS = [BaseFormComponent, DatePickerComponent, TextInputComponent];
 
+const DIRECTIVES = [DirectivesModule];
+
 @NgModule({
     imports: [IMPORTS],
-    exports: [...PAGES, ...COMPONENTS],
+    exports: [...PAGES, ...COMPONENTS, ...DIRECTIVES],
     declarations: [...PAGES, ...COMPONENTS],
 })
 export class SharedModule {}

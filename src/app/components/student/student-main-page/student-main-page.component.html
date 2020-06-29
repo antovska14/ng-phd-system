@@ -1,4 +1,4 @@
-<button *ngIf="shared.currentUser.role === adminRole" routerLink="/students/add" class="btn btn-primary bg-navy-blue border-navy-blue">
+<button *hasRole="'Admin'" routerLink="/students/add" class="btn btn-primary bg-navy-blue border-navy-blue">
     {{ strings.addPhdStudent }}
 </button>
 <div class="mt-3">
