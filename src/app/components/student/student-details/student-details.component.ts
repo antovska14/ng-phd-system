@@ -31,7 +31,7 @@ export class StudentDetailsComponent extends BaseComponent {
     public config: IStudentDetailsFormConfig;
 
     @Output()
-    public configChange: EventEmitter<IStudentDetailsFormConfig> = new EventEmitter();
+    public configChange: EventEmitter<IStudentDetailsFormConfig> = new EventEmitter<IStudentDetailsFormConfig>();
 
     public formsOfEducationYearMap: Map<number, number[]> = new Map<number, number[]>();
 
@@ -154,6 +154,7 @@ export class StudentDetailsComponent extends BaseComponent {
         if (this.config.editMode) {
             this.showForms = false;
         }
+
         this.configChange.emit(this.config);
         this.config.submitFunction();
     }

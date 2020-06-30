@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { ITeacher } from 'src/app/interfaces';
+import { ITeacherDetailsFormConfig } from 'src/app/interfaces';
 import { langStr } from 'src/assets/translations';
 import { RoutePath } from 'src/app/enums';
 import { Teacher } from 'src/app/classes';
@@ -15,25 +15,21 @@ import { TeacherService } from 'src/app/services/teacher.service';
     templateUrl: './add-teacher-page.component.html',
 })
 export class AddTeacherMainPageComponent extends BaseComponent {
-    public teacher: ITeacher = new Teacher();
-
-    public formsOfEducation: any;
+    public config: ITeacherDetailsFormConfig;
 
     public readonly degreeOptions = [DEGREES.DOCTOR, DEGREES.DOCTOR_TECHNICAL_SCIENCES];
     public readonly titleOptions = [TITLES.ASSISTANT, TITLES.CHIEF_ASSISTANT, TITLES.ASSOCIATE_PROFESSOR, TITLES.PROFESSOR];
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(
-        private readonly _teacherService: TeacherService,
-        private readonly _router: Router,
-        private readonly _route: ActivatedRoute
-    ) {
+    constructor(private readonly _teacherService: TeacherService, private readonly _router: Router) {
         super();
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
+
+        this.initConfig();
     }
 
     public ngOnDestroy(): void {
@@ -57,12 +53,23 @@ export class AddTeacherMainPageComponent extends BaseComponent {
         this.strings.title = this.getStr(langStr.common.title);
     }
 
-    public onSubmit(): void {
-        this._teacherService
-            .createTeacher(this.teacher)
-            .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe(() => {
-                this._router.navigate([RoutePath.teachers]);
-            });
+    public createTeacher(): () => void {
+        return () => {
+            this._teacherService
+                .createTeacher(this.config.teacher)
+                .pipe(takeUntil(this._ngUnsubscribe))
+                .subscribe(() => {
+                    this._router.navigate([RoutePath.teachers]);
+                });
+        };
+    }
+
+    public initConfig(): void {
+        this.config = {
+            teacher: new Teacher(),
+            editMode: false,
+            addMode: true,
+            submitFunction: this.createTeacher(),
+        };
     }
 }

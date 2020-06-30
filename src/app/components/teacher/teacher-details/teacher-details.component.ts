@@ -1,46 +1,37 @@
-import { takeUntil } from 'rxjs/operators';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
-import { Subject } from 'rxjs';
 
 import { BaseComponent } from 'src/app/components/base/base.component';
-import { TeacherService } from 'src/app/services/teacher.service';
 import { langStr } from 'src/assets/translations';
-import { ITeacher } from 'src/app/interfaces';
+import { ITeacher, ITeacherDetailsFormConfig } from 'src/app/interfaces';
 import { DEGREES, TITLES } from 'src/app/shared/const';
 
-@Component({ templateUrl: './teacher-details.component.html' })
+@Component({ templateUrl: './teacher-details.component.html', selector: 'teacher-details' })
 export class TeacherDetailsComponent extends BaseComponent {
-    public editMode: boolean = false;
+    @Input()
+    public config: ITeacherDetailsFormConfig;
 
-    public initialTeacher: ITeacher;
-    public teacher: ITeacher;
+    @Output()
+    public configChange: EventEmitter<ITeacherDetailsFormConfig> = new EventEmitter<ITeacherDetailsFormConfig>();
+
+    public showForms: boolean = false;
+
+    public initial: ITeacher;
 
     public readonly degreeOptions = [DEGREES.DOCTOR, DEGREES.DOCTOR_TECHNICAL_SCIENCES];
     public readonly titleOptions = [TITLES.ASSISTANT, TITLES.CHIEF_ASSISTANT, TITLES.ASSOCIATE_PROFESSOR, TITLES.PROFESSOR];
 
-    private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
-
-    constructor(
-        private readonly _teacherService: TeacherService,
-        private readonly _route: ActivatedRoute,
-        private readonly _location: Location
-    ) {
+    constructor(private readonly _location: Location) {
         super();
     }
 
     public ngOnInit(): void {
         super.ngOnInit();
+        console.log('int teacher details');
 
-        this.getTeacher();
-    }
-
-    public ngOnDestroy(): void {
-        super.ngOnDestroy();
-
-        this._ngUnsubscribe.next();
-        this._ngUnsubscribe.complete();
+        if (this.config.addMode) {
+            this.showForms = true;
+        }
     }
 
     public stringsInit(): void {
@@ -62,18 +53,9 @@ export class TeacherDetailsComponent extends BaseComponent {
         this.strings.title = this.getStr(langStr.common.title);
     }
 
-    public onSubmit(): void {
-        this._teacherService
-            .updateTeacher(this.teacher)
-            .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe(() => {
-                this.editMode = false;
-            });
-    }
-
     public onCancelClick(): void {
-        this.editMode = false;
-        this.teacher = this.initialTeacher;
+        this.showForms = false;
+        this.config.teacher = this.initial;
     }
 
     public onBackClick(): void {
@@ -81,23 +63,16 @@ export class TeacherDetailsComponent extends BaseComponent {
     }
 
     public onEditClick(): void {
-        this.editMode = true;
+        this.initial = JSON.parse(JSON.stringify(this.config.teacher)) as ITeacher;
+        this.showForms = true;
     }
 
-    public onSaveClick(): void {
-        this._teacherService.updateTeacher(this.teacher).subscribe();
-    }
+    public onSubmit(): void {
+        if (this.config.editMode) {
+            this.showForms = false;
+        }
 
-    private getTeacher(): void {
-        this._route.paramMap.subscribe((paramMap) => {
-            const teacherId = +paramMap.get('id');
-            this._teacherService
-                .getTeacher(teacherId)
-                .pipe(takeUntil(this._ngUnsubscribe))
-                .subscribe((teacher: ITeacher) => {
-                    this.teacher = teacher;
-                    this.initialTeacher = JSON.parse(JSON.stringify(teacher)) as ITeacher;
-                });
-        });
+        this.configChange.emit(this.config);
+        this.config.submitFunction();
     }
 }

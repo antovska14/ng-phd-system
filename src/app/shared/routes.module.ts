@@ -6,7 +6,6 @@ import { LoginPageComponent } from '../pages/login/login-page.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 
-import { TeacherDetailsComponent } from '../components/teacher/teacher-details/teacher-details.component';
 import { StudentMainPageComponent } from '../components/student/student-main-page/student-main-page.component';
 import { StudentDetailPageComponent } from '../components/student/student-details-page/student-details-page.component';
 import { AddStudentPageComponent } from '../components/student/add-student-page/add-student-page.component';
@@ -19,6 +18,7 @@ import { AuthGuard } from '../services/guards/auth.guard';
 import { RoutePath } from '../enums';
 import { TeacherMainPageComponent } from '../components/teacher/teacher-main-page/teacher-main-page.component';
 import { AddTeacherMainPageComponent } from '../components/teacher/add-teacher-page/add-teacher-page.component';
+import { TeacherDetailsPageComponent } from '../components/teacher/teacher-details-page/teacher-details-page.component';
 
 const routes: Routes = [
     { path: RoutePath.login, component: LoginPageComponent },
@@ -38,7 +38,7 @@ const routes: Routes = [
 
             { path: RoutePath.teachers, component: TeacherMainPageComponent },
             { path: `${RoutePath.teachers}/${RoutePath.add}`, component: AddTeacherMainPageComponent },
-            { path: `${RoutePath.teachers}/:id`, component: TeacherDetailsComponent },
+            { path: `${RoutePath.teachers}/:id`, component: TeacherDetailsPageComponent },
 
             { path: RoutePath.professionalFields, component: ProfessionalFieldMainPageComponent },
 

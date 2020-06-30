@@ -1,0 +1,6 @@
+<div *ngIf="teacher" class="h2 text-navy-blue">
+    {{ teacher.title }} {{ teacher.degree }} {{ teacher.firstName }} {{ teacher.lastName }}
+</div>
+<div *ngIf="config">
+    <teacher-details [(config)]="config"></teacher-details>
+</div>

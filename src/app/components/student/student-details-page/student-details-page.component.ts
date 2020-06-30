@@ -13,9 +13,7 @@ import { langStr } from 'src/assets/translations';
 })
 export class StudentDetailPageComponent extends BaseComponent {
     public config: IStudentDetailsFormConfig;
-
     public student: IStudent;
-    public showForm: boolean = true;
 
     public showDetails: boolean = true;
     public showFiles: boolean = false;
