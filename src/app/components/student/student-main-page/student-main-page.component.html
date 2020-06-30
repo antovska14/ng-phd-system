@@ -8,5 +8,9 @@
             {{ strings.phdStudentsDoNotExist }}
         </h4>
     </div>
-    <student-table *ngIf="students && students.length > 0" [students]="students" (studentDeleted)="refreshList()"></student-table>
+    <student-table
+        *ngIf="students && students.length > 0"
+        [students]="students"
+        (studentDeleted)="onDeleteClick($event)"
+    ></student-table>
 </div>

@@ -3,15 +3,15 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { TeacherPageComponent } from './teacher-page/teacher-page.component';
+import { TeacherDetailsComponent } from './teacher-details/teacher-details.component';
+import { TeacherTableComponent } from './teacher-table/teacher-table.component';
+import { TeacherMainPageComponent } from './teacher-main-page/teacher-main-page.component';
+import { AddTeacherMainPageComponent } from './add-teacher-page/add-teacher-page.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
-import { TeacherListComponent } from '../teacher/teacher-list/teacher-list.component';
-import { TeacherDetailsComponent } from '../teacher/teacher-details/teacher-details.component';
-import { AddTeacherComponent } from './add-teacher/add-teacher.component';
-
-const COMPONENTS = [TeacherListComponent, TeacherDetailsComponent, AddTeacherComponent];
-const IMPORTS = [CommonModule, FormsModule, RouterModule];
-const PAGES = [TeacherPageComponent];
+const COMPONENTS = [TeacherTableComponent, TeacherDetailsComponent];
+const IMPORTS = [CommonModule, FormsModule, RouterModule, SharedModule];
+const PAGES = [TeacherMainPageComponent, AddTeacherMainPageComponent];
 
 @NgModule({
     imports: [...IMPORTS],

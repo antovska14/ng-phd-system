@@ -1,6 +1,5 @@
-import { ITeacher } from '../teacher.interface';
-import { IDepartment, IPhdProgram, IUniversity, IFaculty, IProfessionalField } from '../student-details';
-import { IFormOfEducation } from '../student-details/form-of-education.interface';
+import { IDepartment, IPhdProgram, IUniversity, IFaculty, IProfessionalField, IFormOfEducation } from '../student-details';
+import { ITeacher } from '..';
 
 export interface IStudent {
     id: number;

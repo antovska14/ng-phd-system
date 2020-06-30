@@ -12,7 +12,7 @@ import {
     IFaculty,
     IDepartment,
     IFormOfEducation,
-    IDetailsFormConfig,
+    IStudentDetailsFormConfig,
 } from '../../../interfaces';
 import { langStr } from '../../../../assets/translations';
 import { FormOfEducationService } from '../../../services/form-of-education.service';
@@ -28,10 +28,10 @@ import { DepartmentService } from 'src/app/services/department.service';
 })
 export class StudentDetailsComponent extends BaseComponent {
     @Input()
-    public config: IDetailsFormConfig;
+    public config: IStudentDetailsFormConfig;
 
     @Output()
-    public configChange: EventEmitter<IDetailsFormConfig> = new EventEmitter();
+    public configChange: EventEmitter<IStudentDetailsFormConfig> = new EventEmitter();
 
     public formsOfEducationYearMap: Map<number, number[]> = new Map<number, number[]>();
 

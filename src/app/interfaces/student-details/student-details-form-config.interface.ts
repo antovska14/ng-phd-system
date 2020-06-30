@@ -1,6 +1,6 @@
 import { IStudent } from '../student/student.interface';
 
-export interface IDetailsFormConfig {
+export interface IStudentDetailsFormConfig {
     student: IStudent;
     editMode: boolean;
     addMode: boolean;

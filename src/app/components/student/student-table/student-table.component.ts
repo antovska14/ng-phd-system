@@ -1,5 +1,4 @@
 import { Component, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../base/base.component';
@@ -18,7 +17,7 @@ export class StudentTableComponent extends BaseComponent implements OnDestroy {
     public students: IStudentListModel[];
 
     @Output()
-    public studentDeleted: EventEmitter<void> = new EventEmitter<void>();
+    public studentDeleted: EventEmitter<number> = new EventEmitter<number>();
 
     constructor(private readonly _studentService: StudentService) {
         super();
@@ -45,14 +44,6 @@ export class StudentTableComponent extends BaseComponent implements OnDestroy {
     }
 
     public onDeleteClick(studentId: number): void {
-        this._studentService
-            .deleteStudent(studentId)
-            .pipe(
-                takeUntil(this._ngUnsubscribe),
-                finalize(() => {
-                    this.studentDeleted.emit();
-                })
-            )
-            .subscribe();
+        this.studentDeleted.emit(studentId);
     }
 }

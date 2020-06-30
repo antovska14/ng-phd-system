@@ -3,66 +3,50 @@
     <div class="container border border-navy-blue bg-light-grey rounded p-3">
         <div class="row form-group">
             <div class="col">
-                <label class="text-light-orange" for="firstName">{{ strings.firstName }}:</label>
-                <div>
-                    <div *ngIf="!editMode">{{ teacher.firstName }}</div>
-                    <input
-                        *ngIf="editMode"
-                        [(ngModel)]="teacher.firstName"
-                        id="firstName"
-                        name="firstName"
-                        [placeholder]="strings.enterFirstName"
-                        class="form-control"
-                        required
-                    />
-                </div>
+                <text-input
+                    [(text)]="teacher.firstName"
+                    [label]="strings.firstName"
+                    [id]="'firstName'"
+                    [name]="'firstName'"
+                    [placeholder]="strings.enterFirstName"
+                    [isRequired]="true"
+                >
+                </text-input>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="middleName">{{ strings.middleName }}:</label>
-                <div>
-                    <div *ngIf="!editMode">{{ teacher.middleName }}</div>
-                    <input
-                        *ngIf="editMode"
-                        [(ngModel)]="teacher.middleName"
-                        id="middleName"
-                        name="middleName"
-                        [placeholder]="strings.enterMiddleName"
-                        class="form-control"
-                    />
-                </div>
+                <text-input
+                    [(text)]="teacher.middleName"
+                    [label]="strings.middleName"
+                    [id]="'middleName'"
+                    [name]="'middleName'"
+                    [placeholder]="strings.enterMiddleName"
+                >
+                </text-input>
             </div>
         </div>
         <div class="row form-group">
             <div class="col">
-                <label class="text-light-orange" for="lastName">{{ strings.lastName }}:</label>
-                <div>
-                    <div *ngIf="!editMode">{{ teacher.lastName }}</div>
-                    <input
-                        *ngIf="editMode"
-                        [(ngModel)]="teacher.lastName"
-                        id="lastName"
-                        name="lastName"
-                        [placeholder]="strings.enterLastName"
-                        class="form-control"
-                        required
-                    />
-                </div>
+                <text-input
+                    [(text)]="teacher.lastName"
+                    [label]="strings.lastName"
+                    [id]="'lastName'"
+                    [name]="'lastName'"
+                    [placeholder]="strings.enterLastName"
+                    [isRequired]="true"
+                >
+                </text-input>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="specialty">{{ strings.email }}:</label>
-                <div>
-                    <div *ngIf="!editMode">{{ teacher.email }}</div>
-                    <input
-                        *ngIf="editMode"
-                        [(ngModel)]="teacher.email"
-                        id="email"
-                        name="email"
-                        [placeholder]="strings.enterEmail"
-                        class="form-control"
-                        type="email"
-                        required
-                    />
-                </div>
+                <text-input
+                    [(text)]="teacher.email"
+                    [label]="strings.email"
+                    [id]="'email'"
+                    [name]="'email'"
+                    [placeholder]="strings.enterEmail"
+                    [isRequired]="true"
+                    [type]="'email'"
+                >
+                </text-input>
             </div>
         </div>
         <div class="row form-group">
@@ -70,8 +54,15 @@
                 <label class="text-light-orange" for="title">{{ strings.title }}:</label>
                 <div>
                     <div *ngIf="!editMode">{{ teacher.title }}</div>
-                    <select *ngIf="editMode" [(ngModel)]="teacher.title" id="title" name="title" class="form-control custom-select">
-                        <option *ngFor="let title of titleOptions" required>{{ title }}</option>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="teacher.title"
+                        id="title"
+                        name="title"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let title of titleOptions">{{ title }}</option>
                     </select>
                 </div>
             </div>
@@ -79,8 +70,15 @@
                 <label class="text-light-orange" for="degree">{{ strings.degree }}:</label>
                 <div>
                     <div *ngIf="!editMode">{{ teacher.degree }}</div>
-                    <select *ngIf="editMode" [(ngModel)]="teacher.degree" id="degree" name="degree" class="form-control custom-select">
-                        <option *ngFor="let degree of degreeOptions" required>{{ degree }}</option>
+                    <select
+                        *ngIf="editMode"
+                        [(ngModel)]="teacher.degree"
+                        id="degree"
+                        name="degree"
+                        class="form-control custom-select"
+                        required
+                    >
+                        <option *ngFor="let degree of degreeOptions">{{ degree }}</option>
                     </select>
                 </div>
             </div>

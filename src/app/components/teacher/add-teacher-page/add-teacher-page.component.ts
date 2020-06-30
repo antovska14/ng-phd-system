@@ -12,9 +12,9 @@ import { DEGREES, TITLES } from 'src/app/shared/const/';
 import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
-    templateUrl: './add-teacher.component.html',
+    templateUrl: './add-teacher-page.component.html',
 })
-export class AddTeacherComponent extends BaseComponent {
+export class AddTeacherMainPageComponent extends BaseComponent {
     public teacher: ITeacher = new Teacher();
 
     public formsOfEducation: any;
@@ -24,7 +24,11 @@ export class AddTeacherComponent extends BaseComponent {
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private readonly _teacherService: TeacherService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    constructor(
+        private readonly _teacherService: TeacherService,
+        private readonly _router: Router,
+        private readonly _route: ActivatedRoute
+    ) {
         super();
     }
 

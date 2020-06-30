@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base/base.component';
-import { IDetailsFormConfig } from '../../../interfaces';
+import { IStudentDetailsFormConfig } from '../../../interfaces';
 import { Student } from '../../../classes/';
 import { StudentService } from '../../../services/student.service';
 import { RoutePath } from '../../../enums';
@@ -13,7 +13,7 @@ import { RoutePath } from '../../../enums';
     templateUrl: './add-student-page.component.html',
 })
 export class AddStudentPageComponent extends BaseComponent {
-    public config: IDetailsFormConfig;
+    public config: IStudentDetailsFormConfig;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 

@@ -7,11 +7,9 @@ import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { LayoutPageComponent } from '../pages/layout/layout-page.component';
 
 import { TeacherDetailsComponent } from '../components/teacher/teacher-details/teacher-details.component';
-import { TeacherPageComponent } from '../components/teacher/teacher-page/teacher-page.component';
 import { StudentMainPageComponent } from '../components/student/student-main-page/student-main-page.component';
 import { StudentDetailPageComponent } from '../components/student/student-details-page/student-details-page.component';
 import { AddStudentPageComponent } from '../components/student/add-student-page/add-student-page.component';
-import { AddTeacherComponent } from '../components/teacher/add-teacher/add-teacher.component';
 import { StudentFilesComponent } from '../components/student/student-files/student-files.component';
 import { ProfessionalFieldMainPageComponent } from '../components/professional-field/professional-field-main-page/professional-field-main-page.component';
 import { ExamsComponent } from '../components/student/exams/exams.component';
@@ -19,6 +17,8 @@ import { PhdProgramMainPageComponent } from '../components/phd-program/phd-progr
 
 import { AuthGuard } from '../services/guards/auth.guard';
 import { RoutePath } from '../enums';
+import { TeacherMainPageComponent } from '../components/teacher/teacher-main-page/teacher-main-page.component';
+import { AddTeacherMainPageComponent } from '../components/teacher/add-teacher-page/add-teacher-page.component';
 
 const routes: Routes = [
     { path: RoutePath.login, component: LoginPageComponent },
@@ -36,8 +36,8 @@ const routes: Routes = [
             { path: `${RoutePath.students}/:id/${RoutePath.files}`, component: StudentFilesComponent },
             { path: `${RoutePath.students}/:id/${RoutePath.exams}`, component: ExamsComponent },
 
-            { path: RoutePath.teachers, component: TeacherPageComponent },
-            { path: `${RoutePath.teachers}/${RoutePath.add}`, component: AddTeacherComponent },
+            { path: RoutePath.teachers, component: TeacherMainPageComponent },
+            { path: `${RoutePath.teachers}/${RoutePath.add}`, component: AddTeacherMainPageComponent },
             { path: `${RoutePath.teachers}/:id`, component: TeacherDetailsComponent },
 
             { path: RoutePath.professionalFields, component: ProfessionalFieldMainPageComponent },

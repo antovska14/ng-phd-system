@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
-import { IStudent, IDetailsFormConfig } from 'src/app/interfaces';
+import { IStudent, IStudentDetailsFormConfig } from 'src/app/interfaces';
 import { StudentService } from 'src/app/services/student.service';
 import { BaseComponent } from '../../base/base.component';
 import { langStr } from 'src/assets/translations';
@@ -12,7 +12,7 @@ import { langStr } from 'src/assets/translations';
     templateUrl: './student-details-page.component.html',
 })
 export class StudentDetailPageComponent extends BaseComponent {
-    public config: IDetailsFormConfig;
+    public config: IStudentDetailsFormConfig;
 
     public student: IStudent;
     public showForm: boolean = true;

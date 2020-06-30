@@ -33,10 +33,6 @@ export class StudentMainPageComponent extends BaseComponent {
         this.strings.phdStudentsDoNotExist = this.getStr(langStr.students.phdStudentsDoNotExist);
     }
 
-    public refreshList(): void {
-        this.getStudents();
-    }
-
     private getStudents(): void {
         let obs: Observable<IStudentListModel[]>;
         if (this.shared.currentUser.role === ROLES.ADMIN) {
@@ -54,5 +50,17 @@ export class StudentMainPageComponent extends BaseComponent {
         ).subscribe((students: IStudentListModel[]) => {
             this.students = students;
         });
+    }
+
+    public onDeleteClick(studentId: number): void {
+        this._studentService
+            .deleteStudent(studentId)
+            .pipe(
+                takeUntil(this._ngUnsubscribe),
+                finalize(() => {
+                    this.getStudents();
+                })
+            )
+            .subscribe();
     }
 }
