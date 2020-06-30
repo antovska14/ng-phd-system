@@ -22,6 +22,7 @@ export class AppConfigService {
             sharedService.currentUser.email = decodedBearerToken.email;
             sharedService.currentUser.isAuthenticated = decodedBearerToken.isAuthenticated;
             sharedService.currentUser.role = decodedBearerToken.role;
+            sharedService.currentUser.passwordSet = decodedBearerToken.passwordSet;
             sharedService.currentUser.bearerToken = bearerToken;
             sharedService.currentUser.exp = decodedBearerToken.exp;
         }

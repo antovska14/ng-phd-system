@@ -23,7 +23,11 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
     public user: User = new User();
     public userAuth: UserAuth = null;
 
-    constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    constructor(
+        private readonly _authService: AuthService,
+        private readonly _router: Router,
+        private readonly _route: ActivatedRoute
+    ) {
         super();
     }
 
@@ -64,7 +68,11 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                     if (this._returnUrl) {
                         this._router.navigateByUrl(this._returnUrl);
                     } else {
-                        this._router.navigate([RoutePath.dashboard]);
+                        if (!userAuth.passwordSet) {
+                            this._router.navigate([RoutePath.setpassword]);
+                        } else {
+                            this._router.navigate([RoutePath.dashboard]);
+                        }
                     }
                 },
                 () => {

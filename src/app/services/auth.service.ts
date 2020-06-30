@@ -12,6 +12,12 @@ export class AuthService extends RestService {
     private readonly _endpoint = 'auth';
     private readonly _route: Router = ServiceInjector.injector.get(Router);
 
+    public setPassword(password: string) {
+        const payload = { userId: this.shared.currentUser.id, password: password };
+
+        return this.post(`${this._endpoint}/setPassword`, payload, {});
+    }
+
     public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
 
@@ -32,16 +38,13 @@ export class AuthService extends RestService {
         this._route.navigate([RoutePath.login]);
     }
 
-    public hasRole(role: string): boolean {
-        return this.shared.currentUser.role === role;
-    }
-
     public resetAuthObject(): void {
         this.shared.currentUser.id = 0;
         this.shared.currentUser.email = '';
         this.shared.currentUser.bearerToken = '';
         this.shared.currentUser.isAuthenticated = false;
         this.shared.currentUser.role = null;
+        this.shared.currentUser.passwordSet = false;
 
         localStorage.removeItem('bearerToken');
     }

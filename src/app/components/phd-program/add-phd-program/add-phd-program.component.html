@@ -1,0 +1,23 @@
+<form class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit()">
+    <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
+    <select
+        [(ngModel)]="phdProgram.professionalField.id"
+        id="professionalField"
+        name="professionalField"
+        class="form-control custom-select"
+        required
+    >
+        <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
+    </select>
+    <text-input
+        [(text)]="phdProgram.name"
+        [placeholder]="strings.enterPhdProgram"
+        [label]="strings.phdProgram"
+        [id]="'phdProgram'"
+        [isRequired]="true"
+        [disabled]="!phdProgram?.professionalField"
+    ></text-input>
+    <button type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
+        {{ strings.add }}
+    </button>
+</form>

@@ -23,8 +23,6 @@
                     [isRequired]="false"
                 ></text-input>
             </div>
-        </div>
-        <div class="row form-group">
             <div class="col">
                 <text-input
                     [showForms]="showForms"
@@ -36,6 +34,8 @@
                     [isRequired]="true"
                 ></text-input>
             </div>
+        </div>
+        <div class="row form-group">
             <div class="col">
                 <text-input
                     [showForms]="showForms"
@@ -48,32 +48,6 @@
                     [isRequired]="true"
                 ></text-input>
             </div>
-        </div>
-        <div class="row form-group">
-            <div class="col">
-                <text-input
-                    [showForms]="showForms"
-                    [(text)]="config.student.specialty"
-                    [label]="strings.specialty"
-                    [id]="'specialty'"
-                    [name]="'specialty'"
-                    [placeholder]="strings.enterSpecialty"
-                    [isRequired]="true"
-                ></text-input>
-            </div>
-            <div class="col">
-                <date-picker
-                    [(date)]="config.student.facultyCouncilChosenDate"
-                    [label]="strings.facultyCouncilDate"
-                    [showForms]="showForms"
-                    [id]="'facultyCouncilChosenDate'"
-                    [name]="'facultyCouncilChosenDate'"
-                    [placeholder]="strings.enterFacultyCouncilDate"
-                    [isRequired]="true"
-                ></date-picker>
-            </div>
-        </div>
-        <div class="row form-group">
             <div class="col">
                 <label class="text-light-orange" for="id">{{ strings.formOfEducation }}:</label>
                 <div *ngIf="!showForms">{{ config.student.formOfEducation.name }}</div>
@@ -101,13 +75,26 @@
                     required
                 >
                     <option [ngValue]="null">{{ strings.chooseCurrentYear }}</option>
-                    <option *ngFor="let option of formsOfEducationYearMap.get(config.student.formOfEducation.id)" [ngValue]="option">{{
-                        option
-                    }}</option>
+                    <option
+                        *ngFor="let option of formsOfEducationYearMap.get(config.student.formOfEducation.id)"
+                        [ngValue]="option"
+                        >{{ option }}</option
+                    >
                 </select>
             </div>
         </div>
         <div class="row form-group">
+            <div class="col">
+                <text-input
+                    [showForms]="showForms"
+                    [(text)]="config.student.specialty"
+                    [label]="strings.specialty"
+                    [id]="'specialty'"
+                    [name]="'specialty'"
+                    [placeholder]="strings.enterSpecialty"
+                    [isRequired]="true"
+                ></text-input>
+            </div>
             <div class="col">
                 <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
                 <div *ngIf="!showForms">{{ config.student.professionalField?.name }}</div>
@@ -141,6 +128,17 @@
             </div>
         </div>
         <div class="row form-group">
+            <div class="col">
+                <date-picker
+                    [(date)]="config.student.facultyCouncilChosenDate"
+                    [label]="strings.facultyCouncilDate"
+                    [showForms]="showForms"
+                    [id]="'facultyCouncilChosenDate'"
+                    [name]="'facultyCouncilChosenDate'"
+                    [placeholder]="strings.enterFacultyCouncilDate"
+                    [isRequired]="true"
+                ></date-picker>
+            </div>
             <div class="col">
                 <date-picker
                     [(date)]="config.student.startDate"
@@ -197,8 +195,6 @@
                     <option *ngFor="let option of facultyOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
-        </div>
-        <div class="row form-group">
             <div class="col">
                 <label class="text-light-orange" for="department">{{ strings.department }}:</label>
                 <div *ngIf="!showForms">{{ config.student.department.name }}</div>
@@ -214,7 +210,9 @@
                     <option *ngFor="let option of departmentOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
-            <div class="col">
+        </div>
+        <div class="row form-group">
+            <div class="col-4">
                 <text-input
                     [showForms]="showForms"
                     [(text)]="config.student.dissertationTheme"
@@ -227,7 +225,11 @@
                 </text-input>
             </div>
         </div>
-        <select-teachers [showForms]="showForms" [(selectedTeachers)]="config.student.teachers"> </select-teachers>
+        <div class="row">
+            <div class="col-6">
+                <select-teachers [showForms]="showForms" [(selectedTeachers)]="config.student.teachers"> </select-teachers>
+            </div>
+        </div>
     </div>
     <div class="mt-3">
         <div *ngIf="config.editMode">
@@ -254,7 +256,12 @@
             </div>
         </div>
         <div *ngIf="config.addMode">
-            <button [disabled]="studentForm.invalid" id="submit-btn" class="btn btn-primary bg-navy-blue border-navy-blue" type="submit">
+            <button
+                [disabled]="studentForm.invalid"
+                id="submit-btn"
+                class="btn btn-primary bg-navy-blue border-navy-blue"
+                type="submit"
+            >
                 {{ strings.add }}
             </button>
         </div>

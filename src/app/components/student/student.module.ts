@@ -13,7 +13,13 @@ import { StudentDetailsComponent } from './student-details/student-details.compo
 import { StudentDetailPageComponent } from './student-details-page/student-details-page.component';
 import { ExamsComponent } from './exams/exams.component';
 
-const COMPONENTS = [StudentTableComponent, SelectTeachersComponent, StudentFilesComponent, StudentDetailsComponent, ExamsComponent];
+const COMPONENTS = [
+    StudentTableComponent,
+    SelectTeachersComponent,
+    StudentFilesComponent,
+    StudentDetailsComponent,
+    ExamsComponent,
+];
 const IMPORTS = [CommonModule, FormsModule, RouterModule, SharedModule];
 const PAGES = [StudentMainPageComponent, AddStudentPageComponent, StudentDetailPageComponent];
 

@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <div *ngIf="isLoading" class="spinner-grow text-light-orange spinner"></div>
+            <h4 *ngIf="!isLoading && (!professionalFields || professionalFields.length === 0)">
+                {{ strings.thereAreNoProfessionalFields }}
+            </h4>
+        </div>
+        <professional-field-table
+            *ngIf="professionalFields && professionalFields.length > 0"
+            [professionalFields]="professionalFields"
+        ></professional-field-table>
+    </div>
+    <div class="col-4">
+        <add-professional-field (professionalFieldAdded)="onAdd()" *hasRole="'Admin'"></add-professional-field>
+    </div>
+</div>

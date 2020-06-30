@@ -1,0 +1,14 @@
+<table *ngIf="professionalFields" class="table table-bordered table-hover text-navy-blue">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ strings.professionalField }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let field of professionalFields; let i = index" class="allign-middle">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ field.name }}</td>
+        </tr>
+    </tbody>
+</table>

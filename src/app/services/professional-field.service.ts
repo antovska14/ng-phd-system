@@ -11,4 +11,8 @@ export class ProfessionalFieldService extends RestService {
     public getProfessionalFields(): Observable<IProfessionalField[]> {
         return this.get(`${this._endpoint}`, {});
     }
+
+    public addProfessionalField(professionalField: IProfessionalField): Observable<void> {
+        return this.post(`${this._endpoint}`, professionalField, {});
+    }
 }

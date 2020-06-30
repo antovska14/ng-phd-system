@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col">
+        <div class="text-center">
+            <div *ngIf="isLoading" class="spinner-grow text-light-orange spinner"></div>
+            <h4 *ngIf="!isLoading && (!phdPrograms || phdPrograms.length === 0)">
+                {{ strings.thereAreNoPhdPrograms }}
+            </h4>
+        </div>
+        <phd-program-table *ngIf="phdPrograms && phdPrograms.length > 0" [phdPrograms]="phdPrograms"></phd-program-table>
+    </div>
+    <div class="col-4">
+        <add-phd-program (phdProgramAdded)="onAdd()" *hasRole="'Admin'"></add-phd-program>
+    </div>
+</div>

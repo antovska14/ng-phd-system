@@ -8,7 +8,16 @@ import { IPhdProgram } from '../interfaces';
 export class PhdProgramService extends RestService {
     private readonly _endpoint: string = 'phdPrograms';
 
-    public getPhdPrograms(professionalFieldId: number): Observable<IPhdProgram[]> {
-        return this.get(`${this._endpoint}/${professionalFieldId}`, {});
+    public getPhdPrograms(professionalFieldId?: number): Observable<IPhdProgram[]> {
+        const baseUrl = this._endpoint;
+        const url = professionalFieldId ? `${baseUrl}/${professionalFieldId}` : baseUrl;
+
+        return this.get(url, {});
+    }
+
+    public addPhdProgram(phdProgram: IPhdProgram): Observable<void> {
+        const payload = { id: phdProgram.id, name: phdProgram.name, professionalFieldId: phdProgram.professionalField.id };
+
+        return this.post(`${this._endpoint}`, payload, {});
     }
 }

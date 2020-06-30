@@ -12,7 +12,7 @@ import { langStr } from '../../../assets/translations';
 export class LayoutPageComponent extends BaseComponent {
     public readonly logoUrl = '../../../assets/images/phd_system_logo_icon_white_hat.png';
 
-    constructor(private readonly _authService: AuthService, private readonly _router: Router, private readonly _route: ActivatedRoute) {
+    constructor(private readonly _authService: AuthService, private readonly _router: Router) {
         super();
     }
 
@@ -20,6 +20,8 @@ export class LayoutPageComponent extends BaseComponent {
         this.strings.logout = this.getStr(langStr.login.logout);
         this.strings.phdStudents = this.getStr(langStr.students.phdStudents);
         this.strings.supervisors = this.getStr(langStr.teachers.supervisors);
+        this.strings.professionalFields = 'Професионални направления';
+        this.strings.phdPrograms = 'Докторантски програми';
     }
 
     public logout(): void {

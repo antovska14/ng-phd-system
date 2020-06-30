@@ -4,5 +4,6 @@ export class UserAuth {
     bearerToken: string = '';
     isAuthenticated: boolean = false;
     role: string = '';
+    passwordSet: boolean = false;
     exp: number;
 }

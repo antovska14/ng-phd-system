@@ -1,9 +1,14 @@
 export enum RoutePath {
-    add = 'add',
-    dashboard = 'dashboard',
     login = 'login',
+    setpassword = 'setpassword',
+
+    dashboard = 'dashboard',
     students = 'students',
     teachers = 'teachers',
+    professionalFields = 'professionalFields',
+    phdPrograms = 'phdPrograms',
+    add = 'add',
+
     files = 'files',
     exams = 'exams',
 }

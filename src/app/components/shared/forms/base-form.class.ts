@@ -16,4 +16,6 @@ export class BaseFormComponent {
     public label: string;
     @Input('showForms')
     public showForm: boolean = true;
+    @Input()
+    public disabled: boolean = false;
 }

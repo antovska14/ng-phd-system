@@ -1,0 +1,16 @@
+<table *ngIf="phdPrograms" class="table table-bordered table-hover text-navy-blue">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">{{ strings.professionalField }}</th>
+            <th scope="col">{{ strings.phdProgram }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let program of phdPrograms; let i = index" class="allign-middle">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ program.professionalField?.name }}</td>
+            <td>{{ program.name }}</td>
+        </tr>
+    </tbody>
+</table>
