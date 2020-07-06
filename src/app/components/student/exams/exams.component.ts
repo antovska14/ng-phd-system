@@ -15,7 +15,7 @@ export class ExamsComponent extends BaseComponent {
     public studentId: number;
 
     public examGroups: IExamYearDetails[];
-    public yearParagraphs: number[];
+    public yearSections: number[];
     public exam: IExam = new Exam();
 
     @Input()
@@ -38,6 +38,10 @@ export class ExamsComponent extends BaseComponent {
         super.ngOnInit();
 
         this.getExams();
+    }
+
+    public stringsInit(): void {
+        this.strings.year = 'Курс';
     }
 
     public addExam(): void {
@@ -63,9 +67,9 @@ export class ExamsComponent extends BaseComponent {
     }
 
     private initYearExamParagraphs(): void {
-        this.yearParagraphs = [];
+        this.yearSections = [];
         for (let i = 1; i <= this.currentYear; i += 1) {
-            this.yearParagraphs.push(i);
+            this.yearSections.push(i);
         }
     }
 

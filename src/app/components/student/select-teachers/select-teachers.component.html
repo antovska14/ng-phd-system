@@ -1,4 +1,4 @@
-<label class="text-light-orange" for="currentYear">Teachers:</label>
+<label class="text-light-orange" for="currentYear">Ръководители:</label>
 <div class="mb-3">
     <div *ngFor="let teacher of selectedTeachers">
         {{ getTeacherLabel(teacher) }}
@@ -6,5 +6,6 @@
     </div>
 </div>
 <select *ngIf="showForm" [(ngModel)]="selectedTeacher" class="custom-select">
+    <option [ngValue]="undefined">Изберете ръководители</option>
     <option *ngFor="let teacher of allTeachers" [value]="teacher.id">{{ getTeacherLabel(teacher) }}</option>
 </select>

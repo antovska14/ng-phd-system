@@ -25,7 +25,7 @@ export const langStr = {
         logout: { en: 'Logout', bg: 'Изход' },
         password: { en: 'Password', bg: 'Парола' },
         pleaseEnterPassword: { en: 'Please enter a password', bg: 'Моля въведете парола' },
-        pleaseEnterValidEmail: { en: 'Please enter a valid email', bg: 'Моля въведете валиден имейл' },
+        pleaseEnterValidEmail: { en: 'Please enter a valid email', bg: 'Моля въведете валиден имейл адрес' },
     },
     students: {
         addStudent: { en: 'Add Student', bg: 'Добави студент' },
@@ -35,6 +35,7 @@ export const langStr = {
         chooseCurrentYear: { en: 'Choose current Year', bg: 'Избери курс' },
         enterSpecialty: { en: 'Enter Specialty', bg: 'Въведете специалност' },
         enterFacultyCouncilDate: { en: 'Enter Faculty Council date', bg: 'Въведете дата на ФС (Факултетен Съвет)' },
+        enterPhdProgram: { en: 'Enter PhD Program', bg: 'Въведете докторантска програма' },
         chooseFormOfEducation: { en: 'Choose form of Education', bg: 'Изберете форма на обучение' },
         facultyCouncilDate: { en: 'Faculty Council Date', bg: 'Дата на ФС (Факултетен Съвет)' },
         free: { en: 'free', bg: 'свободна' },

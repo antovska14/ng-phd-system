@@ -7,6 +7,7 @@
         class="form-control custom-select"
         required
     >
+        <option [ngValue]="undefined">Изберете професионално направление</option>
         <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
     </select>
     <text-input
@@ -17,7 +18,7 @@
         [isRequired]="true"
         [disabled]="!phdProgram?.professionalField"
     ></text-input>
-    <button type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
+    <button type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2" [disabled]="true">
         {{ strings.add }}
     </button>
 </form>

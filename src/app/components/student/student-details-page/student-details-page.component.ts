@@ -39,7 +39,7 @@ export class StudentDetailPageComponent extends BaseComponent {
     }
 
     public stringsInit() {
-        this.strings.files = 'Файлови';
+        this.strings.documents = 'Документи';
         this.strings.exams = 'Изпити';
         this.strings.phdStudentDetails = this.getStr(langStr.students.phdStudentDetails);
     }

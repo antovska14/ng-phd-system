@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { User, UserAuth } from '../../classes/';
 import { RoutePath } from '../../enums';
 import { takeUntil } from 'rxjs/operators';
+import { ROLES } from 'src/app/shared/const';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -71,7 +72,7 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                         if (!userAuth.passwordSet) {
                             this._router.navigate([RoutePath.setpassword]);
                         } else {
-                            this._router.navigate([RoutePath.dashboard]);
+                            this.navigateByRole();
                         }
                     }
                 },
@@ -80,5 +81,14 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                     this.userAuth = new UserAuth();
                 }
             );
+    }
+
+    private navigateByRole(): void {
+        const role = this.shared.currentUser.role;
+        if (role === ROLES.ADMIN && role === ROLES.TEACHER) {
+            this._router.navigate([RoutePath.students]);
+        } else {
+            this._router.navigate([`${RoutePath.students}/${1}`]);
+        }
     }
 }

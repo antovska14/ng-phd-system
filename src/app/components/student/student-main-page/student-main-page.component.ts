@@ -13,7 +13,6 @@ import { ROLES } from '../../../shared/const';
 })
 export class StudentMainPageComponent extends BaseComponent {
     public students: IStudentListModel[];
-    public adminRole = ROLES.ADMIN;
     public isLoading = false;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();

@@ -2,12 +2,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
+import { ProfessionalFieldService } from '../../../services/professional-field.service';
+import { PhdProgramService } from '../../../services/phd-program.service';
+import { IPhdProgram, IProfessionalField } from '../../../interfaces';
+import { PhdProgram } from '../../../classes/student-details';
 import { BaseComponent } from '../../base/base.component';
-import { langStr } from 'src/assets/translations';
-import { IPhdProgram, IProfessionalField } from 'src/app/interfaces';
-import { PhdProgram } from 'src/app/classes/student-details';
-import { PhdProgramService } from 'src/app/services/phd-program.service';
-import { ProfessionalFieldService } from 'src/app/services/professional-field.service';
+import { langStr } from '../../../../assets/translations';
 
 @Component({
     templateUrl: './add-phd-program.component.html',
@@ -45,7 +45,7 @@ export class AddPhdProgramComponent extends BaseComponent {
     public stringsInit(): void {
         this.strings.add = this.getStr(langStr.common.add);
         this.strings.professionalField = this.getStr(langStr.students.professionalField);
-        this.strings.enterPhdProgram = 'Въведете докторантска програма';
+        this.strings.enterPhdProgram = this.getStr(langStr.students.enterPhdProgram);
         this.strings.phdProgram = this.getStr(langStr.students.phdProgram);
     }
 

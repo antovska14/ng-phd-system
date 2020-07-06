@@ -7,3 +7,4 @@ export * from './student-file/student-file-request.interface';
 export * from './student-file/student-file-details.interface';
 export * from './student-details/';
 export * from './exams/';
+export * from './rest.interface';

@@ -4,17 +4,17 @@
         <div class="col">
             <label class="text-light-orange" for="id">Курс:</label>
             <select [(ngModel)]="exam.year" id="year" name="year" class="form-control custom-select" required>
-                <option *ngFor="let option of yearParagraphs">{{ option }}</option>
+                <option *ngFor="let option of yearSections">{{ option }}</option>
             </select>
         </div>
         <div class="col">
-            <text-input [(text)]="exam.name" [label]="'Име:'" [id]="'name'" [name]="'name'" [isRequired]="true"></text-input>
+            <text-input [(text)]="exam.name" [label]="'Име'" [id]="'name'" [name]="'name'" [isRequired]="true"></text-input>
         </div>
         <div class="col">
             <text-input
                 [type]="'number'"
                 [(text)]="exam.grade"
-                [label]="'Оценка:'"
+                [label]="'Оценка'"
                 [id]="'grade'"
                 [name]="'grade'"
                 [isRequired]="true"
@@ -23,7 +23,7 @@
         <div class="col">
             <date-picker
                 [(date)]="exam.date"
-                [label]="'Дата:'"
+                [label]="'Дата'"
                 [showForms]="true"
                 [id]="'date'"
                 [name]="'date'"
@@ -31,10 +31,10 @@
             ></date-picker>
         </div>
     </div>
-    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Add</button>
+    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Добави</button>
 </form>
-<div *ngFor="let year of yearParagraphs" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
-    <h3>{{ year }}</h3>
+<section *ngFor="let year of yearSections" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
+    <div class="h3">{{ strings.year }}: {{ year }}</div>
     <div *ngIf="examGroups">
         <div *ngFor="let exam of getYearExams(year)">
             <span>{{ getExamString(exam) }}, {{ exam.date | date: 'dd.MM.yyyy' }}</span>
@@ -42,4 +42,4 @@
             <i (click)="removeExam(exam.id)" class="fa fa-times ml-2 pointer"></i>
         </div>
     </div>
-</div>
+</section>

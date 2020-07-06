@@ -65,6 +65,7 @@
                         class="form-control custom-select"
                         required
                     >
+                        <option [ngValue]="undefined">Изберете академична дължност</option>
                         <option *ngFor="let title of titleOptions">{{ title }}</option>
                     </select>
                 </div>
@@ -81,6 +82,7 @@
                         class="form-control custom-select"
                         required
                     >
+                        <option [ngValue]="undefined">Изберете научна степен</option>
                         <option *ngFor="let degree of degreeOptions">{{ degree }}</option>
                     </select>
                 </div>

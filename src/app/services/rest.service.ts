@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -6,11 +6,14 @@ import { environment } from '../../environments/environment';
 import { SharedDataService } from './shared-data.service';
 import { BaseEndpointsEnum } from '../enums';
 import { ServiceInjector } from '../classes';
+import { IRestGetOptions, IRestPostOptions, IRestCallOptions, IRestDeleteOptions } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class RestService {
     private readonly _defaultBaseEndpoint = environment.phdApiUrl;
-    private readonly _baseEndpoints: Map<BaseEndpointsEnum, string> = new Map([[BaseEndpointsEnum.PhDSystemApi, environment.phdApiUrl]]);
+    private readonly _baseEndpoints: Map<BaseEndpointsEnum, string> = new Map([
+        [BaseEndpointsEnum.PhDSystemApi, environment.phdApiUrl],
+    ]);
 
     public shared: SharedDataService;
 
@@ -107,25 +110,4 @@ export class RestService {
 
         return headers.set('Content-Type', 'application/json');
     }
-}
-
-export interface IRestCallOptions {
-    baseEndPoint?: BaseEndpointsEnum;
-    headers?: HttpHeaders;
-    observe?: 'response';
-    params?: HttpParams | { [param: string]: string | string[] };
-}
-
-export interface IRestGetOptions extends IRestCallOptions {
-    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
-}
-
-export interface IRestDeleteOptions extends IRestCallOptions {
-    body?: object;
-}
-
-export interface IRestPostOptions extends IRestCallOptions {
-    reportProgress?: boolean;
-    skipContentType?: boolean;
-    responseType?: 'arraybuffer' | 'blob' | 'json' | 'text';
 }

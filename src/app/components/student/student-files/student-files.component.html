@@ -1,5 +1,5 @@
 <div *ngFor="let yearGroup of yearGroupFiles" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
-    <div class="h3">Курс - {{ yearGroup }}</div>
+    <div class="h3">Курс: {{ yearGroup }}</div>
     <div *ngIf="studentFileDetailsList">
         <div *ngFor="let file of getYearGroupFiles(yearGroup)">
             <span (click)="downloadFile(file, yearGroup)" class="hyperlink pointer">{{ file }} </span>
@@ -8,7 +8,9 @@
         <div class="d-flex">
             <div>
                 <input (change)="fileUpload(file.files, yearGroup)" #file class="hidden" type="file" />
-                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.upload }}</button>
+                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
+                    {{ strings.upload }}
+                </button>
             </div>
             <div class="ml-3">
                 <button (click)="generateAttestation(yearGroup)" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
@@ -23,11 +25,14 @@
     <div *ngIf="studentFileDetailsList">
         <div *ngFor="let file of getYearGroupFiles(generalGroupFiles)">
             <span (click)="downloadFile(file)" class="hyperlink pointer">{{ file }}</span>
+            <i (click)="deleteFile(file)" class="fa fa-times ml-2 pointer"></i>
         </div>
         <div class="d-flex">
             <div>
                 <input (change)="fileUpload(file.files)" #file class="hidden" type="file" />
-                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.upload }}</button>
+                <button (click)="file.click()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">
+                    {{ strings.upload }}
+                </button>
             </div>
             <div class="ml-3">
                 <button (click)="generateIndividualPlan()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">

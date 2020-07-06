@@ -5,11 +5,11 @@
 <input
     *ngIf="showForm"
     [(ngModel)]="text"
+    [placeholder]="placeholder"
+    [required]="isRequired"
+    [disabled]="disabled"
+    [type]="type"
     [id]="id"
     [name]="name"
-    [placeholder]="placeholder"
     class="form-control"
-    [required]="isRequired"
-    [type]="type"
-    [disabled]="disabled"
 />
