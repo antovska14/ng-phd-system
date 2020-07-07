@@ -1,4 +1,5 @@
-import { tap, catchError } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
+import { tap, catchError, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -22,9 +23,12 @@ export class AuthService extends RestService {
         this.resetAuthObject();
 
         return this.post(`${this._endpoint}/login`, user, {}).pipe(
-            tap((res: UserAuth) => {
-                Object.assign(this.shared.currentUser, res);
+            map((res: HttpResponse<UserAuth>) => {
+                const result = res.body;
+                Object.assign(this.shared.currentUser, result);
                 localStorage.setItem('bearerToken', this.shared.currentUser.bearerToken);
+
+                return result;
             }),
             catchError((e) => {
                 console.log(e);

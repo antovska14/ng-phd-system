@@ -1,8 +1,10 @@
-import { HttpEvent } from '@angular/common/http';
+import { HttpEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+import { RestService } from './rest.service';
+import { StudentFileType } from '../enums';
 import {
     IFile,
     IExportStudentFileRequest,
@@ -10,8 +12,6 @@ import {
     IUploadStudentFileRequest,
     IStudentFileGroupDetails,
 } from '../interfaces';
-import { RestService } from './rest.service';
-import { StudentFileType } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class StudentFileService extends RestService {
@@ -20,17 +20,22 @@ export class StudentFileService extends RestService {
     public deleteStudentFile(studentFile: IStudentFileRequest): Observable<void> {
         const payload = { fileName: studentFile.fileName };
         const url: string = this.getStudentFileUrl(`${this._endpoint}/delete/${studentFile.studentId}`, studentFile.year);
-        return this.post(url, payload, {});
+        return this.post(url, payload, {}).pipe(
+            map((res: HttpResponse<any>) => {
+                const result = res.body;
+                return result;
+            })
+        );
     }
 
     public downloadStudentFile(studentFile: IStudentFileRequest): Observable<IFile> {
         const payload = { fileName: studentFile.fileName };
         const url: string = this.getStudentFileUrl(`${this._endpoint}/download/${studentFile.studentId}`, studentFile.year);
         return this.post(url, payload, { responseType: 'blob' }).pipe(
-            map((res: Blob) => {
+            map((res: HttpResponse<Blob>) => {
                 const result: IFile = {
                     fileName: studentFile.fileName,
-                    fileContent: res,
+                    fileContent: res.body,
                 };
 
                 return result;
@@ -39,7 +44,12 @@ export class StudentFileService extends RestService {
     }
 
     public getStudentFileDetails(studentId: number): Observable<IStudentFileGroupDetails[]> {
-        return this.get(`${this._endpoint}/${studentId}`, {});
+        return this.get(`${this._endpoint}/${studentId}`, {}).pipe(
+            map((res: HttpResponse<IStudentFileGroupDetails[]>) => {
+                const result = res.body;
+                return result;
+            })
+        );
     }
 
     public exportStudentFile(studentFile: IExportStudentFileRequest): Observable<IFile> {
@@ -48,11 +58,11 @@ export class StudentFileService extends RestService {
             studentFile.year
         );
         return this.get(`${url}`, { responseType: 'blob' }).pipe(
-            map((res: Blob) => {
+            map((res: HttpResponse<Blob>) => {
                 const fileName = this.getFileName(studentFile.studentFileType);
                 const result: IFile = {
                     fileName: fileName,
-                    fileContent: res,
+                    fileContent: res.body,
                 };
 
                 return result;

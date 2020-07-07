@@ -1,12 +1,12 @@
-import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { IRestGetOptions, IRestPostOptions, IRestCallOptions, IRestDeleteOptions } from '../interfaces';
 import { environment } from '../../environments/environment';
 import { SharedDataService } from './shared-data.service';
 import { BaseEndpointsEnum } from '../enums';
 import { ServiceInjector } from '../classes';
-import { IRestGetOptions, IRestPostOptions, IRestCallOptions, IRestDeleteOptions } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class RestService {
@@ -21,66 +21,70 @@ export class RestService {
         this.shared = ServiceInjector.injector.get(SharedDataService);
     }
 
-    protected get(url: string, options: IRestGetOptions): Observable<any> {
+    protected get(url: string, options: IRestGetOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
+        const observe = 'response';
 
         switch (options.responseType) {
             case 'blob':
                 return this._http.get(preparedUrl, {
                     headers: preparedHeaders,
-                    observe: options.observe,
+                    observe: observe,
                     responseType: 'blob',
                     params: options.params,
                 });
             default:
                 return this._http.get(preparedUrl, {
                     headers: preparedHeaders,
-                    observe: options.observe,
+                    observe: observe,
                     params: options.params,
                 });
         }
     }
 
-    protected post(url: string, payload: object, options: IRestPostOptions): Observable<any> {
+    protected post(url: string, payload: object, options: IRestPostOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
+        const observe = 'response';
 
         switch (options.responseType) {
             case 'blob':
                 return this._http.post(preparedUrl, payload, {
                     headers: preparedHeaders,
-                    observe: options.observe,
+                    observe: observe,
                     responseType: 'blob',
                     params: options.params,
                 });
             default:
                 return this._http.post(preparedUrl, payload, {
                     headers: preparedHeaders,
-                    observe: options.observe,
+                    observe: observe,
                     params: options.params,
                 });
         }
     }
 
-    protected put(url: string, payload: object, options: IRestCallOptions): Observable<any> {
+    protected put(url: string, payload: object, options: IRestCallOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
+        const observe = 'response';
 
         return this._http.put(preparedUrl, payload, {
             headers: preparedHeaders,
-            observe: options.observe,
+            observe: observe,
             params: options.params,
         });
     }
 
-    protected delete(url: string, options: IRestDeleteOptions): Observable<any> {
+    protected delete(url: string, options: IRestDeleteOptions): Observable<HttpResponse<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers);
+        const observe = 'response';
 
         return this._http.delete(preparedUrl, {
             headers: preparedHeaders,
-            observe: options.observe,
+            observe: observe,
             params: options.params,
         });
     }
@@ -88,10 +92,11 @@ export class RestService {
     protected postFile(url: string, payload: object, options: IRestPostOptions): Observable<HttpEvent<Object>> {
         const preparedUrl = this.prepareUrl(url, options.baseEndPoint);
         const preparedHeaders = this.getHeaders(options.headers, options.skipContentType);
+        const observe = 'events';
 
         return this._http.post(preparedUrl, payload, {
             headers: preparedHeaders,
-            observe: 'events',
+            observe: observe,
             params: options.params,
         });
     }

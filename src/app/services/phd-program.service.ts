@@ -1,4 +1,6 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RestService } from './rest.service';
@@ -12,12 +14,23 @@ export class PhdProgramService extends RestService {
         const baseUrl = this._endpoint;
         const url = professionalFieldId ? `${baseUrl}/${professionalFieldId}` : baseUrl;
 
-        return this.get(url, {});
+        return this.get(url, {}).pipe(
+            map((res: HttpResponse<IPhdProgram[]>) => {
+                console.log(JSON.stringify(res));
+                const result = res.body;
+                return result;
+            })
+        );
     }
 
     public addPhdProgram(phdProgram: IPhdProgram): Observable<void> {
         const payload = { id: phdProgram.id, name: phdProgram.name, professionalFieldId: phdProgram.professionalField.id };
 
-        return this.post(`${this._endpoint}`, payload, {});
+        return this.post(`${this._endpoint}`, payload, {}).pipe(
+            map((res: HttpResponse<any>) => {
+                const result = res.body;
+                return result;
+            })
+        );
     }
 }

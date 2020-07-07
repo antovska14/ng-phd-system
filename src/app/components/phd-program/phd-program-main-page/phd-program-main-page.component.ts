@@ -1,4 +1,4 @@
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil, catchError } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -51,6 +51,7 @@ export class PhdProgramMainPageComponent extends BaseComponent {
                 takeUntil(this._ngUnsubscribe)
             )
             .subscribe((phdPrograms: IPhdProgram[]) => {
+                console.log(JSON.stringify(phdPrograms));
                 this.phdPrograms = phdPrograms;
             });
     }
