@@ -28,4 +28,8 @@ export class LayoutPageComponent extends BaseComponent {
         this._authService.logout();
         this._router.navigate([RoutePath.login]);
     }
+
+    public navigateToDashboard(): void {
+        this._router.navigate([this.shared.userRoleConfig.dashboard]);
+    }
 }

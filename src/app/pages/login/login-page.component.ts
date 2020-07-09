@@ -6,10 +6,11 @@ import { Subject } from 'rxjs';
 import { BaseComponent } from '../../components/base/base.component';
 import { langStr } from '../../../assets/translations';
 import { AuthService } from '../../services/auth.service';
-import { User, UserAuth } from '../../classes/';
+import { User, UserAuth, RoleConfig } from '../../classes/';
 import { RoutePath } from '../../enums';
 import { takeUntil } from 'rxjs/operators';
-import { ROLES } from 'src/app/shared/const';
+import { RoleConfigService } from '../../services/role-config.service';
+import { IUserRoleConfig } from '../../interfaces';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -26,6 +27,7 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
 
     constructor(
         private readonly _authService: AuthService,
+        private readonly _roleConfigService: RoleConfigService,
         private readonly _router: Router,
         private readonly _route: ActivatedRoute
     ) {
@@ -67,28 +69,26 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                     this.userAuth = userAuth;
                     this.shared.currentUser = userAuth;
                     if (this._returnUrl) {
+                        console.log(this._returnUrl);
                         this._router.navigateByUrl(this._returnUrl);
                     } else {
                         if (!userAuth.passwordSet) {
                             this._router.navigate([RoutePath.setpassword]);
                         } else {
-                            this.navigateByRole();
+                            this._roleConfigService
+                                .getRoleConfigFn(this.shared.currentUser.role, this.shared.currentUser.id)
+                                .subscribe((roleConfig: IUserRoleConfig) => {
+                                    this.shared.userRoleConfig = roleConfig;
+                                    this._router.navigate([roleConfig.dashboard]);
+                                });
                         }
                     }
                 },
                 () => {
                     this.shared.currentUser = new UserAuth();
+                    this.shared.userRoleConfig = new RoleConfig();
                     this.userAuth = new UserAuth();
                 }
             );
-    }
-
-    private navigateByRole(): void {
-        const role = this.shared.currentUser.role;
-        if (role === ROLES.ADMIN && role === ROLES.TEACHER) {
-            this._router.navigate([RoutePath.students]);
-        } else {
-            this._router.navigate([`${RoutePath.students}/${1}`]);
-        }
     }
 }

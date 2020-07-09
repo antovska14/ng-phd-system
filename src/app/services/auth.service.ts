@@ -26,6 +26,7 @@ export class AuthService extends RestService {
             map((res: HttpResponse<UserAuth>) => {
                 const result = res.body;
                 Object.assign(this.shared.currentUser, result);
+                this.shared.currentUser.id = +this.shared.currentUser.id;
                 localStorage.setItem('bearerToken', this.shared.currentUser.bearerToken);
 
                 return result;

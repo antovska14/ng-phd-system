@@ -8,7 +8,7 @@
         </div>
         <phd-program-table *ngIf="phdPrograms && phdPrograms.length > 0" [phdPrograms]="phdPrograms"></phd-program-table>
     </div>
-    <div class="col-4">
-        <add-phd-program (phdProgramAdded)="onAdd()" *hasRole="'Admin'"></add-phd-program>
+    <div *hasRole="'Admin'" class="col-4">
+        <add-phd-program (phdProgramAdded)="onAdd()"></add-phd-program>
     </div>
 </div>

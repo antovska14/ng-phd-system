@@ -34,10 +34,10 @@ export class StudentMainPageComponent extends BaseComponent {
 
     private getStudents(): void {
         let obs: Observable<IStudentListModel[]>;
-        if (this.shared.currentUser.role === ROLES.ADMIN) {
+        if (this.shared.currentUser.role === ROLES.TEACHER) {
+            obs = this._studentService.getStudentsByTeacherUserId(this.shared.userRoleConfig.id);
+        } else {
             obs = this._studentService.getStudents();
-        } else if (this.shared.currentUser.role === ROLES.TEACHER) {
-            obs = this._studentService.getStudentsByTeacherUserId(this.shared.currentUser.id);
         }
 
         this.isLoading = true;

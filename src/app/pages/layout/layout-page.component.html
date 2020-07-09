@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-light-grey mb-3 sticky-top border-bottom">
-    <a class="navbar-brand" [routerLink]="'/dashboard'">
+    <a (click)="navigateToDashboard()" class="navbar-brand pointer">
         <img [src]="logoUrl" width="40" height="40" alt="" />
     </a>
     <button
@@ -15,16 +15,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav bg-light-grey mr-auto">
-            <li class="nav-item">
+            <li *hasRole="'Admin,Teacher'" class="nav-item">
                 <a [routerLink]="'/students'" class="nav-link hyperlink">{{ strings.phdStudents }}</a>
             </li>
-            <li class="nav-item">
+            <li *hasRole="'Admin'" class="nav-item">
                 <a [routerLink]="'/teachers'" class="nav-link hyperlink">{{ strings.supervisors }}</a>
             </li>
-            <li class="nav-item">
+            <li *hasRole="'Admin'" class="nav-item">
                 <a [routerLink]="'/professionalFields'" class="nav-link hyperlink">{{ strings.professionalFields }}</a>
             </li>
-            <li class="nav-item">
+            <li *hasRole="'Admin'" class="nav-item">
                 <a [routerLink]="'/phdPrograms'" class="nav-link hyperlink">{{ strings.phdPrograms }}</a>
             </li>
         </ul>

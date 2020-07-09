@@ -13,6 +13,7 @@ import { StudentModule } from '../components/student/student.module';
 import { TeacherModule } from '../components/teacher/teacher.module';
 import { ProfessionalFieldModule } from '../components/professional-field/professional-field.module';
 import { PhdProgramModule } from '../components/phd-program/phd-program.module';
+import { SharedModule } from '../shared/shared.module';
 
 const COMPONENTS = [BaseComponent];
 const IMPORTS = [
@@ -21,6 +22,7 @@ const IMPORTS = [
     RouterModule,
     StudentModule,
     TeacherModule,
+    SharedModule,
     ProfessionalFieldModule,
     PhdProgramModule,
 ];

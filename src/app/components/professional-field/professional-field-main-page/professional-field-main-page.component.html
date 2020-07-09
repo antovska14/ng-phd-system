@@ -11,7 +11,7 @@
             [professionalFields]="professionalFields"
         ></professional-field-table>
     </div>
-    <div class="col-4">
-        <add-professional-field (professionalFieldAdded)="onAdd()" *hasRole="'Admin'"></add-professional-field>
+    <div *hasRole="'Admin'" class="col-4">
+        <add-professional-field (professionalFieldAdded)="onAdd()"></add-professional-field>
     </div>
 </div>
