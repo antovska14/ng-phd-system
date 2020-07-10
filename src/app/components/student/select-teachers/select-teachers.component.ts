@@ -18,7 +18,7 @@ export class SelectTeachersComponent extends BaseComponent {
     public selectedTeachersChange: EventEmitter<ITeacher[]> = new EventEmitter();
 
     @Input('showForms')
-    public showForm: boolean;
+    public showForm: boolean = false;
 
     public allTeachers: ITeacher[];
 

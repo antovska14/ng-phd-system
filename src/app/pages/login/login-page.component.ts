@@ -68,21 +68,22 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                 (userAuth: UserAuth) => {
                     this.userAuth = userAuth;
                     this.shared.currentUser = userAuth;
-                    if (this._returnUrl) {
-                        console.log(this._returnUrl);
-                        this._router.navigateByUrl(this._returnUrl);
+                    // if (this._returnUrl) {
+                    //     console.log(this._returnUrl);
+                    //     this._router.navigateByUrl(this._returnUrl);
+                    // }
+                    // else {
+                    if (!userAuth.passwordSet) {
+                        this._router.navigate([RoutePath.setpassword]);
                     } else {
-                        if (!userAuth.passwordSet) {
-                            this._router.navigate([RoutePath.setpassword]);
-                        } else {
-                            this._roleConfigService
-                                .getRoleConfigFn(this.shared.currentUser.role, this.shared.currentUser.id)
-                                .subscribe((roleConfig: IUserRoleConfig) => {
-                                    this.shared.userRoleConfig = roleConfig;
-                                    this._router.navigate([roleConfig.dashboard]);
-                                });
-                        }
+                        this._roleConfigService
+                            .getRoleConfigFn(this.shared.currentUser.role, this.shared.currentUser.id)
+                            .subscribe((roleConfig: IUserRoleConfig) => {
+                                this.shared.userRoleConfig = roleConfig;
+                                this._router.navigate([roleConfig.dashboard]);
+                            });
                     }
+                    // }
                 },
                 () => {
                     this.shared.currentUser = new UserAuth();

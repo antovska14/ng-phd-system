@@ -1,8 +1,8 @@
-<h2>Изпити</h2>
-<form class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
+<h2>{{ strings.exams }}</h2>
+<form *hasRole="'Admin,Teacher'" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
     <div class="row">
         <div class="col">
-            <label class="text-light-orange" for="id">Курс:</label>
+            <label class="text-light-orange" for="id">{{ strings.year }}:</label>
             <select [(ngModel)]="exam.year" id="year" name="year" class="form-control custom-select" required>
                 <option *ngFor="let option of yearSections">{{ option }}</option>
             </select>
@@ -31,7 +31,7 @@
             ></date-picker>
         </div>
     </div>
-    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">Добави</button>
+    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.add }}</button>
 </form>
 <section *ngFor="let year of yearSections" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
     <div class="h3">{{ strings.year }}: {{ year }}</div>
@@ -39,7 +39,7 @@
         <div *ngFor="let exam of getYearExams(year)">
             <span>{{ getExamString(exam) }}, {{ exam.date | date: 'dd.MM.yyyy' }}</span>
 
-            <i (click)="removeExam(exam.id)" class="fa fa-times ml-2 pointer"></i>
+            <i (click)="removeExam(exam.id)" *hasRole="'Admin,Teacher'" class="fa fa-times ml-2 pointer"></i>
         </div>
     </div>
 </section>

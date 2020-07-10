@@ -22,6 +22,7 @@ export class LayoutPageComponent extends BaseComponent {
         this.strings.supervisors = this.getStr(langStr.teachers.supervisors);
         this.strings.professionalFields = 'Професионални направления';
         this.strings.phdPrograms = 'Докторантски програми';
+        this.strings.details = 'Детайли';
     }
 
     public logout(): void {
@@ -29,7 +30,11 @@ export class LayoutPageComponent extends BaseComponent {
         this._router.navigate([RoutePath.login]);
     }
 
-    public navigateToDashboard(): void {
+    public navigateToUserDashboard(): void {
         this._router.navigate([this.shared.userRoleConfig.dashboard]);
+    }
+
+    public navigateToDetailsPage(): void {
+        this._router.navigate([this.shared.userRoleConfig.detailsPage]);
     }
 }

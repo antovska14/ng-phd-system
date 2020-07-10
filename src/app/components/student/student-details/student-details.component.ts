@@ -42,8 +42,24 @@ export class StudentDetailsComponent extends BaseComponent {
     public facultyOptions: IFaculty[];
     public departmentOptions: IDepartment[];
 
-    public showForms: boolean = false;
     public initial: IStudent;
+
+    public get showForms(): boolean {
+        return this._showForms;
+    }
+    public set showForms(value: boolean) {
+        if (this._showForms === true) {
+            this.getFormsOfEducation();
+            this.getProfessionalFields();
+            this.getUniversities();
+            this.initPhdProgramOptions();
+            this.initFacultyOptions();
+            this.initDepartmentOptions();
+        }
+
+        this._showForms = value;
+    }
+    private _showForms: boolean = false;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -65,13 +81,6 @@ export class StudentDetailsComponent extends BaseComponent {
         if (this.config.addMode) {
             this.showForms = true;
         }
-
-        this.getFormsOfEducation();
-        this.getProfessionalFields();
-        this.getUniversities();
-        this.initPhdProgramOptions();
-        this.initFacultyOptions();
-        this.initDepartmentOptions();
     }
 
     public ngOnDestroy(): void {

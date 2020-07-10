@@ -108,7 +108,12 @@
                 <button (click)="onBackClick()" id="back-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
                     {{ strings.back }}
                 </button>
-                <button (click)="onEditClick()" id="edit-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
+                <button
+                    *hasRole="'Admin'"
+                    (click)="onEditClick()"
+                    id="edit-btn"
+                    class="btn btn-primary bg-navy-blue border-navy-blue"
+                >
                     {{ strings.edit }}
                 </button>
             </div>

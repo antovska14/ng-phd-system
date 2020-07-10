@@ -15,9 +15,9 @@
             <td>{{ student.lastName }}</td>
             <td>{{ student.specialty }}</td>
             <td class="text-center">
-                <a [routerLink]="'/students/' + student.id" class="hyperlink">{{ strings.viewEdit }}</a>
+                <a [routerLink]="['/students/', student.id]" class="hyperlink">{{ strings.viewEdit }}</a>
             </td>
-            <td class="text-center">
+            <td *hasRole="'Admin'" class="text-center">
                 <a class="hyperlink pointer underline" (click)="onDeleteClick(student.id)">{{ strings.delete }}</a>
             </td>
         </tr>

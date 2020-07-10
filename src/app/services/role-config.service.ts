@@ -12,7 +12,12 @@ export class RoleConfigService extends RestService {
     public getStudentIdByUserId(userId: number): Observable<IUserRoleConfig> {
         return this.get(`students/id/${userId}`, {}).pipe(
             map((res: HttpResponse<{ id: number }>) => {
-                const result: IUserRoleConfig = { id: res.body.id, role: ROLES.STUDENT, dashboard: `students/${res.body.id}` };
+                const result: IUserRoleConfig = {
+                    id: res.body.id,
+                    role: ROLES.STUDENT,
+                    dashboard: `students/${res.body.id}`,
+                    detailsPage: `students/${res.body.id}`,
+                };
                 return result;
             })
         );
@@ -21,7 +26,12 @@ export class RoleConfigService extends RestService {
     public getTeacherIdByUserId(userId: number): Observable<IUserRoleConfig> {
         return this.get(`teachers/id/${userId}`, {}).pipe(
             map((res: HttpResponse<{ id: number }>) => {
-                const result: IUserRoleConfig = { id: res.body.id, role: ROLES.TEACHER, dashboard: 'students' };
+                const result: IUserRoleConfig = {
+                    id: res.body.id,
+                    role: ROLES.TEACHER,
+                    dashboard: 'students',
+                    detailsPage: `teachers/${res.body.id}`,
+                };
 
                 return result;
             })

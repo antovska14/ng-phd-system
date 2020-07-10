@@ -42,6 +42,8 @@ export class ExamsComponent extends BaseComponent {
 
     public stringsInit(): void {
         this.strings.year = 'Курс';
+        this.strings.exams = 'Изпити';
+        this.strings.add = 'Добави';
     }
 
     public addExam(): void {
