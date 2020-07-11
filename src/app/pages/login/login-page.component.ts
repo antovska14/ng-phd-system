@@ -1,6 +1,7 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { BaseComponent } from '../../components/base/base.component';
@@ -8,9 +9,9 @@ import { langStr } from '../../../assets/translations';
 import { AuthService } from '../../services/auth.service';
 import { User, UserAuth, RoleConfig } from '../../classes/';
 import { RoutePath } from '../../enums';
-import { takeUntil } from 'rxjs/operators';
 import { RoleConfigService } from '../../services/role-config.service';
 import { IUserRoleConfig } from '../../interfaces';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -29,7 +30,8 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
         private readonly _authService: AuthService,
         private readonly _roleConfigService: RoleConfigService,
         private readonly _router: Router,
-        private readonly _route: ActivatedRoute
+        private readonly _route: ActivatedRoute,
+        private readonly _notificationService: NotificationService
     ) {
         super();
     }
@@ -68,11 +70,7 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                 (userAuth: UserAuth) => {
                     this.userAuth = userAuth;
                     this.shared.currentUser = userAuth;
-                    // if (this._returnUrl) {
-                    //     console.log(this._returnUrl);
-                    //     this._router.navigateByUrl(this._returnUrl);
-                    // }
-                    // else {
+                    this._notificationService.success('Успешен влез в системата!');
                     if (!userAuth.passwordSet) {
                         this._router.navigate([RoutePath.setpassword]);
                     } else {

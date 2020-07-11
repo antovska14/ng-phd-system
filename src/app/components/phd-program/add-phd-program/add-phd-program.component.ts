@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 import { ProfessionalFieldService } from '../../../services/professional-field.service';
@@ -8,6 +8,7 @@ import { IPhdProgram, IProfessionalField } from '../../../interfaces';
 import { PhdProgram } from '../../../classes/student-details';
 import { BaseComponent } from '../../base/base.component';
 import { langStr } from '../../../../assets/translations';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     templateUrl: './add-phd-program.component.html',
@@ -24,7 +25,8 @@ export class AddPhdProgramComponent extends BaseComponent {
 
     constructor(
         private readonly _phdProgramService: PhdProgramService,
-        private readonly _professionalFieldService: ProfessionalFieldService
+        private readonly _professionalFieldService: ProfessionalFieldService,
+        private readonly _notificationService: NotificationService
     ) {
         super();
     }
@@ -55,6 +57,7 @@ export class AddPhdProgramComponent extends BaseComponent {
             .pipe(takeUntil(this._ngUnsubscribe))
             .subscribe(() => {
                 this.phdProgramAdded.emit();
+                this._notificationService.success(`Докторантската програма с име ${this.phdProgram.name} е добавена!`);
             });
     }
 

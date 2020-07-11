@@ -16,7 +16,6 @@ export class PhdProgramService extends RestService {
 
         return this.get(url, {}).pipe(
             map((res: HttpResponse<IPhdProgram[]>) => {
-                console.log(JSON.stringify(res));
                 const result = res.body;
                 return result;
             })

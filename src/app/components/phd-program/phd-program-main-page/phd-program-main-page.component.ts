@@ -51,7 +51,6 @@ export class PhdProgramMainPageComponent extends BaseComponent {
                 takeUntil(this._ngUnsubscribe)
             )
             .subscribe((phdPrograms: IPhdProgram[]) => {
-                console.log(JSON.stringify(phdPrograms));
                 this.phdPrograms = phdPrograms;
             });
     }

@@ -5,10 +5,12 @@ import { Observable, empty, throwError } from 'rxjs';
 
 import { ServiceInjector } from '../classes';
 import { AuthService } from './auth.service';
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class RestInterceptor implements HttpInterceptor {
     private _authService: AuthService = null;
+    private _notificationService: NotificationService = null;
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const interceptedRequest = request.clone();
         return next.handle(interceptedRequest).pipe(
@@ -16,7 +18,7 @@ export class RestInterceptor implements HttpInterceptor {
                 switch (error.status) {
                     case 401:
                         this.handle401Error();
-                        return throwError(error);
+                        return empty();
                     default:
                         this.handleUnknownError();
                         return throwError(error);
@@ -30,13 +32,20 @@ export class RestInterceptor implements HttpInterceptor {
             this._authService = ServiceInjector.injector.get(AuthService);
         }
 
+        if (!this._notificationService) {
+            this._notificationService = ServiceInjector.injector.get(NotificationService);
+        }
+
+        this._notificationService.error('Не сте оторизирани да извършите следното действие');
         this._authService.logout();
     }
 
     private handleUnknownError(): void {
-        // TODO [DA]: Implement notification service and display internal server error message
-        const message = 'Сървърна грешка!';
-        console.error(message);
+        if (!this._notificationService) {
+            this._notificationService = ServiceInjector.injector.get(NotificationService);
+        }
+
+        this._notificationService.error('Сървърна грешка!');
     }
 }
 
