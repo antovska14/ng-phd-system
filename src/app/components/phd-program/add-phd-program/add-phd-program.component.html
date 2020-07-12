@@ -7,7 +7,7 @@
         class="form-control custom-select"
         required
     >
-        <option [ngValue]="undefined">Изберете професионално направление</option>
+        <option [ngValue]="undefined">{{ strings.chooseProfessionalField }}</option>
         <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
     </select>
     <text-input

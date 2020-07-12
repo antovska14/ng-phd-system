@@ -42,6 +42,7 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
         this._returnUrl = this._route.snapshot.queryParamMap.get('returnUrl');
         localStorage.removeItem('bearerToken');
         this.shared.currentUser = new UserAuth();
+        this.shared.userRoleConfig = null;
     }
 
     public ngOnDestroy(): void {
@@ -60,9 +61,11 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
         this.strings.invalidEmailOrPassword = this.getStr(langStr.login.invalidEmailOrPassword);
         this.strings.pleaseEnterPassword = this.getStr(langStr.login.pleaseEnterPassword);
         this.strings.pleaseEnterValidEmail = this.getStr(langStr.login.pleaseEnterValidEmail);
+        this.strings.userDoesNotExist = 'Потребител с въведените потребителско име и парола не съществува';
     }
 
-    public login(): void {
+    public login(loginForm: NgForm): void {
+        this._loginForm = loginForm;
         this._authService
             .login(this.user)
             .pipe(takeUntil(this._ngUnsubscribe))
@@ -70,7 +73,6 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                 (userAuth: UserAuth) => {
                     this.userAuth = userAuth;
                     this.shared.currentUser = userAuth;
-                    this._notificationService.success('Успешен влез в системата!');
                     if (!userAuth.passwordSet) {
                         this._router.navigate([RoutePath.setpassword]);
                     } else {
@@ -81,12 +83,14 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                                 this._router.navigate([roleConfig.dashboard]);
                             });
                     }
-                    // }
+
+                    this._loginForm.reset();
                 },
                 () => {
                     this.shared.currentUser = new UserAuth();
                     this.shared.userRoleConfig = new RoleConfig();
                     this.userAuth = new UserAuth();
+                    this._notificationService.error(this.strings.userDoesNotExist);
                 }
             );
     }

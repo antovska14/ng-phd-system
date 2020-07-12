@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { RestService } from '../services/rest.service';
 import { UserAuth, User, ServiceInjector } from '../classes';
-import { RoutePath } from '../enums';
+import { RoutePath, InterceptorEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends RestService {
@@ -22,7 +22,7 @@ export class AuthService extends RestService {
     public login(user: User): Observable<UserAuth> {
         this.resetAuthObject();
 
-        return this.post(`${this._endpoint}/login`, user, {}).pipe(
+        return this.post(`${this._endpoint}/login`, user, { interceptor: InterceptorEnum.ignoreError }).pipe(
             map((res: HttpResponse<UserAuth>) => {
                 const result = res.body;
                 Object.assign(this.shared.currentUser, result);

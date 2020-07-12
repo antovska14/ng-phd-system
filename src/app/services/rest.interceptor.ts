@@ -6,21 +6,32 @@ import { Observable, empty, throwError } from 'rxjs';
 import { ServiceInjector } from '../classes';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
+import { RestService } from './rest.service';
+import { InterceptorEnum } from '../enums';
 
 @Injectable()
 export class RestInterceptor implements HttpInterceptor {
     private _authService: AuthService = null;
     private _notificationService: NotificationService = null;
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const interceptedRequest = request.clone();
         return next.handle(interceptedRequest).pipe(
             catchError((error: HttpErrorResponse) => {
+                let skipErrorHandling: boolean = false;
+                const interceptor = RestService.getInterceptorOption(request.url);
+                if (interceptor === InterceptorEnum.ignoreError) {
+                    skipErrorHandling = true;
+                }
+
                 switch (error.status) {
                     case 401:
                         this.handle401Error();
                         return empty();
                     default:
-                        this.handleUnknownError();
+                        if (!skipErrorHandling) {
+                            this.handleUnknownError();
+                        }
                         return throwError(error);
                 }
             })

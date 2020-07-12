@@ -1,4 +1,8 @@
-<form class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit()">
+<form
+    #professionalFieldForm="ngForm"
+    class="border border-navy-blue bg-light-grey rounded p-3"
+    (ngSubmit)="onSubmit(professionalFieldForm)"
+>
     <text-input
         [(text)]="professionalField.name"
         [placeholder]="strings.enterProfessionalField"
@@ -6,7 +10,7 @@
         [id]="'professionalField'"
         [isRequired]="true"
     ></text-input>
-    <button type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
+    <button [disabled]="professionalFieldForm.invalid" type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
         {{ strings.add }}
     </button>
 </form>

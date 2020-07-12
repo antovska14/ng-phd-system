@@ -21,6 +21,7 @@ import { PhdProgramService } from 'src/app/services/phd-program.service';
 import { UniversityService } from 'src/app/services/university.service';
 import { FacultyService } from 'src/app/services/faculty.service';
 import { DepartmentService } from 'src/app/services/department.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'student-details',
@@ -52,6 +53,7 @@ export class StudentDetailsComponent extends BaseComponent {
     }
     private _showForms: boolean = false;
 
+    private _studentForm: NgForm;
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
     constructor(
@@ -157,13 +159,15 @@ export class StudentDetailsComponent extends BaseComponent {
         this.showForms = true;
     }
 
-    public onSubmit(): void {
+    public onSubmit(form: NgForm): void {
+        this._studentForm = form;
         if (this.config.editMode) {
             this.showForms = false;
         }
 
         this.configChange.emit(this.config);
         this.config.submitFunction();
+        this._studentForm.reset();
     }
 
     private getFormsOfEducation(): void {

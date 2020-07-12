@@ -49,6 +49,7 @@ export class AddPhdProgramComponent extends BaseComponent {
         this.strings.professionalField = this.getStr(langStr.students.professionalField);
         this.strings.enterPhdProgram = this.getStr(langStr.students.enterPhdProgram);
         this.strings.phdProgram = this.getStr(langStr.students.phdProgram);
+        this.strings.chooseProfessionalField = 'Изберете професионално направление';
     }
 
     public onSubmit(): void {
@@ -58,6 +59,7 @@ export class AddPhdProgramComponent extends BaseComponent {
             .subscribe(() => {
                 this.phdProgramAdded.emit();
                 this._notificationService.success(`Докторантската програма с име ${this.phdProgram.name} е добавена!`);
+                this.phdProgram = new PhdProgram();
             });
     }
 

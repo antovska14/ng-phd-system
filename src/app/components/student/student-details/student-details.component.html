@@ -1,4 +1,4 @@
-<form *ngIf="config && config.student" #studentForm="ngForm" (ngSubmit)="onSubmit()">
+<form *ngIf="config && config.student" #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)">
     <div class="border border-navy-blue bg-light-grey rounded p-3">
         <div class="row form-group">
             <div class="col">
