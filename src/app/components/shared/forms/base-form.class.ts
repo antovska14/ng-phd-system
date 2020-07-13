@@ -18,4 +18,6 @@ export class BaseFormComponent {
     public showForm: boolean = true;
     @Input()
     public disabled: boolean = false;
+    @Input()
+    public requiredFieldString: string = '';
 }

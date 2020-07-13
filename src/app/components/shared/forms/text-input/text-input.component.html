@@ -1,10 +1,11 @@
-<label class="text-light-orange" [for]="id">{{ label }}:</label>
+<label class="text-navy-blue font-weight-bold" [for]="id">{{ label }}:</label>
 
-<div *ngIf="!showForm">{{ text }}</div>
+<div [hidden]="showForm">{{ text }}</div>
 
 <input
-    *ngIf="showForm"
+    [hidden]="!showForm"
     [(ngModel)]="text"
+    #textModel="ngModel"
     [placeholder]="placeholder"
     [required]="isRequired"
     [disabled]="disabled"
@@ -13,3 +14,5 @@
     [name]="name"
     class="form-control"
 />
+
+<div class="text-danger font-size-14px" [hidden]="textModel.valid || !textModel.touched">*{{ requiredFieldString }}</div>

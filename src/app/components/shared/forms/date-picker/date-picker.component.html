@@ -1,9 +1,10 @@
-<label class="text-light-orange" [for]="id">{{ label }}:</label>
+<label class="text-navy-blue font-weight-bold" [for]="id">{{ label }}:</label>
 
-<div *ngIf="!showForm">{{ date | date: 'dd.MM.yyyy' }}</div>
+<div [hidden]="showForm">{{ date | date: 'dd.MM.yyyy' }}</div>
 
 <input
-    *ngIf="showForm"
+    [hidden]="!showForm"
+    #dateModel="ngModel"
     [(ngModel)]="dateString"
     [required]="isRequired"
     [id]="id"
@@ -12,3 +13,5 @@
     class="form-control"
     type="date"
 />
+
+<div class="text-danger font-size-14px" [hidden]="dateModel.valid || !dateModel.touched">*{{ requiredFieldString }}</div>

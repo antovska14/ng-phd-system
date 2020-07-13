@@ -6,6 +6,11 @@ $light-grey: #eeeeee;
 
 $grey: #777777;
 
+@mixin form-border {
+    box-shadow: 0 0 0 0.2rem rgba(253, 120, 76, 0.25) !important;
+    border-color: $light-orange !important;
+}
+
 .bg-light-grey {
     background-color: $light-grey !important;
 }
@@ -33,4 +38,12 @@ $grey: #777777;
 .text-label {
     font-size: 14px;
     color: $grey !important;
+}
+
+input:focus {
+    @include form-border();
+}
+
+select:focus {
+    @include form-border();
 }

@@ -3,7 +3,7 @@
 </div>
 <div class="card mx-auto login-card">
     <div class="card-body">
-        <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm)">
+        <form #loginForm="ngForm" (ngSubmit)="loginForm.form.valid && login(loginForm)" class="needs-validation">
             <div class="form-group">
                 <label for="email-input">{{ strings.email }}:</label>
                 <input
@@ -12,8 +12,7 @@
                     id="email"
                     name="email"
                     class="form-control"
-                    [placeholder]="strings.enterEmail"
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    [pattern]="emailPattern"
                     required
                     type="email"
                 />
@@ -29,15 +28,11 @@
                     id="password-input"
                     name="password"
                     class="form-control"
-                    [placeholder]="strings.enterPassword"
                     type="password"
                     required
                 />
                 <div class="text-danger font-size-14px" [hidden]="password.valid || !password.touched">
                     *{{ strings.pleaseEnterPassword }}
-                </div>
-                <div *ngIf="userAuth && !userAuth.isAuthenticated" class="text-danger font-size-14px">
-                    *{{ strings.invalidEmailOrPassword }}
                 </div>
             </div>
             <button

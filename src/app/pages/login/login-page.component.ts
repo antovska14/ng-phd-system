@@ -11,7 +11,8 @@ import { User, UserAuth, RoleConfig } from '../../classes/';
 import { RoutePath } from '../../enums';
 import { RoleConfigService } from '../../services/role-config.service';
 import { IUserRoleConfig } from '../../interfaces';
-import { NotificationService } from 'src/app/services/notification.service';
+import { NotificationService } from '../../services/notification.service';
+import { PATTERNS } from '../../shared/const/pattern.const';
 
 @Component({
     templateUrl: './login-page.component.html',
@@ -25,6 +26,8 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
 
     public user: User = new User();
     public userAuth: UserAuth = null;
+
+    public readonly emailPattern = PATTERNS.EMAIL;
 
     constructor(
         private readonly _authService: AuthService,
@@ -53,15 +56,13 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
     }
 
     public stringsInit(): void {
-        this.strings.enterEmail = this.getStr(langStr.login.enterEmail);
-        this.strings.enterPassword = this.getStr(langStr.login.enterPassword);
         this.strings.password = this.getStr(langStr.login.password);
         this.strings.login = this.getStr(langStr.login.login);
         this.strings.email = this.getStr(langStr.login.email);
         this.strings.invalidEmailOrPassword = this.getStr(langStr.login.invalidEmailOrPassword);
         this.strings.pleaseEnterPassword = this.getStr(langStr.login.pleaseEnterPassword);
         this.strings.pleaseEnterValidEmail = this.getStr(langStr.login.pleaseEnterValidEmail);
-        this.strings.userDoesNotExist = 'Потребител с въведените потребителско име и парола не съществува';
+        this.strings.userDoesNotExist = this.getStr(langStr.login.userDoesNotExist);
     }
 
     public login(loginForm: NgForm): void {
@@ -73,16 +74,16 @@ export class LoginPageComponent extends BaseComponent implements OnDestroy {
                 (userAuth: UserAuth) => {
                     this.userAuth = userAuth;
                     this.shared.currentUser = userAuth;
-                    if (!userAuth.passwordSet) {
-                        this._router.navigate([RoutePath.setpassword]);
-                    } else {
-                        this._roleConfigService
-                            .getRoleConfigFn(this.shared.currentUser.role, this.shared.currentUser.id)
-                            .subscribe((roleConfig: IUserRoleConfig) => {
-                                this.shared.userRoleConfig = roleConfig;
-                                this._router.navigate([roleConfig.dashboard]);
-                            });
-                    }
+                    this._roleConfigService
+                        .getRoleConfigFn(this.shared.currentUser.role, this.shared.currentUser.id)
+                        .subscribe((roleConfig: IUserRoleConfig) => {
+                            this.shared.userRoleConfig = roleConfig;
+                            if (userAuth.passwordSet) {
+                                this._router.navigate([this.shared.userRoleConfig.dashboard]);
+                            } else {
+                                this._router.navigate([RoutePath.setpassword]);
+                            }
+                        });
 
                     this._loginForm.reset();
                 },

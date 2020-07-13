@@ -1,4 +1,3 @@
-// TODO [DA]: Modify this logic if translations are eventually introduced
 const roles = {
     ADMIN: 'Admin',
     STUDENT: 'Student',

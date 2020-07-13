@@ -49,6 +49,7 @@ export class StudentDetailsComponent extends BaseComponent {
         return this._showForms;
     }
     public set showForms(value: boolean) {
+        this.initDropdownMenusOptions();
         this._showForms = value;
     }
     private _showForms: boolean = false;
@@ -71,12 +72,9 @@ export class StudentDetailsComponent extends BaseComponent {
     public ngOnInit(): void {
         super.ngOnInit();
 
-        this.getFormsOfEducation();
-        this.getProfessionalFields();
-        this.getUniversities();
-        this.initPhdProgramOptions();
-        this.initFacultyOptions();
-        this.initDepartmentOptions();
+        if (this.showForms) {
+            this.initDropdownMenusOptions();
+        }
 
         if (this.config.addMode) {
             this.showForms = true;
@@ -131,6 +129,7 @@ export class StudentDetailsComponent extends BaseComponent {
         this.strings.chooseProfessionalField = 'Изберете професионално направление';
         this.strings.choosePhdProgram = 'Изберете докторантска програма';
         this.strings.chooseCurrentYear = 'Изберете курс';
+        this.strings.requiredField = 'Полето е задължително';
     }
 
     public onUniversityChange(): void {
@@ -168,6 +167,15 @@ export class StudentDetailsComponent extends BaseComponent {
         this.configChange.emit(this.config);
         this.config.submitFunction();
         this._studentForm.reset();
+    }
+
+    private initDropdownMenusOptions(): void {
+        this.getFormsOfEducation();
+        this.getProfessionalFields();
+        this.getUniversities();
+        this.initPhdProgramOptions();
+        this.initFacultyOptions();
+        this.initDepartmentOptions();
     }
 
     private getFormsOfEducation(): void {

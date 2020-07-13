@@ -28,7 +28,7 @@
                 <a [routerLink]="'/phdPrograms'" class="nav-link hyperlink">{{ strings.phdPrograms }}</a>
             </li>
         </ul>
-        <span *hasRole="'Teacher,Student'">
+        <span *hasRole="'Teacher'">
             <a (click)="navigateToDetailsPage()" class="nav-link pl-0 pr-3 hyperlink pointer">{{ strings.details }}</a>
         </span>
         <span>

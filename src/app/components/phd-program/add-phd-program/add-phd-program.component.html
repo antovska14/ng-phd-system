@@ -1,15 +1,17 @@
-<form class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit()">
-    <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
-    <select
-        [(ngModel)]="phdProgram.professionalField.id"
-        id="professionalField"
-        name="professionalField"
-        class="form-control custom-select"
-        required
-    >
-        <option [ngValue]="undefined">{{ strings.chooseProfessionalField }}</option>
-        <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
-    </select>
+<form #phdProgramForm="ngForm" class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <label class="text-navy-blue font-weight-bold" for="id">{{ strings.professionalField }}:</label>
+        <select
+            [(ngModel)]="phdProgram.professionalField.id"
+            id="professionalField"
+            name="professionalField"
+            class="form-control custom-select"
+            required
+        >
+            <option [ngValue]="undefined">{{ strings.chooseProfessionalField }}</option>
+            <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
+        </select>
+    </div>
     <text-input
         [(text)]="phdProgram.name"
         [placeholder]="strings.enterPhdProgram"
@@ -17,8 +19,9 @@
         [id]="'phdProgram'"
         [isRequired]="true"
         [disabled]="!phdProgram?.professionalField"
+        [requiredFieldString]="this.strings.requiredField"
     ></text-input>
-    <button type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
+    <button [disabled]="phdProgramForm.invalid" type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
         {{ strings.add }}
     </button>
 </form>

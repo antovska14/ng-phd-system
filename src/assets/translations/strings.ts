@@ -26,6 +26,10 @@ export const langStr = {
         password: { en: 'Password', bg: 'Парола' },
         pleaseEnterPassword: { en: 'Please enter a password', bg: 'Моля въведете парола' },
         pleaseEnterValidEmail: { en: 'Please enter a valid email', bg: 'Моля въведете валиден имейл адрес' },
+        userDoesNotExist: {
+            en: 'User with given email and password does not exist',
+            bg: 'Потребител с въведените потребителско име и парола не съществува',
+        },
     },
     students: {
         addStudent: { en: 'Add Student', bg: 'Добави студент' },

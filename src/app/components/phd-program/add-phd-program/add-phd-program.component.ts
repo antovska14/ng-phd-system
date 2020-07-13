@@ -50,6 +50,7 @@ export class AddPhdProgramComponent extends BaseComponent {
         this.strings.enterPhdProgram = this.getStr(langStr.students.enterPhdProgram);
         this.strings.phdProgram = this.getStr(langStr.students.phdProgram);
         this.strings.chooseProfessionalField = 'Изберете професионално направление';
+        this.strings.requiredField = 'Полето е задължително';
     }
 
     public onSubmit(): void {

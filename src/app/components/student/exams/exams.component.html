@@ -2,7 +2,7 @@
 <form *hasRole="'Admin,Teacher'" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
     <div class="row">
         <div class="col">
-            <label class="text-light-orange" for="id">{{ strings.year }}:</label>
+            <label class="text-navy-blue font-weight-bold" for="id">{{ strings.year }}:</label>
             <select [(ngModel)]="exam.year" id="year" name="year" class="form-control custom-select" required>
                 <option *ngFor="let option of yearSections">{{ option }}</option>
             </select>

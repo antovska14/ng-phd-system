@@ -9,6 +9,7 @@
                     [id]="'firstName'"
                     [name]="'firstName'"
                     [placeholder]="strings.enterFirstName"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
             </div>
@@ -20,6 +21,7 @@
                     [id]="'middleName'"
                     [name]="'middleName'"
                     [placeholder]="strings.enterMiddleName"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="false"
                 ></text-input>
             </div>
@@ -31,6 +33,7 @@
                     [id]="'lastName'"
                     [name]="'lastName'"
                     [placeholder]="strings.enterLastName"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
             </div>
@@ -44,12 +47,13 @@
                     [id]="'email'"
                     [name]="'email'"
                     [placeholder]="strings.enterEmail"
+                    [requiredFieldString]="strings.requiredField"
                     [type]="'email'"
                     [isRequired]="true"
                 ></text-input>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="id">{{ strings.formOfEducation }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="id">{{ strings.formOfEducation }}:</label>
                 <div *ngIf="!showForms">{{ config.student.formOfEducation.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -64,7 +68,7 @@
                 </select>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="id">{{ strings.currentYear }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="id">{{ strings.currentYear }}:</label>
                 <div *ngIf="!showForms">{{ config.student.currentYear }}</div>
                 <select
                     *ngIf="showForms"
@@ -92,11 +96,12 @@
                     [id]="'specialty'"
                     [name]="'specialty'"
                     [placeholder]="strings.enterSpecialty"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="id">{{ strings.professionalField }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="id">{{ strings.professionalField }}:</label>
                 <div *ngIf="!showForms">{{ config.student.professionalField?.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -112,7 +117,7 @@
                 </select>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="id">{{ strings.phdProgram }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="id">{{ strings.phdProgram }}:</label>
                 <div *ngIf="!showForms">{{ config.student.phdProgram.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -136,6 +141,7 @@
                     [id]="'facultyCouncilChosenDate'"
                     [name]="'facultyCouncilChosenDate'"
                     [placeholder]="strings.enterFacultyCouncilDate"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
             </div>
@@ -147,6 +153,7 @@
                     [id]="'startDate'"
                     [name]="'startDate'"
                     [placeholder]="strings.enterStartDate"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
             </div>
@@ -158,13 +165,14 @@
                     [id]="'endDate'"
                     [name]="'endDate'"
                     [placeholder]="strings.enterEndDate"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
             </div>
         </div>
         <div class="row form-group">
             <div class="col">
-                <label class="text-light-orange" for="university">{{ strings.university }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="university">{{ strings.university }}:</label>
                 <div *ngIf="!showForms">{{ config.student.university?.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -180,7 +188,7 @@
                 </select>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="faculty">{{ strings.faculty }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="faculty">{{ strings.faculty }}:</label>
                 <div *ngIf="!showForms">{{ config.student.faculty?.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -196,7 +204,7 @@
                 </select>
             </div>
             <div class="col">
-                <label class="text-light-orange" for="department">{{ strings.department }}:</label>
+                <label class="text-navy-blue font-weight-bold" for="department">{{ strings.department }}:</label>
                 <div *ngIf="!showForms">{{ config.student.department.name }}</div>
                 <select
                     *ngIf="showForms"
@@ -220,6 +228,7 @@
                     [id]="'dissertationTheme'"
                     [name]="'dissertationTheme'"
                     [placeholder]="strings.enterDissertationTheme"
+                    [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 >
                 </text-input>
@@ -247,7 +256,12 @@
                 </button>
             </div>
             <div class="d-flex justify-content-between" *ngIf="!showForms">
-                <button (click)="onBackClick()" id="back-btn" class="btn btn-primary bg-navy-blue border-navy-blue">
+                <button
+                    *hasRole="'Admin,Teacher'"
+                    (click)="onBackClick()"
+                    id="back-btn"
+                    class="btn btn-primary bg-navy-blue border-navy-blue"
+                >
                     {{ strings.back }}
                 </button>
                 <button

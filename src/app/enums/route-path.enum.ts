@@ -11,4 +11,5 @@ export enum RoutePath {
 
     files = 'files',
     exams = 'exams',
+    details = 'details',
 }
