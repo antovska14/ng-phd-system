@@ -3,13 +3,25 @@
     class="border border-navy-blue bg-light-grey rounded p-3"
     (ngSubmit)="onSubmit(professionalFieldForm)"
 >
-    <text-input
+    <!-- <text-input
         [(text)]="professionalField.name"
         [placeholder]="strings.enterProfessionalField"
         [label]="strings.professionalField"
         [id]="'professionalField'"
         [isRequired]="true"
-    ></text-input>
+    ></text-input> -->
+    <label class="text-navy-blue font-weight-bold" for="professionalField">{{ strings.professionalField }}:</label>
+    <input
+        [(ngModel)]="professionalField.name"
+        #textModel="ngModel"
+        id="professionalField"
+        name="professionalField"
+        class="form-control"
+        required
+    />
+
+    <div class="text-danger font-size-14px" [hidden]="textModel.valid || !textModel.touched">*{{ strings.requiredField }}</div>
+
     <button [disabled]="professionalFieldForm.invalid" type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
         {{ strings.add }}
     </button>

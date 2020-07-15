@@ -44,7 +44,7 @@ export class SetPasswordPageComponent extends BaseComponent {
         this.strings.repeatPassword = 'Повторете паролата';
         this.strings.passwordsDoNotMatch = 'Паролите не съвпадат';
         this.strings.setPassword = 'Задай парола';
-        this.strings.passwordSetSuccessfull = 'Паролата е успешно зададена';
+        this.strings.passwordSet = 'Паролата е успешно зададена';
         this.strings.invalidPassword = 'Невалидна парола!';
         this.strings.pleaseEnterPassword = this.getStr(langStr.login.pleaseEnterPassword);
     }
@@ -62,7 +62,7 @@ export class SetPasswordPageComponent extends BaseComponent {
                     .setPassword(password)
                     .pipe(takeUntil(this._ngUnsubscribe))
                     .subscribe(() => {
-                        this._notificationService.success(this.strings.passwordSetSuccessfull);
+                        this._notificationService.success(this.strings.passwordSetSuccessful);
                         this._router.navigate([this.shared.userRoleConfig.dashboard]);
                         this._setPasswordForm.reset();
                     });

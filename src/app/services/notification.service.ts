@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
     private readonly toastOptions = {
-        timeOut: 2000,
+        timeOut: 5000,
         easeTime: 300,
         closeButton: true,
         positionClass: 'toast-bottom-right',

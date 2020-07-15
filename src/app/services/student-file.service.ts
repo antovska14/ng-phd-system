@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { RestService } from './rest.service';
-import { StudentFileType } from '../enums';
+import { StudentFileType, InterceptorEnum } from '../enums';
 import {
     IFile,
     IExportStudentFileRequest,
@@ -73,7 +73,11 @@ export class StudentFileService extends RestService {
     public uploadStudentFile(studentFile: IUploadStudentFileRequest): Observable<HttpEvent<any>> {
         const payload: FormData = this.getUploadFilePayload('fileUploadKey', studentFile.file);
         const url: string = this.getStudentFileUrl(`${this._endpoint}/upload/${studentFile.studentId}`, studentFile.year);
-        return this.postFile(url, payload, { reportProgress: true, skipContentType: true });
+        return this.postFile(url, payload, {
+            reportProgress: true,
+            skipContentType: true,
+            interceptor: InterceptorEnum.ignoreError,
+        });
     }
 
     private getStudentFileUrl(baseUrl: string, year: number): string {

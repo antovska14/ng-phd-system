@@ -1,18 +1,21 @@
-<form #phdProgramForm="ngForm" class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit()">
+<form #phdProgramForm="ngForm" class="border border-navy-blue bg-light-grey rounded p-3" (ngSubmit)="onSubmit(phdProgramForm)">
     <div class="mb-3">
         <label class="text-navy-blue font-weight-bold" for="id">{{ strings.professionalField }}:</label>
         <select
             [(ngModel)]="phdProgram.professionalField.id"
+            #professionalFieldSelect="ngModel"
             id="professionalField"
             name="professionalField"
             class="form-control custom-select"
             required
         >
-            <option [ngValue]="undefined">{{ strings.chooseProfessionalField }}</option>
             <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
         </select>
+        <div class="text-danger font-size-14px" [hidden]="professionalFieldSelect.valid || !professionalFieldSelect.touched">
+            *{{ strings.requiredField }}
+        </div>
     </div>
-    <text-input
+    <!-- <text-input
         [(text)]="phdProgram.name"
         [placeholder]="strings.enterPhdProgram"
         [label]="strings.phdProgram"
@@ -20,7 +23,20 @@
         [isRequired]="true"
         [disabled]="!phdProgram?.professionalField"
         [requiredFieldString]="this.strings.requiredField"
-    ></text-input>
+    ></text-input> -->
+    <label class="text-navy-blue font-weight-bold" for="phdProgram">{{ strings.professionalField }}:</label>
+    <input
+        [(ngModel)]="phdProgram.name"
+        #phdProgramInput="ngModel"
+        id="phdProgram"
+        name="phdProgram"
+        class="form-control"
+        required
+    />
+
+    <div class="text-danger font-size-14px" [hidden]="phdProgramInput.valid || !phdProgramInput.touched">
+        *{{ strings.requiredField }}
+    </div>
     <button [disabled]="phdProgramForm.invalid" type="submit" class="btn btn-primary bg-navy-blue border-navy-blue mt-2">
         {{ strings.add }}
     </button>

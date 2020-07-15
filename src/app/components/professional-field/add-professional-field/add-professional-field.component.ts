@@ -8,6 +8,8 @@ import { Subject } from 'rxjs';
 import { IProfessionalField } from 'src/app/interfaces';
 import { ProfessionalField } from 'src/app/classes/student-details';
 import { NgForm } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     templateUrl: './add-professional-field.component.html',
@@ -22,7 +24,10 @@ export class AddProfessionalFieldComponent extends BaseComponent {
     @Output()
     public professionalFieldAdded: EventEmitter<void> = new EventEmitter<void>();
 
-    constructor(private readonly _professionalFieldService: ProfessionalFieldService) {
+    constructor(
+        private readonly _professionalFieldService: ProfessionalFieldService,
+        private readonly _notificationService: NotificationService
+    ) {
         super();
     }
 
@@ -37,6 +42,7 @@ export class AddProfessionalFieldComponent extends BaseComponent {
         this.strings.add = this.getStr(langStr.common.add);
         this.strings.enterProfessionalField = 'Въведете професионално направление';
         this.strings.professionalField = this.getStr(langStr.students.professionalField);
+        this.strings.requiredField = 'Полето е задължително';
     }
 
     public onSubmit(form: NgForm): void {
@@ -44,10 +50,21 @@ export class AddProfessionalFieldComponent extends BaseComponent {
         this._professionalFieldService
             .addProfessionalField(this.professionalField)
             .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe(() => {
-                this.professionalFieldAdded.emit();
-                this.professionalField = new ProfessionalField();
-                this._professionalFieldForm.reset();
-            });
+            .subscribe(
+                () => {
+                    this.professionalFieldAdded.emit();
+                    this.professionalField = new ProfessionalField();
+                    this._professionalFieldForm.reset();
+                },
+                (error: HttpErrorResponse) => {
+                    if (error.status === 409) {
+                        this._notificationService.error(
+                            `Професионално направление с име "${this.professionalField.name}" вече съществува`
+                        );
+                    } else {
+                        this._notificationService.error('Сървърна грешка!');
+                    }
+                }
+            );
     }
 }

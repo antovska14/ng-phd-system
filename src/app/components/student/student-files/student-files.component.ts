@@ -7,6 +7,7 @@ import { IStudentFileGroupDetails, IStudentFileRequest, IFile, IUploadStudentFil
 import { StudentFileService } from '../../../services/student-file.service';
 import { BaseComponent } from '../../base/base.component';
 import { StudentFileType } from 'src/app/enums';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     selector: 'student-files',
@@ -35,7 +36,10 @@ export class StudentFilesComponent extends BaseComponent {
     private _currentYear: number;
     private readonly _ngUnsubscribe: Subject<void> = new Subject();
 
-    constructor(private readonly _studentFileService: StudentFileService) {
+    constructor(
+        private readonly _studentFileService: StudentFileService,
+        private readonly _notificationService: NotificationService
+    ) {
         super();
     }
 
@@ -52,6 +56,8 @@ export class StudentFilesComponent extends BaseComponent {
         this.strings.downloadAttestation = 'Изтегли атестация';
         this.strings.downloadAnnotation = 'Изтегли анотация';
         this.strings.upload = 'Качи';
+        this.strings.invalidFileErrorMessage = 'Файла не може да бъде качен защото надминава 5MB или има невалиден формат';
+        this.strings.fileUploadSuccessful = 'Файла е качен успешно!';
     }
 
     public getYearGroupFiles(group: any): string[] {
@@ -112,11 +118,17 @@ export class StudentFilesComponent extends BaseComponent {
         this._studentFileService
             .uploadStudentFile(fileRequst)
             .pipe(takeUntil(this._ngUnsubscribe))
-            .subscribe((event) => {
-                if (event.type === HttpEventType.Response) {
-                    this.getStudentFiles();
+            .subscribe(
+                (event) => {
+                    if (event.type === HttpEventType.Response) {
+                        this.getStudentFiles();
+                        this._notificationService.success(this.strings.fileUploadSuccessful);
+                    }
+                },
+                () => {
+                    this._notificationService.error(this.strings.invalidFileErrorMessage);
                 }
-            });
+            );
     }
 
     public generateAttestation(yearGroup) {

@@ -1,12 +1,12 @@
-<div *ngIf="student" class="h2 text-navy-blue">{{ student.firstName }} {{ student.lastName }}</div>
+<div *ngIf="student" class="h2 text-navy-blue">{{ title }}</div>
 <div>
-    <button (click)="showDetails = !showDetails" class="btn btn-primary bg-navy-blue border-navy-blue mb-3">
+    <button (click)="onShowDetailsClick()" class="btn btn-primary bg-navy-blue border-navy-blue mb-3">
         {{ strings.phdStudentDetails }}
     </button>
-    <button (click)="showFiles = !showFiles" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
+    <button (click)="onShowFilesClick()" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
         {{ strings.documents }}
     </button>
-    <button (click)="showExams = !showExams" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
+    <button (click)="onShowExamsClick()" class="btn btn-primary bg-navy-blue border-navy-blue mb-3 ml-3">
         {{ strings.exams }}
     </button>
 </div>

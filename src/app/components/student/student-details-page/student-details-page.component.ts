@@ -15,6 +15,8 @@ export class StudentDetailPageComponent extends BaseComponent {
     public config: IStudentDetailsFormConfig;
     public student: IStudent;
 
+    public title: string;
+
     public showDetails: boolean = true;
     public showFiles: boolean = false;
     public showExams: boolean = false;
@@ -49,14 +51,11 @@ export class StudentDetailPageComponent extends BaseComponent {
             const studentId = +paramMap.get('id');
             this._studentService
                 .getStudent(studentId)
-                .pipe(
-                    finalize(() => {
-                        this.initConfig();
-                    }),
-                    takeUntil(this._ngUnsubscribe)
-                )
+                .pipe(takeUntil(this._ngUnsubscribe))
                 .subscribe((student) => {
                     this.student = student;
+                    this.initConfig();
+                    this.initPageTitle();
                 });
         });
     }
@@ -69,11 +68,30 @@ export class StudentDetailPageComponent extends BaseComponent {
                 .pipe(
                     finalize(() => {
                         this.getStudent();
+                        this.initPageTitle();
                     }),
                     takeUntil(this._ngUnsubscribe)
                 )
                 .subscribe();
         };
+    }
+
+    public onShowDetailsClick(): void {
+        this.showDetails = true;
+        this.showExams = false;
+        this.showFiles = false;
+    }
+
+    public onShowFilesClick(): void {
+        this.showDetails = false;
+        this.showExams = false;
+        this.showFiles = true;
+    }
+
+    public onShowExamsClick(): void {
+        this.showDetails = false;
+        this.showExams = true;
+        this.showFiles = false;
     }
 
     private initConfig(): void {
@@ -83,5 +101,9 @@ export class StudentDetailPageComponent extends BaseComponent {
             addMode: false,
             submitFunction: this.updateStudent(),
         };
+    }
+
+    private initPageTitle(): void {
+        this.title = `${this.student.firstName} ${this.student.lastName}`;
     }
 }

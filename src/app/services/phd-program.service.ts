@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { RestService } from './rest.service';
 import { IPhdProgram } from '../interfaces';
+import { InterceptorEnum } from '../enums';
 
 @Injectable({ providedIn: 'root' })
 export class PhdProgramService extends RestService {
@@ -14,7 +15,7 @@ export class PhdProgramService extends RestService {
         const baseUrl = this._endpoint;
         const url = professionalFieldId ? `${baseUrl}/${professionalFieldId}` : baseUrl;
 
-        return this.get(url, {}).pipe(
+        return this.get(url, { interceptor: InterceptorEnum.ignoreError }).pipe(
             map((res: HttpResponse<IPhdProgram[]>) => {
                 const result = res.body;
                 return result;
@@ -25,7 +26,7 @@ export class PhdProgramService extends RestService {
     public addPhdProgram(phdProgram: IPhdProgram): Observable<void> {
         const payload = { id: phdProgram.id, name: phdProgram.name, professionalFieldId: phdProgram.professionalField.id };
 
-        return this.post(`${this._endpoint}`, payload, {}).pipe(
+        return this.post(`${this._endpoint}`, payload, { interceptor: InterceptorEnum.ignoreError }).pipe(
             map((res: HttpResponse<any>) => {
                 const result = res.body;
                 return result;
