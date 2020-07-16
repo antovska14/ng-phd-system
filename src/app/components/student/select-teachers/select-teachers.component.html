@@ -5,7 +5,7 @@
         <i *ngIf="showForm" class="fa fa-times ml-2 pointer" (click)="removeSelection(teacher)"></i>
     </div>
 </div>
-<select *ngIf="showForm" [(ngModel)]="selectedTeacher" class="custom-select">
-    <option [ngValue]="undefined">Изберете ръководители</option>
+<select *ngIf="showForm" [(ngModel)]="selectedTeacherId" class="custom-select">
+    <option [ngValue]="undefined"></option>
     <option *ngFor="let teacher of allTeachers" [value]="teacher.id">{{ getTeacherLabel(teacher) }}</option>
 </select>

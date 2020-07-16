@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { BaseComponent } from 'src/app/components/base/base.component';
-import { ITeacherDetailsFormConfig } from 'src/app/interfaces';
-import { langStr } from 'src/assets/translations';
-import { RoutePath } from 'src/app/enums';
-import { Teacher } from 'src/app/classes';
-import { DEGREES, TITLES } from 'src/app/shared/const/';
-import { TeacherService } from 'src/app/services/teacher.service';
+import { BaseComponent } from '../../../components/base/base.component';
+import { ITeacherDetailsFormConfig } from '../../../interfaces';
+import { langStr } from '../../../../assets/translations';
+import { RoutePath } from '../../../enums';
+import { Teacher } from '../../../classes';
+import { DEGREES, TITLES } from '../../../shared/const/';
+import { TeacherService } from '../../../services/teacher.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
     templateUrl: './add-teacher-page.component.html',
@@ -22,7 +23,11 @@ export class AddTeacherMainPageComponent extends BaseComponent {
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
-    constructor(private readonly _teacherService: TeacherService, private readonly _router: Router) {
+    constructor(
+        private readonly _teacherService: TeacherService,
+        private readonly _router: Router,
+        private readonly _notificationService: NotificationService
+    ) {
         super();
     }
 
@@ -60,6 +65,7 @@ export class AddTeacherMainPageComponent extends BaseComponent {
                 .pipe(takeUntil(this._ngUnsubscribe))
                 .subscribe(() => {
                     this._router.navigate([RoutePath.teachers]);
+                    this._notificationService.success('Ръководителят е успешно добавен!');
                 });
         };
     }

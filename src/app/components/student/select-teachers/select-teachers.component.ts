@@ -22,14 +22,20 @@ export class SelectTeachersComponent extends BaseComponent {
 
     public allTeachers: ITeacher[];
 
-    public set selectedTeacher(value) {
-        const selected = this.allTeachers.find((t) => (t.id = value));
-        selected.id = +selected.id;
-        this.selectedTeachers.push(selected);
+    public set selectedTeacherId(value: number) {
+        const selectedTeacher = this.allTeachers.find((t) => t.id === +value);
+        this.selectedTeachers.push(selectedTeacher);
         this.selectedTeachers.forEach((st) => {
             this.allTeachers = this.allTeachers.filter((t) => t != st);
         });
+        this.selectedTeachersChange.emit(this.selectedTeachers);
     }
+
+    public get selectedTeacherId(): number {
+        return this._selectedTeacherId;
+    }
+
+    private _selectedTeacherId: number;
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
     constructor(private readonly _teacherService: TeacherService) {

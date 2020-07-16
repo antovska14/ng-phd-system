@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { BaseComponent } from 'src/app/components/base/base.component';
-import { langStr } from 'src/assets/translations';
-import { ITeacher, ITeacherDetailsFormConfig } from 'src/app/interfaces';
-import { DEGREES, TITLES } from 'src/app/shared/const';
+import { BaseComponent } from '../../../components/base/base.component';
+import { langStr } from '../../../../assets/translations';
+import { ITeacher, ITeacherDetailsFormConfig } from '../../..//interfaces';
+import { DEGREES, TITLES } from '../../../shared/const';
 
 @Component({ templateUrl: './teacher-details.component.html', selector: 'teacher-details' })
 export class TeacherDetailsComponent extends BaseComponent {
@@ -51,6 +51,7 @@ export class TeacherDetailsComponent extends BaseComponent {
         this.strings.save = this.getStr(langStr.common.save);
         this.strings.supervisorDetails = this.getStr(langStr.teachers.supervisorDetails);
         this.strings.title = this.getStr(langStr.common.title);
+        this.strings.requiredField = 'Полето е задължително';
     }
 
     public onCancelClick(): void {

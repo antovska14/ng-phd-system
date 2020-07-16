@@ -8,7 +8,6 @@
                     [label]="strings.firstName"
                     [id]="'firstName'"
                     [name]="'firstName'"
-                    [placeholder]="strings.enterFirstName"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
@@ -20,7 +19,6 @@
                     [label]="strings.middleName"
                     [id]="'middleName'"
                     [name]="'middleName'"
-                    [placeholder]="strings.enterMiddleName"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="false"
                 ></text-input>
@@ -32,7 +30,6 @@
                     [label]="strings.lastName"
                     [id]="'lastName'"
                     [name]="'lastName'"
-                    [placeholder]="strings.enterLastName"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
@@ -46,7 +43,6 @@
                     [label]="strings.email"
                     [id]="'email'"
                     [name]="'email'"
-                    [placeholder]="strings.enterEmail"
                     [requiredFieldString]="strings.requiredField"
                     [type]="'email'"
                     [isRequired]="true"
@@ -63,7 +59,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseFormOfEducation }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of formsOfEducationOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -78,7 +74,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseCurrentYear }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option
                         *ngFor="let option of formsOfEducationYearMap.get(config.student.formOfEducation.id)"
                         [ngValue]="option"
@@ -95,7 +91,6 @@
                     [label]="strings.specialty"
                     [id]="'specialty'"
                     [name]="'specialty'"
-                    [placeholder]="strings.enterSpecialty"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></text-input>
@@ -112,7 +107,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseProfessionalField }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -127,7 +122,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.choosePhdProgram }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of phdProgramOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -140,7 +135,6 @@
                     [showForms]="showForms"
                     [id]="'facultyCouncilChosenDate'"
                     [name]="'facultyCouncilChosenDate'"
-                    [placeholder]="strings.enterFacultyCouncilDate"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
@@ -152,7 +146,6 @@
                     [showForms]="showForms"
                     [id]="'startDate'"
                     [name]="'startDate'"
-                    [placeholder]="strings.enterStartDate"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
@@ -164,7 +157,6 @@
                     [showForms]="showForms"
                     [id]="'endDate'"
                     [name]="'endDate'"
-                    [placeholder]="strings.enterEndDate"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 ></date-picker>
@@ -183,7 +175,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseFormOfEducation }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of universityOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -199,7 +191,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseFaculty }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of facultyOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -214,7 +206,7 @@
                     class="form-control custom-select"
                     required
                 >
-                    <option [ngValue]="undefined">{{ strings.chooseDepartment }}</option>
+                    <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of departmentOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
             </div>
@@ -227,7 +219,6 @@
                     [label]="strings.dissertationTheme"
                     [id]="'dissertationTheme'"
                     [name]="'dissertationTheme'"
-                    [placeholder]="strings.enterDissertationTheme"
                     [requiredFieldString]="strings.requiredField"
                     [isRequired]="true"
                 >
