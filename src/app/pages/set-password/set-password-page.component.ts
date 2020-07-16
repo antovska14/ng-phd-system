@@ -62,7 +62,7 @@ export class SetPasswordPageComponent extends BaseComponent {
                     .setPassword(password)
                     .pipe(takeUntil(this._ngUnsubscribe))
                     .subscribe(() => {
-                        this._notificationService.success(this.strings.passwordSetSuccessful);
+                        this._notificationService.success(this.strings.passwordSet);
                         this._router.navigate([this.shared.userRoleConfig.dashboard]);
                         this._setPasswordForm.reset();
                     });

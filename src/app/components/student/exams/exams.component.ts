@@ -5,6 +5,8 @@ import { BaseComponent } from '../../base/base.component';
 import { ExamService } from 'src/app/services/exam.service';
 import { IExamYearDetails, IExam } from 'src/app/interfaces';
 import { Exam } from 'src/app/classes/exam.class';
+import { NgForm } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
     templateUrl: './exams.component.html',
@@ -29,8 +31,9 @@ export class ExamsComponent extends BaseComponent {
     }
 
     private _currentYear: number;
+    private _examsForm: NgForm;
 
-    constructor(private readonly _examService: ExamService) {
+    constructor(private readonly _examService: ExamService, private readonly _notificationService: NotificationService) {
         super();
     }
 
@@ -44,18 +47,18 @@ export class ExamsComponent extends BaseComponent {
         this.strings.year = 'Курс';
         this.strings.exams = 'Изпити';
         this.strings.add = 'Добави';
+        this.strings.requiredField = 'Полето е задължително';
     }
 
-    public addExam(): void {
+    public addExam(form: NgForm): void {
+        this._examsForm = form;
         this.exam.studentId = this.studentId;
-        this._examService
-            .addExam(this.exam)
-            .pipe(
-                finalize(() => {
-                    this.getExams();
-                })
-            )
-            .subscribe();
+        this._examService.addExam(this.exam).subscribe(() => {
+            this._notificationService.success(`Изпитът е добавен!`);
+            this.getExams();
+            this.exam = new Exam();
+            this._examsForm.reset();
+        });
     }
 
     public getExamString(exam: IExam): string {

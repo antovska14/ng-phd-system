@@ -1,4 +1,4 @@
-<form *ngIf="config && config.student" #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)">
+<form #studentForm="ngForm" *ngIf="config && config.student" (ngSubmit)="onSubmit(studentForm)">
     <div class="border border-navy-blue bg-light-grey rounded p-3">
         <div class="row form-group">
             <div class="col">
@@ -50,10 +50,11 @@
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="id">{{ strings.formOfEducation }}:</label>
-                <div *ngIf="!showForms">{{ config.student.formOfEducation.name }}</div>
+                <div [hidden]="showForms">{{ config.student.formOfEducation.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     [(ngModel)]="config.student.formOfEducation.id"
+                    #formOfEducationModel="ngModel"
                     id="formOfEducation"
                     name="formOfEducation"
                     class="form-control custom-select"
@@ -62,13 +63,17 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of formsOfEducationOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="formOfEducationModel.valid || !formOfEducationModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="id">{{ strings.currentYear }}:</label>
-                <div *ngIf="!showForms">{{ config.student.currentYear }}</div>
+                <div [hidden]="showForms">{{ config.student.currentYear }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     [(ngModel)]="config.student.currentYear"
+                    #currentYearModel="ngModel"
                     id="currentYear"
                     name="currentYear"
                     class="form-control custom-select"
@@ -81,6 +86,9 @@
                         >{{ option }}</option
                     >
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="currentYearModel.valid || !currentYearModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
         </div>
         <div class="row form-group">
@@ -97,11 +105,12 @@
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="id">{{ strings.professionalField }}:</label>
-                <div *ngIf="!showForms">{{ config.student.professionalField?.name }}</div>
+                <div [hidden]="showForms">{{ config.student.professionalField?.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     (change)="onProfessionalFieldChange()"
                     [(ngModel)]="config.student.professionalField.id"
+                    #professionalFieldModel="ngModel"
                     id="professionalField"
                     name="professionalField"
                     class="form-control custom-select"
@@ -110,13 +119,21 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of professionalFieldOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+
+                <div
+                    class="text-danger font-size-14px"
+                    [hidden]="professionalFieldModel.valid || !professionalFieldModel.touched"
+                >
+                    *{{ strings.requiredField }}
+                </div>
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="id">{{ strings.phdProgram }}:</label>
-                <div *ngIf="!showForms">{{ config.student.phdProgram.name }}</div>
+                <div [hidden]="showForms">{{ config.student.phdProgram.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     [(ngModel)]="config.student.phdProgram.id"
+                    #phdProgramModel="ngModel"
                     id="phdProgram"
                     name="phdProgram"
                     class="form-control custom-select"
@@ -125,6 +142,9 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of phdProgramOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="phdProgramModel.valid || !phdProgramModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
         </div>
         <div class="row form-group">
@@ -165,11 +185,12 @@
         <div class="row form-group">
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="university">{{ strings.university }}:</label>
-                <div *ngIf="!showForms">{{ config.student.university?.name }}</div>
+                <div [hidden]="showForms">{{ config.student.university?.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     (change)="onUniversityChange()"
                     [(ngModel)]="config.student.university.id"
+                    #universityModel="ngModel"
                     id="university"
                     name="university"
                     class="form-control custom-select"
@@ -178,14 +199,18 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of universityOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="universityModel.valid || !universityModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="faculty">{{ strings.faculty }}:</label>
-                <div *ngIf="!showForms">{{ config.student.faculty?.name }}</div>
+                <div [hidden]="showForms">{{ config.student.faculty?.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     (change)="onFacultyChange()"
                     [(ngModel)]="config.student.faculty.id"
+                    #facultyModel="ngModel"
                     id="faculty"
                     name="faculty"
                     class="form-control custom-select"
@@ -194,13 +219,17 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of facultyOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="facultyModel.valid || !facultyModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
             <div class="col">
                 <label class="text-navy-blue font-weight-bold" for="department">{{ strings.department }}:</label>
-                <div *ngIf="!showForms">{{ config.student.department.name }}</div>
+                <div [hidden]="showForms">{{ config.student.department.name }}</div>
                 <select
-                    *ngIf="showForms"
+                    [hidden]="!showForms"
                     [(ngModel)]="config.student.department.id"
+                    #departmentModel="ngModel"
                     id="department"
                     name="department"
                     class="form-control custom-select"
@@ -209,6 +238,9 @@
                     <option [ngValue]="undefined"></option>
                     <option *ngFor="let option of departmentOptions" [ngValue]="option.id">{{ option.name }}</option>
                 </select>
+                <div class="text-danger font-size-14px" [hidden]="departmentModel.valid || !departmentModel.touched">
+                    *{{ strings.requiredField }}
+                </div>
             </div>
         </div>
         <div class="row form-group">

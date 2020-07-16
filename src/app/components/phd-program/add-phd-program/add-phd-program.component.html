@@ -24,7 +24,7 @@
         [disabled]="!phdProgram?.professionalField"
         [requiredFieldString]="this.strings.requiredField"
     ></text-input> -->
-    <label class="text-navy-blue font-weight-bold" for="phdProgram">{{ strings.professionalField }}:</label>
+    <label class="text-navy-blue font-weight-bold" for="phdProgram">{{ strings.phdProgram }}:</label>
     <input
         [(ngModel)]="phdProgram.name"
         #phdProgramInput="ngModel"
@@ -33,7 +33,6 @@
         class="form-control"
         required
     />
-
     <div class="text-danger font-size-14px" [hidden]="phdProgramInput.valid || !phdProgramInput.touched">
         *{{ strings.requiredField }}
     </div>

@@ -1,24 +1,48 @@
 <h2>{{ strings.exams }}</h2>
-<form *hasRole="'Admin,Teacher'" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
+<form
+    #examsForm="ngForm"
+    *hasRole="'Admin,Teacher'"
+    class="border-navy-blue mb-3 p-3 rounded bg-light-grey"
+    (ngSubmit)="addExam(examsForm)"
+>
     <div class="row">
         <div class="col">
             <label class="text-navy-blue font-weight-bold" for="id">{{ strings.year }}:</label>
-            <select [(ngModel)]="exam.year" id="year" name="year" class="form-control custom-select" required>
+            <select [(ngModel)]="exam.year" #examYearModel id="year" name="year" class="form-control custom-select" required>
                 <option *ngFor="let option of yearSections">{{ option }}</option>
             </select>
+            <div class="text-danger font-size-14px" [hidden]="examYearModel.valid || !examYearModel.touched">
+                *{{ strings.requiredField }}
+            </div>
         </div>
         <div class="col">
-            <text-input [(text)]="exam.name" [label]="'Име'" [id]="'name'" [name]="'name'" [isRequired]="true"></text-input>
+            <!-- <text-input
+                [(text)]="exam.name"
+                [label]="'Име'"
+                [id]="'name'"
+                [name]="'name'"
+                [isRequired]="true"
+                [requiredFieldString]="strings.requiredField"
+            ></text-input> -->
+            <label class="text-navy-blue font-weight-bold" for="examName">Име:</label>
+            <input [(ngModel)]="exam.name" #examName="ngModel" id="examName" name="examName" class="form-control" required />
+            <div class="text-danger font-size-14px" [hidden]="examName.valid || !examName.touched">
+                *{{ strings.requiredField }}
+            </div>
         </div>
         <div class="col">
-            <text-input
+            <!-- <text-input
                 [type]="'number'"
                 [(text)]="exam.grade"
                 [label]="'Оценка'"
                 [id]="'grade'"
                 [name]="'grade'"
                 [isRequired]="true"
-            ></text-input>
+                [requiredFieldString]="strings.requiredField"
+            ></text-input> -->
+            <label class="text-navy-blue font-weight-bold" for="grade">Оценка:</label>
+            <input [(ngModel)]="exam.name" #grade="ngModel" id="grade" name="grade" class="form-control" type="number" required />
+            <div class="text-danger font-size-14px" [hidden]="grade.valid || !grade.touched">*{{ strings.requiredField }}</div>
         </div>
         <div class="col">
             <date-picker
@@ -31,7 +55,7 @@
             ></date-picker>
         </div>
     </div>
-    <button (click)="addExam()" class="btn btn-primary bg-navy-blue border-navy-blue mt-3">{{ strings.add }}</button>
+    <button class="btn btn-primary bg-navy-blue border-navy-blue mt-3" type="submit">{{ strings.add }}</button>
 </form>
 <section *ngFor="let year of yearSections" class="border-navy-blue mb-3 p-3 rounded bg-light-grey">
     <div class="h3">{{ strings.year }}: {{ year }}</div>

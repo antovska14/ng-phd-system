@@ -22,6 +22,7 @@ import { UniversityService } from 'src/app/services/university.service';
 import { FacultyService } from 'src/app/services/faculty.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { NgForm } from '@angular/forms';
+import { PATTERNS } from 'src/app/shared/const/pattern.const';
 
 @Component({
     selector: 'student-details',
@@ -42,6 +43,8 @@ export class StudentDetailsComponent extends BaseComponent {
     public universityOptions: IUniversity[];
     public facultyOptions: IFaculty[];
     public departmentOptions: IDepartment[];
+
+    public readonly emailPattern = PATTERNS.EMAIL;
 
     public initial: IStudent;
 
