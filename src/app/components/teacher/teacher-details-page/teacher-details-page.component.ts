@@ -13,6 +13,7 @@ import { ITeacherDetailsFormConfig, ITeacher } from 'src/app/interfaces';
 export class TeacherDetailsPageComponent extends BaseComponent {
     public config: ITeacherDetailsFormConfig;
     public teacher: ITeacher;
+    public title: string = '';
 
     private readonly _ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -46,6 +47,7 @@ export class TeacherDetailsPageComponent extends BaseComponent {
                 )
                 .subscribe((teacher: ITeacher) => {
                     this.teacher = teacher;
+                    this.initPageTitle();
                 });
         });
     }
@@ -72,5 +74,9 @@ export class TeacherDetailsPageComponent extends BaseComponent {
             addMode: false,
             submitFunction: this.updateTeacher(),
         };
+    }
+
+    private initPageTitle(): void {
+        this.title = `${this.teacher.title} ${this.teacher.degree} ${this.teacher.firstName} ${this.teacher.lastName}`;
     }
 }

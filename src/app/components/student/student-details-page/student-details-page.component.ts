@@ -15,7 +15,7 @@ export class StudentDetailPageComponent extends BaseComponent {
     public config: IStudentDetailsFormConfig;
     public student: IStudent;
 
-    public title: string;
+    public title: string = '';
 
     public showDetails: boolean = true;
     public showFiles: boolean = false;
